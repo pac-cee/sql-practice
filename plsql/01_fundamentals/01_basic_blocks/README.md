@@ -36,3 +36,22 @@ END;
 ## Examples
 
 ### 1. Simple Anonymous Block
+```sql
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('Hello, World!');
+END;
+/
+```
+
+### 2. Block with Declarations
+```sql
+DECLARE
+    v_message VARCHAR2(100) := 'Welcome to PL/SQL!';
+BEGIN
+    DBMS_OUTPUT.PUT_LINE(v_message);
+END;
+/
+```
+
+### 3. Block with Exception Handling
+```sql
