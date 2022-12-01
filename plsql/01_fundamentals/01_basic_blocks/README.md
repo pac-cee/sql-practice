@@ -17,3 +17,22 @@ EXCEPTION
     -- Exception section (Optional)
     -- Error handling
 END;
+/
+```
+
+## Types of Blocks
+
+1. **Anonymous Blocks**
+   - Not stored in the database
+   - Executed at runtime
+   - Cannot be reused
+
+2. **Named Blocks**
+   - Procedures
+   - Functions
+   - Packages
+   - Triggers
+
+## Examples
+
+### 1. Simple Anonymous Block
