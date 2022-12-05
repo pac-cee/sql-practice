@@ -55,3 +55,22 @@ END;
 
 ### 3. Block with Exception Handling
 ```sql
+DECLARE
+    v_result NUMBER;
+BEGIN
+    v_result := 10/0;  -- This will raise an exception
+EXCEPTION
+    WHEN ZERO_DIVIDE THEN
+        DBMS_OUTPUT.PUT_LINE('Cannot divide by zero!');
+END;
+/
+```
+
+## Practice Exercises
+
+1. Create a simple anonymous block that prints "I am learning PL/SQL"
+2. Create a block that declares two numbers and prints their sum
+3. Create a block that handles both ZERO_DIVIDE and VALUE_ERROR exceptions
+
+## Solutions
+
