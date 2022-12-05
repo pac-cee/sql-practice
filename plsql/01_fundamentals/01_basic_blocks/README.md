@@ -74,3 +74,22 @@ END;
 
 ## Solutions
 
+### Exercise 1
+```sql
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('I am learning PL/SQL');
+END;
+/
+```
+
+### Exercise 2
+```sql
+DECLARE
+    v_num1 NUMBER := 10;
+    v_num2 NUMBER := 20;
+    v_sum  NUMBER;
+BEGIN
+    v_sum := v_num1 + v_num2;
+    DBMS_OUTPUT.PUT_LINE('The sum is: ' || v_sum);
+END;
+/
