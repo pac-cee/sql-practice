@@ -112,3 +112,15 @@ END;
 
 ## Key Points to Remember
 
+1. Every PL/SQL block must have a BEGIN and END
+2. The DECLARE section is optional
+3. The EXCEPTION section is optional
+4. Statements within blocks must end with a semicolon (;)
+5. The entire block must be terminated with a forward slash (/) when executing in SQL*Plus or SQL Developer
+
+## Next Steps
+
+Once you're comfortable with basic blocks:
+1. Practice creating different types of blocks
+2. Experiment with nested blocks
+3. Move on to Variables and Data Types in the next section 
