@@ -93,3 +93,22 @@ BEGIN
     DBMS_OUTPUT.PUT_LINE('The sum is: ' || v_sum);
 END;
 /
+```
+
+### Exercise 3
+```sql
+DECLARE
+    v_result NUMBER;
+BEGIN
+    v_result := 10/0;
+EXCEPTION
+    WHEN ZERO_DIVIDE THEN
+        DBMS_OUTPUT.PUT_LINE('Cannot divide by zero!');
+    WHEN VALUE_ERROR THEN
+        DBMS_OUTPUT.PUT_LINE('Invalid number operation!');
+END;
+/
+```
+
+## Key Points to Remember
+
