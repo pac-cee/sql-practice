@@ -36,3 +36,22 @@ BEGIN
         ELSE v_result := 'Poor';
     END CASE;
     
+    DBMS_OUTPUT.PUT_LINE('Result: ' || v_result);
+END;
+/
+```
+
+### CASE Expression
+```sql
+DECLARE
+    v_grade CHAR(1) := 'B';
+    v_result VARCHAR2(20);
+BEGIN
+    v_result := CASE v_grade
+        WHEN 'A' THEN 'Excellent'
+        WHEN 'B' THEN 'Good'
+        WHEN 'C' THEN 'Fair'
+        ELSE 'Poor'
+    END;
+    
+    DBMS_OUTPUT.PUT_LINE('Result: ' || v_result);
