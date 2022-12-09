@@ -93,3 +93,22 @@ END;
 BEGIN
     FOR i IN 1..5 LOOP
         DBMS_OUTPUT.PUT_LINE('Counter: ' || i);
+    END LOOP;
+END;
+/
+```
+
+### Reverse FOR LOOP
+```sql
+BEGIN
+    FOR i IN REVERSE 1..5 LOOP
+        DBMS_OUTPUT.PUT_LINE('Counter: ' || i);
+    END LOOP;
+END;
+/
+```
+
+## 3. Control Statements
+
+### CONTINUE Statement
+```sql
