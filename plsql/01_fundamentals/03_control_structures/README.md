@@ -112,3 +112,22 @@ END;
 
 ### CONTINUE Statement
 ```sql
+BEGIN
+    FOR i IN 1..5 LOOP
+        -- Skip even numbers
+        IF MOD(i, 2) = 0 THEN
+            CONTINUE;
+        END IF;
+        DBMS_OUTPUT.PUT_LINE('Odd number: ' || i);
+    END LOOP;
+END;
+/
+```
+
+### GOTO Statement
+```sql
+DECLARE
+    v_total NUMBER := 0;
+BEGIN
+    FOR i IN 1..10 LOOP
+        v_total := v_total + i;
