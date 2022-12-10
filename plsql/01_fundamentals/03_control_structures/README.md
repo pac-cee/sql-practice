@@ -150,3 +150,22 @@ END;
 4. Create a nested loop structure to create a multiplication table (1-5)
 
 ## Solutions
+
+### Exercise 1: Number Classification
+```sql
+DECLARE
+    v_number NUMBER := &input_number;
+BEGIN
+    IF v_number > 0 THEN
+        DBMS_OUTPUT.PUT_LINE('Positive number');
+    ELSIF v_number < 0 THEN
+        DBMS_OUTPUT.PUT_LINE('Negative number');
+    ELSE
+        DBMS_OUTPUT.PUT_LINE('Zero');
+    END IF;
+END;
+/
+```
+
+### Exercise 2: Grade Conversion
+```sql
