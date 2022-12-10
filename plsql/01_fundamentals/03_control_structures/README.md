@@ -131,3 +131,22 @@ DECLARE
 BEGIN
     FOR i IN 1..10 LOOP
         v_total := v_total + i;
+        IF v_total > 20 THEN
+            GOTO end_loop;
+        END IF;
+    END LOOP;
+    
+    <<end_loop>>
+    DBMS_OUTPUT.PUT_LINE('Final total: ' || v_total);
+END;
+/
+```
+
+## Practice Exercises
+
+1. Write a program using IF statements to determine if a number is positive, negative, or zero
+2. Create a CASE statement to convert number grades (1-5) to letter grades (A-F)
+3. Write a program using each type of loop to calculate the sum of numbers from 1 to 10
+4. Create a nested loop structure to create a multiplication table (1-5)
+
+## Solutions
