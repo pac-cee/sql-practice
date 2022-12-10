@@ -169,3 +169,22 @@ END;
 
 ### Exercise 2: Grade Conversion
 ```sql
+DECLARE
+    v_number_grade NUMBER := &grade;
+    v_letter_grade CHAR(1);
+BEGIN
+    v_letter_grade := CASE v_number_grade
+        WHEN 5 THEN 'A'
+        WHEN 4 THEN 'B'
+        WHEN 3 THEN 'C'
+        WHEN 2 THEN 'D'
+        ELSE 'F'
+    END;
+    
+    DBMS_OUTPUT.PUT_LINE('Letter Grade: ' || v_letter_grade);
+END;
+/
+```
+
+### Exercise 3: Sum Using Different Loops
+```sql
