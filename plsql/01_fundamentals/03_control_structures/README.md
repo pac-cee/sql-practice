@@ -207,3 +207,22 @@ BEGIN
     
     -- Using basic LOOP
     v_counter := 1;
+    LOOP
+        v_sum3 := v_sum3 + v_counter;
+        v_counter := v_counter + 1;
+        EXIT WHEN v_counter > 10;
+    END LOOP;
+    
+    DBMS_OUTPUT.PUT_LINE('Sum using WHILE: ' || v_sum1);
+    DBMS_OUTPUT.PUT_LINE('Sum using FOR: ' || v_sum2);
+    DBMS_OUTPUT.PUT_LINE('Sum using basic LOOP: ' || v_sum3);
+END;
+/
+```
+
+### Exercise 4: Multiplication Table
+```sql
+BEGIN
+    FOR i IN 1..5 LOOP
+        FOR j IN 1..5 LOOP
+            DBMS_OUTPUT.PUT_LINE(i || ' x ' || j || ' = ' || (i*j));
