@@ -226,3 +226,22 @@ BEGIN
     FOR i IN 1..5 LOOP
         FOR j IN 1..5 LOOP
             DBMS_OUTPUT.PUT_LINE(i || ' x ' || j || ' = ' || (i*j));
+        END LOOP;
+        DBMS_OUTPUT.PUT_LINE('-------------------');
+    END LOOP;
+END;
+/
+```
+
+## Key Points to Remember
+
+1. Always use proper indentation for better code readability
+2. Choose the appropriate control structure for your needs:
+   - IF-THEN for simple conditions
+   - CASE for multiple conditions on the same variable
+   - WHILE LOOP when number of iterations is unknown
+   - FOR LOOP when number of iterations is known
+3. Use EXIT WHEN instead of IF-EXIT for cleaner code
+4. Avoid overuse of GOTO statements
+5. Consider using CONTINUE instead of nested IF statements
+
