@@ -188,3 +188,22 @@ END;
 
 ### Exercise 3: Sum Using Different Loops
 ```sql
+DECLARE
+    v_sum1 NUMBER := 0;
+    v_sum2 NUMBER := 0;
+    v_sum3 NUMBER := 0;
+    v_counter NUMBER := 1;
+BEGIN
+    -- Using WHILE loop
+    WHILE v_counter <= 10 LOOP
+        v_sum1 := v_sum1 + v_counter;
+        v_counter := v_counter + 1;
+    END LOOP;
+    
+    -- Using FOR loop
+    FOR i IN 1..10 LOOP
+        v_sum2 := v_sum2 + i;
+    END LOOP;
+    
+    -- Using basic LOOP
+    v_counter := 1;
