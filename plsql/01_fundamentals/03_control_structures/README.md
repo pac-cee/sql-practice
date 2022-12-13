@@ -245,3 +245,9 @@ END;
 4. Avoid overuse of GOTO statements
 5. Consider using CONTINUE instead of nested IF statements
 
+## Next Steps
+
+After mastering control structures:
+1. Practice combining different control structures
+2. Create more complex programs using nested structures
+3. Move on to SQL in PL/SQL in the next section 
