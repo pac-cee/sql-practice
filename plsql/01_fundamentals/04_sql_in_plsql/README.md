@@ -17,3 +17,22 @@ BEGIN
     WHERE employee_id = 100;
     
     DBMS_OUTPUT.PUT_LINE('Name: ' || v_employee_name);
+    DBMS_OUTPUT.PUT_LINE('Salary: ' || v_salary);
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        DBMS_OUTPUT.PUT_LINE('Employee not found');
+    WHEN TOO_MANY_ROWS THEN
+        DBMS_OUTPUT.PUT_LINE('Multiple employees found');
+END;
+/
+```
+
+### Using %ROWTYPE
+```sql
+DECLARE
+    v_emp_record employees%ROWTYPE;
+BEGIN
+    SELECT *
+    INTO v_emp_record
+    FROM employees
+    WHERE employee_id = 100;
