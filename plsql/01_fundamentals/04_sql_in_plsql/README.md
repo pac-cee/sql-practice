@@ -36,3 +36,22 @@ BEGIN
     INTO v_emp_record
     FROM employees
     WHERE employee_id = 100;
+    
+    DBMS_OUTPUT.PUT_LINE('Name: ' || v_emp_record.first_name);
+    DBMS_OUTPUT.PUT_LINE('Salary: ' || v_emp_record.salary);
+END;
+/
+```
+
+## 2. DML Operations
+
+### INSERT Statement
+```sql
+DECLARE
+    v_emp_id employees.employee_id%TYPE := 1000;
+BEGIN
+    INSERT INTO employees (
+        employee_id,
+        first_name,
+        last_name,
+        email,
