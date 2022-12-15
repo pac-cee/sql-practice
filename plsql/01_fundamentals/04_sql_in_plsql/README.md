@@ -55,3 +55,22 @@ BEGIN
         first_name,
         last_name,
         email,
+        hire_date,
+        job_id
+    ) VALUES (
+        v_emp_id,
+        'John',
+        'Doe',
+        'JDOE',
+        SYSDATE,
+        'IT_PROG'
+    );
+    
+    COMMIT;
+EXCEPTION
+    WHEN OTHERS THEN
+        ROLLBACK;
+        RAISE;
+END;
+/
+```
