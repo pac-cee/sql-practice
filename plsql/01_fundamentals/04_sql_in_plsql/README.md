@@ -93,3 +93,22 @@ BEGIN
 EXCEPTION
     WHEN OTHERS THEN
         ROLLBACK;
+        RAISE;
+END;
+/
+```
+
+### DELETE Statement
+```sql
+DECLARE
+    v_dept_id departments.department_id%TYPE := 10;
+BEGIN
+    DELETE FROM employees
+    WHERE department_id = v_dept_id;
+    
+    DBMS_OUTPUT.PUT_LINE(SQL%ROWCOUNT || ' employees deleted');
+    COMMIT;
+EXCEPTION
+    WHEN OTHERS THEN
+        ROLLBACK;
+        RAISE;
