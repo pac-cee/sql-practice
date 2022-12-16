@@ -74,3 +74,22 @@ EXCEPTION
 END;
 /
 ```
+
+### UPDATE Statement
+```sql
+DECLARE
+    v_salary_increase NUMBER := 1000;
+BEGIN
+    UPDATE employees
+    SET salary = salary + v_salary_increase
+    WHERE department_id = 60;
+    
+    IF SQL%ROWCOUNT > 0 THEN
+        DBMS_OUTPUT.PUT_LINE(SQL%ROWCOUNT || ' employees updated');
+        COMMIT;
+    ELSE
+        DBMS_OUTPUT.PUT_LINE('No employees updated');
+    END IF;
+EXCEPTION
+    WHEN OTHERS THEN
+        ROLLBACK;
