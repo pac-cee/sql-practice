@@ -150,3 +150,22 @@ END;
 
 ## 4. SQL Cursor Attributes
 
+```sql
+DECLARE
+    v_salary employees.salary%TYPE;
+BEGIN
+    UPDATE employees
+    SET salary = salary * 1.1
+    WHERE department_id = 60;
+    
+    DBMS_OUTPUT.PUT_LINE('SQL%ROWCOUNT: ' || SQL%ROWCOUNT);
+    DBMS_OUTPUT.PUT_LINE('SQL%FOUND: ' || CASE WHEN SQL%FOUND THEN 'TRUE' ELSE 'FALSE' END);
+    DBMS_OUTPUT.PUT_LINE('SQL%NOTFOUND: ' || CASE WHEN SQL%NOTFOUND THEN 'TRUE' ELSE 'FALSE' END);
+    
+    COMMIT;
+END;
+/
+```
+
+## Practice Exercises
+
