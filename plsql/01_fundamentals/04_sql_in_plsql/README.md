@@ -112,3 +112,22 @@ EXCEPTION
     WHEN OTHERS THEN
         ROLLBACK;
         RAISE;
+END;
+/
+```
+
+## 3. Transaction Control
+
+### SAVEPOINT Example
+```sql
+DECLARE
+    v_emp_id employees.employee_id%TYPE := 100;
+BEGIN
+    -- First update
+    UPDATE employees
+    SET salary = salary * 1.1
+    WHERE employee_id = v_emp_id;
+    
+    SAVEPOINT salary_update;
+    
+    -- Second update
