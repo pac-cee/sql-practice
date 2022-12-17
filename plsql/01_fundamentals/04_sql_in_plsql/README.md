@@ -131,3 +131,22 @@ BEGIN
     SAVEPOINT salary_update;
     
     -- Second update
+    UPDATE employees
+    SET commission_pct = commission_pct * 1.1
+    WHERE employee_id = v_emp_id;
+    
+    IF SQL%ROWCOUNT = 0 THEN
+        ROLLBACK TO salary_update;
+    ELSE
+        COMMIT;
+    END IF;
+EXCEPTION
+    WHEN OTHERS THEN
+        ROLLBACK;
+        RAISE;
+END;
+/
+```
+
+## 4. SQL Cursor Attributes
+
