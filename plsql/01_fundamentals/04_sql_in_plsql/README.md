@@ -169,3 +169,22 @@ END;
 
 ## Practice Exercises
 
+1. Write a PL/SQL block to insert a new department and handle potential errors
+2. Create a block that updates employee salaries based on their performance rating
+3. Implement a transaction that transfers an employee to a new department
+4. Write a block that deletes old records with proper error handling
+
+## Solutions
+
+### Exercise 1: Insert New Department
+```sql
+DECLARE
+    v_dept_id departments.department_id%TYPE;
+    v_dept_name departments.department_name%TYPE := 'New Department';
+BEGIN
+    -- Get max department_id and add 10
+    SELECT MAX(department_id) + 10
+    INTO v_dept_id
+    FROM departments;
+    
+    INSERT INTO departments (
