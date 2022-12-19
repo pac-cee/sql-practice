@@ -188,3 +188,22 @@ BEGIN
     FROM departments;
     
     INSERT INTO departments (
+        department_id,
+        department_name,
+        location_id
+    ) VALUES (
+        v_dept_id,
+        v_dept_name,
+        1700
+    );
+    
+    COMMIT;
+    DBMS_OUTPUT.PUT_LINE('Department created successfully');
+EXCEPTION
+    WHEN DUP_VAL_ON_INDEX THEN
+        DBMS_OUTPUT.PUT_LINE('Department already exists');
+        ROLLBACK;
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('Error: ' || SQLERRM);
+        ROLLBACK;
+END;
