@@ -245,3 +245,22 @@ END;
 ### Exercise 3: Employee Transfer
 ```sql
 DECLARE
+    v_emp_id employees.employee_id%TYPE := 100;
+    v_new_dept_id departments.department_id%TYPE := 60;
+    v_old_dept_id departments.department_id%TYPE;
+BEGIN
+    -- Save current department
+    SELECT department_id
+    INTO v_old_dept_id
+    FROM employees
+    WHERE employee_id = v_emp_id;
+    
+    -- Update employee's department
+    UPDATE employees
+    SET department_id = v_new_dept_id
+    WHERE employee_id = v_emp_id;
+    
+    -- Update department statistics
+    UPDATE dept_employee_count
+    SET employee_count = employee_count - 1
+    WHERE department_id = v_old_dept_id;
