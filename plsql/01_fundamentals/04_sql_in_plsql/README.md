@@ -226,3 +226,22 @@ BEGIN
             WHEN 'B' THEN 0.10
             WHEN 'C' THEN 0.05
             ELSE 0
+        END;
+        
+        UPDATE employees
+        SET salary = salary * (1 + v_salary_increase)
+        WHERE employee_id = emp_rec.employee_id;
+    END LOOP;
+    
+    COMMIT;
+EXCEPTION
+    WHEN OTHERS THEN
+        ROLLBACK;
+        RAISE;
+END;
+/
+```
+
+### Exercise 3: Employee Transfer
+```sql
+DECLARE
