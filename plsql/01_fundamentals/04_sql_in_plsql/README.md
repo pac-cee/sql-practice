@@ -207,3 +207,22 @@ EXCEPTION
         DBMS_OUTPUT.PUT_LINE('Error: ' || SQLERRM);
         ROLLBACK;
 END;
+/
+```
+
+### Exercise 2: Update Salaries
+```sql
+DECLARE
+    CURSOR emp_cursor IS
+        SELECT employee_id, salary, performance_rating
+        FROM employees e
+        JOIN performance_ratings p ON e.employee_id = p.employee_id;
+    
+    v_salary_increase NUMBER;
+BEGIN
+    FOR emp_rec IN emp_cursor LOOP
+        v_salary_increase := CASE emp_rec.performance_rating
+            WHEN 'A' THEN 0.15
+            WHEN 'B' THEN 0.10
+            WHEN 'C' THEN 0.05
+            ELSE 0
