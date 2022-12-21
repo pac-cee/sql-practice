@@ -283,3 +283,22 @@ END;
 DECLARE
     v_cutoff_date DATE := ADD_MONTHS(SYSDATE, -24);
     v_deleted_count NUMBER := 0;
+BEGIN
+    -- Delete old records in batches
+    LOOP
+        DELETE FROM order_history
+        WHERE order_date < v_cutoff_date
+        AND ROWNUM <= 1000;
+        
+        v_deleted_count := v_deleted_count + SQL%ROWCOUNT;
+        EXIT WHEN SQL%ROWCOUNT = 0;
+        
+        COMMIT;
+    END LOOP;
+    
+    DBMS_OUTPUT.PUT_LINE('Deleted ' || v_deleted_count || ' records');
+    COMMIT;
+EXCEPTION
+    WHEN OTHERS THEN
+        ROLLBACK;
+        RAISE;
