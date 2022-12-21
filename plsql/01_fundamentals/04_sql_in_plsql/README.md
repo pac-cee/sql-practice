@@ -264,3 +264,22 @@ BEGIN
     UPDATE dept_employee_count
     SET employee_count = employee_count - 1
     WHERE department_id = v_old_dept_id;
+    
+    UPDATE dept_employee_count
+    SET employee_count = employee_count + 1
+    WHERE department_id = v_new_dept_id;
+    
+    COMMIT;
+EXCEPTION
+    WHEN OTHERS THEN
+        ROLLBACK;
+        RAISE;
+END;
+/
+```
+
+### Exercise 4: Delete Old Records
+```sql
+DECLARE
+    v_cutoff_date DATE := ADD_MONTHS(SYSDATE, -24);
+    v_deleted_count NUMBER := 0;
