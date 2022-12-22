@@ -36,3 +36,22 @@ BEGIN
         RAISE_APPLICATION_ERROR(-20001, 'Employee not found');
     END IF;
     
+    COMMIT;
+EXCEPTION
+    WHEN OTHERS THEN
+        ROLLBACK;
+        RAISE;
+END update_salary;
+/
+```
+
+### Procedure with OUT Parameter
+```sql
+CREATE OR REPLACE PROCEDURE get_employee_info
+    (p_employee_id IN employees.employee_id%TYPE,
+     p_name OUT VARCHAR2,
+     p_salary OUT NUMBER)
+IS
+BEGIN
+    SELECT first_name || ' ' || last_name, salary
+    INTO p_name, p_salary
