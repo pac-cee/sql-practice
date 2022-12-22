@@ -302,3 +302,24 @@ EXCEPTION
     WHEN OTHERS THEN
         ROLLBACK;
         RAISE;
+END;
+/
+```
+
+## Key Points to Remember
+
+1. Always handle exceptions when performing DML operations
+2. Use COMMIT and ROLLBACK appropriately
+3. Utilize SQL%ROWCOUNT to verify the success of DML operations
+4. Consider using %ROWTYPE for cleaner code when working with entire rows
+5. Implement proper transaction management with SAVEPOINT when needed
+6. Use parameterized queries instead of string concatenation
+7. Handle NO_DATA_FOUND and TOO_MANY_ROWS exceptions for SELECT INTO
+
+## Next Steps
+
+After mastering SQL in PL/SQL:
+1. Practice writing more complex transactions
+2. Learn about cursors and bulk operations
+3. Study performance optimization techniques
+4. Move on to Procedures and Functions in the next section 
