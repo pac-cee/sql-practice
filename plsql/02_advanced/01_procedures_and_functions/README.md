@@ -74,3 +74,22 @@ CREATE OR REPLACE FUNCTION function_name
      ...)
 RETURN return_datatype
 IS|AS
+    -- Declaration section
+BEGIN
+    -- Executable section
+    RETURN value;
+EXCEPTION
+    -- Exception section
+END function_name;
+/
+```
+
+### Simple Function Example
+```sql
+CREATE OR REPLACE FUNCTION calculate_bonus
+    (p_salary IN NUMBER,
+     p_performance_rating IN VARCHAR2)
+RETURN NUMBER
+IS
+    v_bonus_percent NUMBER;
+BEGIN
