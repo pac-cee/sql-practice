@@ -55,3 +55,22 @@ IS
 BEGIN
     SELECT first_name || ' ' || last_name, salary
     INTO p_name, p_salary
+    FROM employees
+    WHERE employee_id = p_employee_id;
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        RAISE_APPLICATION_ERROR(-20002, 'Employee not found');
+END get_employee_info;
+/
+```
+
+## 2. Functions
+
+### Basic Function Structure
+```sql
+CREATE OR REPLACE FUNCTION function_name
+    (parameter1 datatype,
+     parameter2 datatype,
+     ...)
+RETURN return_datatype
+IS|AS
