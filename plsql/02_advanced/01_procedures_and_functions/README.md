@@ -93,3 +93,22 @@ RETURN NUMBER
 IS
     v_bonus_percent NUMBER;
 BEGIN
+    v_bonus_percent := CASE p_performance_rating
+        WHEN 'A' THEN 20
+        WHEN 'B' THEN 15
+        WHEN 'C' THEN 10
+        ELSE 5
+    END;
+    
+    RETURN (p_salary * v_bonus_percent/100);
+END calculate_bonus;
+/
+```
+
+### Function with Complex Logic
+```sql
+CREATE OR REPLACE FUNCTION get_employee_level
+    (p_employee_id IN employees.employee_id%TYPE)
+RETURN VARCHAR2
+IS
+    v_salary employees.salary%TYPE;
