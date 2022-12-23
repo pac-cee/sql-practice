@@ -131,3 +131,22 @@ END get_employee_level;
 /
 ```
 
+## 3. Using Procedures and Functions
+
+### Calling a Procedure
+```sql
+-- Method 1: Anonymous block
+BEGIN
+    update_salary(100, 10);  -- Give employee 100 a 10% raise
+END;
+/
+
+-- Method 2: EXECUTE statement
+EXECUTE update_salary(100, 10);
+
+-- Method 3: With OUT parameters
+DECLARE
+    v_name VARCHAR2(100);
+    v_salary NUMBER;
+BEGIN
+    get_employee_info(100, v_name, v_salary);
