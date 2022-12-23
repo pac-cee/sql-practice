@@ -112,3 +112,22 @@ CREATE OR REPLACE FUNCTION get_employee_level
 RETURN VARCHAR2
 IS
     v_salary employees.salary%TYPE;
+    v_years_of_service NUMBER;
+BEGIN
+    SELECT salary, TRUNC(MONTHS_BETWEEN(SYSDATE, hire_date)/12)
+    INTO v_salary, v_years_of_service
+    FROM employees
+    WHERE employee_id = p_employee_id;
+    
+    RETURN CASE
+        WHEN v_salary > 20000 OR v_years_of_service > 10 THEN 'SENIOR'
+        WHEN v_salary > 10000 OR v_years_of_service > 5 THEN 'MID'
+        ELSE 'JUNIOR'
+    END;
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        RETURN NULL;
+END get_employee_level;
+/
+```
+
