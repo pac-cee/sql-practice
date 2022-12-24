@@ -207,3 +207,22 @@ BEGIN
     
     -- Update department counts
     UPDATE dept_employee_count
+    SET employee_count = employee_count - 1
+    WHERE department_id = v_old_dept_id;
+    
+    UPDATE dept_employee_count
+    SET employee_count = employee_count + 1
+    WHERE department_id = p_new_dept_id;
+    
+    COMMIT;
+EXCEPTION
+    WHEN OTHERS THEN
+        ROLLBACK;
+        RAISE;
+END transfer_employee;
+/
+```
+
+### Exercise 2: Years of Service Function
+```sql
+CREATE OR REPLACE FUNCTION calculate_years_of_service
