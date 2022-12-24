@@ -188,3 +188,22 @@ FROM employees;
 ```sql
 CREATE OR REPLACE PROCEDURE transfer_employee
     (p_employee_id IN employees.employee_id%TYPE,
+     p_new_dept_id IN departments.department_id%TYPE,
+     p_new_job_id IN jobs.job_id%TYPE DEFAULT NULL)
+IS
+    v_old_dept_id departments.department_id%TYPE;
+BEGIN
+    -- Get current department
+    SELECT department_id
+    INTO v_old_dept_id
+    FROM employees
+    WHERE employee_id = p_employee_id;
+    
+    -- Update employee
+    UPDATE employees
+    SET department_id = p_new_dept_id,
+        job_id = NVL(p_new_job_id, job_id)
+    WHERE employee_id = p_employee_id;
+    
+    -- Update department counts
+    UPDATE dept_employee_count
