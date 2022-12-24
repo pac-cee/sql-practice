@@ -169,3 +169,22 @@ END;
 
 -- In SQL statement
 SELECT employee_id, 
+       first_name,
+       salary,
+       calculate_bonus(salary, 'A') as bonus
+FROM employees;
+```
+
+## Practice Exercises
+
+1. Create a procedure to transfer an employee to a new department
+2. Write a function to calculate years of service for an employee
+3. Create a procedure with both IN and OUT parameters to process salary updates
+4. Write a function to determine if an employee is eligible for promotion
+
+## Solutions
+
+### Exercise 1: Employee Transfer Procedure
+```sql
+CREATE OR REPLACE PROCEDURE transfer_employee
+    (p_employee_id IN employees.employee_id%TYPE,
