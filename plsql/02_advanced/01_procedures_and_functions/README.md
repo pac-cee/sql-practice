@@ -226,3 +226,22 @@ END transfer_employee;
 ### Exercise 2: Years of Service Function
 ```sql
 CREATE OR REPLACE FUNCTION calculate_years_of_service
+    (p_employee_id IN employees.employee_id%TYPE)
+RETURN NUMBER
+IS
+    v_years NUMBER;
+BEGIN
+    SELECT TRUNC(MONTHS_BETWEEN(SYSDATE, hire_date)/12)
+    INTO v_years
+    FROM employees
+    WHERE employee_id = p_employee_id;
+    
+    RETURN v_years;
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        RETURN NULL;
+END calculate_years_of_service;
+/
+```
+
+### Exercise 3: Salary Update Procedure
