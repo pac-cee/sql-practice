@@ -150,3 +150,22 @@ DECLARE
     v_salary NUMBER;
 BEGIN
     get_employee_info(100, v_name, v_salary);
+    DBMS_OUTPUT.PUT_LINE('Name: ' || v_name);
+    DBMS_OUTPUT.PUT_LINE('Salary: ' || v_salary);
+END;
+/
+```
+
+### Using Functions
+```sql
+-- In PL/SQL block
+DECLARE
+    v_bonus NUMBER;
+BEGIN
+    v_bonus := calculate_bonus(5000, 'A');
+    DBMS_OUTPUT.PUT_LINE('Bonus: ' || v_bonus);
+END;
+/
+
+-- In SQL statement
+SELECT employee_id, 
