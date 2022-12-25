@@ -245,3 +245,22 @@ END calculate_years_of_service;
 ```
 
 ### Exercise 3: Salary Update Procedure
+```sql
+CREATE OR REPLACE PROCEDURE process_salary_update
+    (p_employee_id IN employees.employee_id%TYPE,
+     p_increase_percent IN NUMBER,
+     p_old_salary OUT NUMBER,
+     p_new_salary OUT NUMBER)
+IS
+BEGIN
+    -- Get current salary
+    SELECT salary
+    INTO p_old_salary
+    FROM employees
+    WHERE employee_id = p_employee_id;
+    
+    -- Calculate and update new salary
+    p_new_salary := p_old_salary * (1 + p_increase_percent/100);
+    
+    UPDATE employees
+    SET salary = p_new_salary
