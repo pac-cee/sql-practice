@@ -302,3 +302,22 @@ BEGIN
     -- Determine eligibility
     RETURN (v_years_of_service >= 2 AND 
             v_performance_rating IN ('A', 'B') AND
+            v_current_level != 'SENIOR');
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        RETURN FALSE;
+END is_eligible_for_promotion;
+/
+```
+
+## Key Points to Remember
+
+1. Procedures are used for performing actions (DML operations)
+2. Functions must return a value and can be used in SQL statements
+3. Use IN parameters for input values
+4. Use OUT parameters to return multiple values from procedures
+5. Always include proper exception handling
+6. Use meaningful parameter names with p_ prefix
+7. Keep functions free from DML operations if they'll be used in SQL
+8. Use RETURN statement in all possible paths of a function
+
