@@ -283,3 +283,22 @@ CREATE OR REPLACE FUNCTION is_eligible_for_promotion
     (p_employee_id IN employees.employee_id%TYPE)
 RETURN BOOLEAN
 IS
+    v_years_of_service NUMBER;
+    v_performance_rating CHAR(1);
+    v_current_level VARCHAR2(10);
+BEGIN
+    -- Get years of service
+    v_years_of_service := calculate_years_of_service(p_employee_id);
+    
+    -- Get performance rating
+    SELECT performance_rating
+    INTO v_performance_rating
+    FROM performance_ratings
+    WHERE employee_id = p_employee_id;
+    
+    -- Get current level
+    v_current_level := get_employee_level(p_employee_id);
+    
+    -- Determine eligibility
+    RETURN (v_years_of_service >= 2 AND 
+            v_performance_rating IN ('A', 'B') AND
