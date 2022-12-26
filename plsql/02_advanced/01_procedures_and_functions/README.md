@@ -264,3 +264,22 @@ BEGIN
     
     UPDATE employees
     SET salary = p_new_salary
+    WHERE employee_id = p_employee_id;
+    
+    COMMIT;
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        RAISE_APPLICATION_ERROR(-20001, 'Employee not found');
+    WHEN OTHERS THEN
+        ROLLBACK;
+        RAISE;
+END process_salary_update;
+/
+```
+
+### Exercise 4: Promotion Eligibility Function
+```sql
+CREATE OR REPLACE FUNCTION is_eligible_for_promotion
+    (p_employee_id IN employees.employee_id%TYPE)
+RETURN BOOLEAN
+IS
