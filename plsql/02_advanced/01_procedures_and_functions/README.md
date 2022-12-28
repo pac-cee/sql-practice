@@ -321,3 +321,10 @@ END is_eligible_for_promotion;
 7. Keep functions free from DML operations if they'll be used in SQL
 8. Use RETURN statement in all possible paths of a function
 
+## Next Steps
+
+After mastering procedures and functions:
+1. Learn about packages to group related procedures and functions
+2. Study triggers for automatic execution of procedures
+3. Explore advanced parameter features
+4. Move on to Packages in the next section 
