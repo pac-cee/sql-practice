@@ -36,3 +36,22 @@ FROM employees;
 -- Uses ROW_NUMBER for unique ranking within departments
 WITH RankedEmployees AS (
     SELECT 
+        employee_id,
+        department,
+        salary,
+        ROW_NUMBER() OVER (PARTITION BY department ORDER BY salary DESC) AS rn -- Assigns unique numbers within each department
+    FROM employees
+)
+SELECT 
+    employee_id, 
+    department, 
+    salary
+FROM RankedEmployees
+WHERE rn <= 3; -- Filters to show only top 3
+
+-- 4. First Two Employees to Join Each Department
+-- CTE to identify the two earliest employees in each department based on join date
+WITH EarliestEmployees AS (
+    SELECT 
+        employee_id,
+        department,
