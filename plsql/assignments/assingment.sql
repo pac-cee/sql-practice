@@ -55,3 +55,22 @@ WITH EarliestEmployees AS (
     SELECT 
         employee_id,
         department,
+        join_date,
+        ROW_NUMBER() OVER (PARTITION BY department ORDER BY join_date ASC) AS rn -- Ranks by join date
+    FROM employees
+)
+SELECT 
+    employee_id, 
+    department, 
+    join_date
+FROM EarliestEmployees
+WHERE rn <= 2; -- Shows only the first two employees
+
+-- 5. Salary Comparison with Department and Overall Maximum
+-- Compares individual salaries with department maximum and company-wide maximum
+SELECT 
+    employee_id,
+    department,
+    salary,
+    MAX(salary) OVER (PARTITION BY department) AS max_dept_salary, -- Maximum salary within each department
+    MAX(salary) OVER () AS overall_max_salary -- Maximum salary across all departments
