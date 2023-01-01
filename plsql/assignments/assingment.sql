@@ -74,3 +74,13 @@ SELECT
     salary,
     MAX(salary) OVER (PARTITION BY department) AS max_dept_salary, -- Maximum salary within each department
     MAX(salary) OVER () AS overall_max_salary -- Maximum salary across all departments
+FROM employees;
+
+/*
+ * Key Concepts Demonstrated:
+ * 1. Window Functions: LAG, LEAD, RANK, DENSE_RANK, ROW_NUMBER
+ * 2. Common Table Expressions (CTEs)
+ * 3. PARTITION BY for departmental analysis
+ * 4. CASE expressions for conditional logic
+ * 5. Aggregate functions with OVER clause
+ */
