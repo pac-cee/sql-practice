@@ -93,3 +93,22 @@ WITH RankedEmployees AS (
         employee_id,
         department,
         salary,
+        ROW_NUMBER() OVER (PARTITION BY department ORDER BY salary DESC) AS rn
+    FROM employees
+)
+SELECT 
+    employee_id, 
+    department, 
+    salary
+FROM RankedEmployees
+WHERE rn <= 3;
+```
+
+**Explanation:**  
+- **ROW_NUMBER():** Assigns a unique sequential number within each partition (department) 
+ordered by salary in descending order.
+- **Filtering:** Only rows where `rn` is 1, 2, or 3 (i.e., the top three) are selected.
+- **Real-life Application:** Identifying the top performers or best-selling products in
+ each category is common in sales, HR analytics, and performance reviews.
+
+---
