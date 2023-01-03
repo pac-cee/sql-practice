@@ -36,3 +36,22 @@ SELECT
         WHEN salary < LAG(salary) OVER (ORDER BY salary) THEN 'LOWER'
         ELSE 'EQUAL'
     END AS comparison_with_previous,
+    LEAD(salary) OVER (ORDER BY salary) AS next_salary
+FROM employees;
+```
+
+**Explanation:**  
+- **LAG(salary):** Retrieves the salary from the previous row when sorted by salary.
+- **LEAD(salary):** Retrieves the salary from the next row.
+- **CASE Statement:** Compares the current salary with the previous salary and categorizes 
+it as *HIGHER*, *LOWER*, or *EQUAL*.
+- **Real-life Application:** Useful in financial reporting to track incremental changes in 
+salaries, sales figures, or performance metrics.
+
+---
+
+## Task 2: Ranking Data within a Category
+
+**Objective:**  
+Rank records within a category (e.g., ranking employees by salary within each department) 
+using both **RANK()** and **DENSE_RANK()**, and explain the difference.
