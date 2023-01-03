@@ -55,3 +55,22 @@ salaries, sales figures, or performance metrics.
 **Objective:**  
 Rank records within a category (e.g., ranking employees by salary within each department) 
 using both **RANK()** and **DENSE_RANK()**, and explain the difference.
+
+**Sample Query:**
+
+```sql
+SELECT 
+    employee_id,
+    department,
+    salary,
+    RANK() OVER (PARTITION BY department ORDER BY salary DESC) AS salary_rank,
+    DENSE_RANK() OVER (PARTITION BY department ORDER BY salary DESC) AS dense_salary_rank
+FROM employees;
+```
+
+**Explanation:**  
+- **RANK() vs. DENSE_RANK():**
+  - *RANK():* Assigns the same rank to ties but leaves gaps in ranking. For example,
+   if two employees tie for 1st, the next rank will be 3.
+  - *DENSE_RANK():* Also assigns the same rank for ties but does not leave gaps (i.e.,
+   the next rank is 2).
