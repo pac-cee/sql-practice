@@ -74,3 +74,22 @@ FROM employees;
    if two employees tie for 1st, the next rank will be 3.
   - *DENSE_RANK():* Also assigns the same rank for ties but does not leave gaps (i.e.,
    the next rank is 2).
+- **Real-life Application:** Ranking employees within a department can help identify 
+performance levels or determine bonus distributions where ties are possible.
+
+---
+
+## Task 3: Identifying Top Records
+
+**Objective:**  
+Fetch the top 3 records from each category (e.g., top 3 highest salaries per department)
+ while handling duplicates appropriately.
+
+**Sample Query:**
+
+```sql
+WITH RankedEmployees AS (
+    SELECT 
+        employee_id,
+        department,
+        salary,
