@@ -131,3 +131,22 @@ WITH EarliestEmployees AS (
     FROM employees
 )
 SELECT 
+    employee_id, 
+    department, 
+    join_date
+FROM EarliestEmployees
+WHERE rn <= 2;
+```
+
+**Explanation:**  
+- **ROW_NUMBER() OVER (ORDER BY join_date ASC):** Orders employees by
+ their join date (earliest first) within each department.
+- **Filtering:** Selects the first two records (i.e., the earliest joiners) for each department.
+- **Real-life Application:** Useful for understanding which teams have the most senior employees, 
+or for recognizing early contributors in an organization.
+
+---
+
+## Task 5: Aggregation with Window Functions
+
+**Objective:**  
