@@ -150,3 +150,22 @@ or for recognizing early contributors in an organization.
 ## Task 5: Aggregation with Window Functions
 
 **Objective:**  
+Select all records and calculate:
+- The maximum value (e.g., maximum salary) within each category.
+- The overall maximum value across all records.
+
+**Sample Query:**
+
+```sql
+SELECT 
+    employee_id,
+    department,
+    salary,
+    MAX(salary) OVER (PARTITION BY department) AS max_dept_salary,
+    MAX(salary) OVER () AS overall_max_salary
+FROM employees;
+```
+
+**Explanation:**  
+- **MAX(salary) OVER (PARTITION BY department):** Computes the maximum salary for each department.
+- **MAX(salary) OVER ():** Computes the overall maximum salary from the entire table.
