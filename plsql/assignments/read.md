@@ -112,3 +112,22 @@ ordered by salary in descending order.
  each category is common in sales, HR analytics, and performance reviews.
 
 ---
+
+## Task 4: Finding the Earliest Records
+
+**Objective:**  
+Retrieve the first 2 records from each category based on a date column
+ (e.g., the earliest join date of employees per department).
+
+**Sample Query:**
+
+```sql
+WITH EarliestEmployees AS (
+    SELECT 
+        employee_id,
+        department,
+        join_date,
+        ROW_NUMBER() OVER (PARTITION BY department ORDER BY join_date ASC) AS rn
+    FROM employees
+)
+SELECT 
