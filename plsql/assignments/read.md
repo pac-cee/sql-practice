@@ -207,3 +207,22 @@ These sample queries and detailed explanations should give you a clear roadmap f
 
 
 Below is an example of how you can structure your GitHub repository for this assignment.
+ You should include separate SQL script files for table creation, data insertion, 
+ and your window function queries. In addition, include a detailed README.md file
+  that explains each script, shows screenshots of query outputs, and describes your approach.
+
+---
+
+### Repository File Structure
+
+```
+SQL_Window_Functions_Assignment/
+├── table_creation.sql
+├── data_insertion.sql
+├── window_functions_queries.sql
+└── README.md
+```
+
+---
+
+### table_creation.sql
