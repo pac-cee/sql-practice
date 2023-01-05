@@ -169,3 +169,22 @@ FROM employees;
 **Explanation:**  
 - **MAX(salary) OVER (PARTITION BY department):** Computes the maximum salary for each department.
 - **MAX(salary) OVER ():** Computes the overall maximum salary from the entire table.
+- **Real-life Application:** This technique is useful for comparative analytics, 
+such as determining departmental salary ceilings versus the overall maximum salary in the company.
+
+---
+
+## Submission Guidelines Recap
+
+1. **GitHub Repository Setup:**
+   - Create a repository for your group work.
+   - Use a funny group name (e.g., *ThePrimaryKeys*, *Commit_the_Query*).
+   - Add the instructor (GitHub username: **ericmaniraguha**) as a collaborator.
+
+2. **Files to Include:**
+   - **SQL Scripts:** Include scripts for table creation, data insertion, 
+   and the window function queries.
+   - **README.md:** Provide detailed explanations, screenshots of query results, findings, 
+   and real-life applications of the window functions.
+
+3. **Deadline:**  
