@@ -188,3 +188,22 @@ such as determining departmental salary ceilings versus the overall maximum sala
    and real-life applications of the window functions.
 
 3. **Deadline:**  
+   - Submit the GitHub repository link by **April 17, 2025, 11:59 pm**.
+
+4. **Next Step:**  
+   - After completing this assignment, you will take a short quiz to test your understanding 
+   of window functions.
+
+---
+
+These sample queries and detailed explanations should give you a clear roadmap for completing
+ the assignment. Make sure to tailor the dataset and queries to your specific context if you 
+ choose a different domain (e.g., sales, products, students). Good luck, and happy querying!
+
+
+
+
+///////////////////////////////////////
+
+
+Below is an example of how you can structure your GitHub repository for this assignment.
