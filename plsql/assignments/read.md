@@ -340,3 +340,22 @@ SELECT
     department,
     salary,
     MAX(salary) OVER (PARTITION BY department) AS max_dept_salary,
+    MAX(salary) OVER () AS overall_max_salary
+FROM employees;
+```
+
+---
+
+### README.md
+
+```markdown
+# SQL Window Functions Assignment
+
+**Group Name:** Commit_the_Query  
+**Team Members:** [Your Name] & [Partner's Name]  
+**Instructor:** Eric Maniraguha
+
+## Overview
+This repository contains all SQL scripts for the assignment on SQL Window Functions.
+ The assignment includes table creation, data insertion, and queries that utilize 
+ various window functions such as LAG(), LEAD(), RANK(), DENSE_RANK(), ROW_NUMBER(), 
