@@ -264,3 +264,22 @@ INSERT INTO employees (employee_id, first_name, last_name, department, salary, j
 INSERT INTO employees (employee_id, first_name, last_name, department, salary, join_date) 
 VALUES (105, 'Charlie', 'Black', 'IT', 70000, TO_DATE('2018-11-01', 'YYYY-MM-DD'));
 COMMIT;
+
+-- Insert sample data into the allowances table (if needed)
+INSERT INTO allowances (allowance_id, role_id, allowance_amount, is_applicable) 
+VALUES (1, 101, 1500, 'Y');
+INSERT INTO allowances (allowance_id, role_id, allowance_amount, is_applicable)
+ VALUES (2, 101, 2000, 'Y');
+INSERT INTO allowances (allowance_id, role_id, allowance_amount, is_applicable)
+ VALUES (3, 102, 1800, 'N');
+COMMIT;
+```
+
+---
+
+### window_functions_queries.sql
+
+```sql
+-- Task 1: Compare Values with Previous or Next Records
+SELECT 
+    employee_id,
