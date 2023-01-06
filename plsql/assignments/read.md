@@ -359,3 +359,22 @@ FROM employees;
 This repository contains all SQL scripts for the assignment on SQL Window Functions.
  The assignment includes table creation, data insertion, and queries that utilize 
  various window functions such as LAG(), LEAD(), RANK(), DENSE_RANK(), ROW_NUMBER(), 
+ and aggregate functions with PARTITION BY.
+
+## Files Description
+
+- **table_creation.sql:**  
+  Contains SQL code to create the necessary tables (e.g., `employees` and `allowances`).
+
+- **data_insertion.sql:**  
+  Provides sample data insertion into the created tables. This data supports the execution
+   of window function queries.
+
+- **window_functions_queries.sql:**  
+  Includes all SQL queries for the five tasks as specified in the assignment:
+  1. **Comparing Values:** Uses LAG() and LEAD() to compare salary values with previous 
+  and next records.
+  2. **Ranking Data:** Uses RANK() and DENSE_RANK() to rank employees by salary within
+   each department.
+  3. **Identifying Top Records:** Fetches the top 3 salaries per department using ROW_NUMBER().
+  4. **Finding the Earliest Records:** Retrieves the first two join dates per department.
