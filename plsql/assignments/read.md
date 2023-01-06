@@ -283,3 +283,22 @@ COMMIT;
 -- Task 1: Compare Values with Previous or Next Records
 SELECT 
     employee_id,
+    salary,
+    LAG(salary) OVER (ORDER BY salary) AS previous_salary,
+    CASE 
+        WHEN salary > LAG(salary) OVER (ORDER BY salary) THEN 'HIGHER'
+        WHEN salary < LAG(salary) OVER (ORDER BY salary) THEN 'LOWER'
+        ELSE 'EQUAL'
+    END AS comparison_with_previous,
+    LEAD(salary) OVER (ORDER BY salary) AS next_salary
+FROM employees;
+
+-- Task 2: Ranking Data within a Category
+SELECT 
+    employee_id,
+    department,
+    salary,
+    RANK() OVER (PARTITION BY department ORDER BY salary DESC) AS salary_rank,
+    DENSE_RANK() OVER (PARTITION BY department ORDER BY salary DESC) AS dense_salary_rank
+FROM employees;
+
