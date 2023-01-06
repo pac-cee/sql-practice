@@ -302,3 +302,22 @@ SELECT
     DENSE_RANK() OVER (PARTITION BY department ORDER BY salary DESC) AS dense_salary_rank
 FROM employees;
 
+-- Task 3: Identifying Top Records (Top 3 by Salary per Department)
+WITH RankedEmployees AS (
+    SELECT 
+        employee_id,
+        department,
+        salary,
+        ROW_NUMBER() OVER (PARTITION BY department ORDER BY salary DESC) AS rn
+    FROM employees
+)
+SELECT 
+    employee_id, 
+    department, 
+    salary
+FROM RankedEmployees
+WHERE rn <= 3;
+
+-- Task 4: Finding the Earliest Records (First 2 joiners per department)
+WITH EarliestEmployees AS (
+    SELECT 
