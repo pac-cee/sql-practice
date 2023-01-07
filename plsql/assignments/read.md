@@ -378,3 +378,22 @@ This repository contains all SQL scripts for the assignment on SQL Window Functi
    each department.
   3. **Identifying Top Records:** Fetches the top 3 salaries per department using ROW_NUMBER().
   4. **Finding the Earliest Records:** Retrieves the first two join dates per department.
+  5. **Aggregation with Window Functions:** Calculates the maximum salary per department 
+  and overall maximum salary.
+
+## Explanation of Queries
+
+### Task 1: Compare Values with Previous or Next Records
+- **Query Logic:**  
+  The query uses `LAG(salary)` to get the previous record’s salary and compares it with
+   the current row using a CASE statement. Similarly, `LEAD(salary)` is used to fetch 
+   the next salary value.
+- **Real-life Application:**  
+  Useful for analyzing trends such as incremental changes in salaries or sales figures over time.
+
+### Task 2: Ranking Data within a Category
+- **Query Logic:**  
+  Ranks employees within each department based on salary in descending order 
+  using `RANK()` and `DENSE_RANK()`.
+- **Difference Between RANK() and DENSE_RANK():**  
+  - **RANK():** Leaves gaps in rank numbers when there are ties.
