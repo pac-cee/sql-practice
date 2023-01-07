@@ -397,3 +397,22 @@ This repository contains all SQL scripts for the assignment on SQL Window Functi
   using `RANK()` and `DENSE_RANK()`.
 - **Difference Between RANK() and DENSE_RANK():**  
   - **RANK():** Leaves gaps in rank numbers when there are ties.
+  - **DENSE_RANK():** Does not leave gaps; consecutive ranking.
+- **Real-life Application:**  
+  Essential for performance evaluations and bonus distribution analysis.
+
+### Task 3: Identifying Top Records
+- **Query Logic:**  
+  Uses a Common Table Expression (CTE) with `ROW_NUMBER()` to assign a unique rank to each
+   employee within their department, filtering the top three per department.
+- **Real-life Application:**  
+  Identifies top performers, such as highest-paid employees or best-selling products.
+
+### Task 4: Finding the Earliest Records
+- **Query Logic:**  
+  Uses `ROW_NUMBER()` to order employees by join date within each department, selecting 
+  the first two records.
+- **Real-life Application:**  
+  Useful for recognizing long-tenured employees or early adopters.
+
+### Task 5: Aggregation with Window Functions
