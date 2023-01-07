@@ -416,3 +416,22 @@ This repository contains all SQL scripts for the assignment on SQL Window Functi
   Useful for recognizing long-tenured employees or early adopters.
 
 ### Task 5: Aggregation with Window Functions
+- **Query Logic:**  
+  Computes the maximum salary within each department and the overall maximum salary across 
+  all records using `MAX()` with and without PARTITION BY.
+- **Real-life Application:**  
+  Helpful in budget analysis and setting salary benchmarks across departments.
+
+## Screenshots
+*Please add screenshots of the query outputs from your SQL client here.*
+
+![Task 1 Output](./screenshots/task1_output.png)  
+![Task 2 Output](./screenshots/task2_output.png)  
+![Task 3 Output](./screenshots/task3_output.png)  
+
+## GitHub Collaboration
+- We have both contributed to this repository.  
+- Instructor **ericmaniraguha** is added as a collaborator for assessment.
+
+## Submission
+Submit the repository link before the deadline: **April 17, 2025, 11:59 pm**.
