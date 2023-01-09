@@ -74,3 +74,22 @@ ORDER BY
 
 
 -- 2. Ranking Data within a Category
+
+-- For this task, I'll rank products within each category by their total sales amount using 
+-- both RANK() and DENSE_RANK():
+
+
+SELECT 
+    sale_id,
+    product_name,
+    category,
+    total_amount,
+    RANK() OVER (PARTITION BY category ORDER BY total_amount DESC) AS rank_in_category,
+    DENSE_RANK() OVER (PARTITION BY category ORDER BY total_amount DESC) AS dense_rank_in_category
+FROM 
+    e_sales
+ORDER BY 
+    category, 
+    total_amount DESC;
+
+
