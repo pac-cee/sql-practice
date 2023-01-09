@@ -435,3 +435,23 @@ This repository contains all SQL scripts for the assignment on SQL Window Functi
 
 ## Submission
 Submit the repository link before the deadline: **April 17, 2025, 11:59 pm**.
+
+---
+
+Feel free to adjust the sample data and queries as necessary to better fit your chosen dataset or
+ domain. Happy querying!
+```
+
+---
+
+### Next Steps
+
+1. Create a new GitHub repository with a funny name (e.g., **Commit_the_Query**).
+2. Add all the provided files (or your customized versions) to the repository.
+3. Take screenshots of your query outputs and add them to a `/screenshots` folder,
+   then update the README accordingly.
+4. Add your instructor **ericmaniraguha** as a collaborator.
+5. Commit and push all changes to GitHub before the deadline.
+
+This repository structure, scripts, and README file provide a comprehensive submission that
+ meets the assignment requirements.
