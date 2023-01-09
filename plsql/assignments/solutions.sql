@@ -36,3 +36,22 @@ INSERT INTO e_sales VALUES (17, 'Microsoft Surface', 'Laptops', 'North', TO_DATE
 INSERT INTO e_sales VALUES (18, 'MacBook Air', 'Laptops', 'South', TO_DATE('2025-04-15', 'YYYY-MM-DD'), 8, 1199, 9592);
 INSERT INTO e_sales VALUES (19, 'Samsung Galaxy Tab A', 'Tablets', 'East', TO_DATE('2025-04-20', 'YYYY-MM-DD'), 10, 349, 3490);
 INSERT INTO e_sales VALUES (20, 'Amazon Fire', 'Tablets', 'West', TO_DATE('2025-04-25', 'YYYY-MM-DD'), 15, 149, 2235);
+
+
+
+-- 1. Compare Values with Previous or Next Records
+
+-- For this task, I'll compare the total sales amount with previous and next 
+-- records using LAG() and LEAD() functions:
+
+
+SELECT 
+    sale_id,
+    product_name,
+    category,
+    region,
+    sale_date,
+    total_amount,
+    LAG(total_amount) OVER (ORDER BY sale_date) AS previous_amount,
+    LEAD(total_amount) OVER (ORDER BY sale_date) AS next_amount,
+    CASE 
