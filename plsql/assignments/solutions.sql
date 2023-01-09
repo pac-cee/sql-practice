@@ -55,3 +55,22 @@ SELECT
     LAG(total_amount) OVER (ORDER BY sale_date) AS previous_amount,
     LEAD(total_amount) OVER (ORDER BY sale_date) AS next_amount,
     CASE 
+        WHEN total_amount > LAG(total_amount) OVER (ORDER BY sale_date) THEN 'HIGHER'
+        WHEN total_amount < LAG(total_amount) OVER (ORDER BY sale_date) THEN 'LOWER'
+        WHEN total_amount = LAG(total_amount) OVER (ORDER BY sale_date) THEN 'EQUAL'
+        ELSE 'FIRST RECORD'
+    END AS comparison_with_previous,
+    CASE 
+        WHEN total_amount > LEAD(total_amount) OVER (ORDER BY sale_date) THEN 'HIGHER'
+        WHEN total_amount < LEAD(total_amount) OVER (ORDER BY sale_date) THEN 'LOWER'
+        WHEN total_amount = LEAD(total_amount) OVER (ORDER BY sale_date) THEN 'EQUAL'
+        ELSE 'LAST RECORD'
+    END AS comparison_with_next
+FROM 
+    e_sales
+ORDER BY 
+    sale_date;
+
+
+
+-- 2. Ranking Data within a Category
