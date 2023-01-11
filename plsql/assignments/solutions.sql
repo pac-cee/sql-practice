@@ -150,3 +150,22 @@ SELECT
     sale_date,
     total_amount,
     sale_sequence
+FROM 
+    ranked_sales
+WHERE 
+    sale_sequence <= 2
+ORDER BY 
+    region, 
+    sale_date;
+`
+
+
+-- 5. Aggregation with Window Functions
+
+-- For this task, I'll calculate both category-specific maximums and the overall maximum total amount:
+
+
+SELECT 
+    sale_id,
+    product_name,
+    category,
