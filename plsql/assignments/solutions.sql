@@ -112,3 +112,22 @@ WITH ranked_products AS (
 SELECT 
     sale_id,
     product_name,
+    category,
+    region,
+    total_amount,
+    product_rank
+FROM 
+    ranked_products
+WHERE 
+    product_rank <= 3
+ORDER BY 
+    category, 
+    product_rank;
+
+
+-- 4. Finding the Earliest Records
+
+-- For this task, I'll retrieve the first 2 sales transactions from each region based on sale_date:
+
+
+WITH ranked_sales AS (
