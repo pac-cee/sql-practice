@@ -131,3 +131,22 @@ ORDER BY
 
 
 WITH ranked_sales AS (
+    SELECT 
+        sale_id,
+        product_name,
+        category,
+        region,
+        sale_date,
+        total_amount,
+        ROW_NUMBER() OVER (PARTITION BY region ORDER BY sale_date) AS sale_sequence
+    FROM 
+        e_sales
+)
+SELECT 
+    sale_id,
+    product_name,
+    category,
+    region,
+    sale_date,
+    total_amount,
+    sale_sequence
