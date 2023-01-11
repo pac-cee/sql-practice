@@ -93,3 +93,22 @@ ORDER BY
     total_amount DESC;
 
 
+-- 3. Identifying Top Records
+
+-- For this task, I'll fetch the top 3 products with highest sales in each category:
+
+
+WITH ranked_products AS (
+    SELECT 
+        sale_id,
+        product_name,
+        category,
+        region,
+        total_amount,
+        DENSE_RANK() OVER (PARTITION BY category ORDER BY total_amount DESC) AS product_rank
+    FROM 
+        e_sales
+)
+SELECT 
+    sale_id,
+    product_name,
