@@ -36,3 +36,22 @@ func checkErr(err error) {
 }
 
 // connectPostgres connects to PostgreSQL with the provided dbName.
+func connectPostgres(dbName string) *sql.DB {
+	connStr := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
+		pgHost, pgPort, pgUser, pgPassword, dbName)
+	db, err := sql.Open("postgres", connStr)
+	checkErr(err)
+	err = db.Ping()
+	checkErr(err)
+	fmt.Printf("Connected to PostgreSQL database: %s\n", dbName)
+	return db
+}
+
+// connectMySQL connects to MySQL with the provided dbName.
+func connectMySQL(dbName string) *sql.DB {
+	connStr := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s",
+		mysqlUser, mysqlPassword, mysqlHost, mysqlPort, dbName)
+	db, err := sql.Open("mysql", connStr)
+	checkErr(err)
+	err = db.Ping()
+	checkErr(err)
