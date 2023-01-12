@@ -169,3 +169,17 @@ SELECT
     sale_id,
     product_name,
     category,
+    region,
+    total_amount,
+    MAX(total_amount) OVER (PARTITION BY category) AS category_max_amount,
+    MAX(total_amount) OVER () AS overall_max_amount,
+    ROUND((total_amount / MAX(total_amount) OVER (PARTITION BY category)) * 100, 2) AS percent_of_category_max,
+    ROUND((total_amount / MAX(total_amount) OVER ()) * 100, 2) AS percent_of_overall_max
+FROM 
+    e_sales
+ORDER BY 
+    category, 
+    total_amount DESC;
+
+
+
