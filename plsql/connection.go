@@ -93,3 +93,22 @@ func listMySQLDatabases(db *sql.DB) []string {
 	return databases
 }
 
+// createDatabase creates a new database with the provided name.
+func createDatabase(db *sql.DB, query string, dbName string) {
+	_, err := db.Exec(query)
+	if err != nil {
+		log.Fatalf("Error creating database %s: %v", dbName, err)
+	}
+	fmt.Printf("Database '%s' created successfully.\n", dbName)
+}
+
+// readInput reads a line from standard input.
+func readInput(prompt string) string {
+	fmt.Print(prompt)
+	reader := bufio.NewReader(os.Stdin)
+	text, err := reader.ReadString('\n')
+	checkErr(err)
+	return strings.TrimSpace(text)
+}
+
+func connectionMain() {
