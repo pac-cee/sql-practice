@@ -74,3 +74,22 @@ func listPostgresDatabases(db *sql.DB) []string {
 		databases = append(databases, dbname)
 	}
 	return databases
+}
+
+// listMySQLDatabases returns a slice of available MySQL databases.
+func listMySQLDatabases(db *sql.DB) []string {
+	query := "SHOW DATABASES"
+	rows, err := db.Query(query)
+	checkErr(err)
+	defer rows.Close()
+
+	var databases []string
+	for rows.Next() {
+		var dbname string
+		err := rows.Scan(&dbname)
+		checkErr(err)
+		databases = append(databases, dbname)
+	}
+	return databases
+}
+
