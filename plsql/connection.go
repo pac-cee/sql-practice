@@ -131,3 +131,22 @@ func connectionMain() {
 		// Connect to a default db to list available ones (connect to 'postgres' db in PG)
 		db := connectPostgres("postgres")
 		defer db.Close()
+		databases := listPostgresDatabases(db)
+		fmt.Println("\nAvailable PostgreSQL databases:")
+		for i, name := range databases {
+			fmt.Printf("  %d) %s\n", i+1, name)
+		}
+		fmt.Println("  0) Create a new database")
+		option := readInput("Choose a database by number (or 0 to create a new one): ")
+
+		var targetDB string
+		if option == "0" {
+			targetDB = readInput("Enter the new database name: ")
+			// Create database using SQL query
+			createQuery := fmt.Sprintf("CREATE DATABASE %s", targetDB)
+			_, err := db.Exec(createQuery)
+			checkErr(err)
+			fmt.Printf("Database '%s' created.\n", targetDB)
+		} else {
+			// Use existing database
+			index := 0
