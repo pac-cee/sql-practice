@@ -55,3 +55,22 @@ func connectMySQL(dbName string) *sql.DB {
 	checkErr(err)
 	err = db.Ping()
 	checkErr(err)
+	fmt.Printf("Connected to MySQL database: %s\n", dbName)
+	return db
+}
+
+// listPostgresDatabases returns a slice of available PostgreSQL databases.
+func listPostgresDatabases(db *sql.DB) []string {
+	query := "SELECT datname FROM pg_database WHERE datistemplate = false"
+	rows, err := db.Query(query)
+	checkErr(err)
+	defer rows.Close()
+
+	var databases []string
+	for rows.Next() {
+		var dbname string
+		err := rows.Scan(&dbname)
+		checkErr(err)
+		databases = append(databases, dbname)
+	}
+	return databases
