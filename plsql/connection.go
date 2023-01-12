@@ -112,3 +112,22 @@ func readInput(prompt string) string {
 }
 
 func connectionMain() {
+	fmt.Println("Choose the database system you wish to work with:")
+	fmt.Println("1) PostgreSQL")
+	fmt.Println("2) MySQL")
+	choice := readInput("Enter 1 or 2: ")
+
+	var dbms string
+	switch choice {
+	case "1":
+		dbms = "postgres"
+	case "2":
+		dbms = "mysql"
+	default:
+		log.Fatal("Invalid choice.")
+	}
+
+	if dbms == "postgres" {
+		// Connect to a default db to list available ones (connect to 'postgres' db in PG)
+		db := connectPostgres("postgres")
+		defer db.Close()
