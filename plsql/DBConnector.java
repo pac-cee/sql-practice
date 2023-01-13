@@ -17,3 +17,22 @@ public class DBConnector {
 
     // Configuration for MySQL
     private static final String MYSQL_USER = "root";
+    private static final String MYSQL_PASSWORD = ""; // updated to remove sensitive information
+    private static final String MYSQL_HOST = "localhost";
+    private static final String MYSQL_PORT = "3306";
+    // For MySQL, we can connect to the "mysql" system database to list available ones.
+    private static final String MYSQL_DEFAULT_DB = "mysql";
+
+    // Helper method to read user input
+    private static String readInput(Scanner scanner, String prompt) {
+        System.out.print(prompt);
+        return scanner.nextLine().trim();
+    }
+
+    // Connect to PostgreSQL
+    public static Connection connectPostgres(String dbName) throws SQLException {
+        String url = "jdbc:postgresql://" + PG_HOST + ":" + PG_PORT + "/" + dbName;
+        Connection conn = DriverManager.getConnection(url, PG_USER, PG_PASSWORD);
+        System.out.println("Connected to PostgreSQL database: " + dbName);
+        return conn;
+    }
