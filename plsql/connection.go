@@ -169,3 +169,22 @@ func connectionMain() {
 		defer db.Close()
 		databases := listMySQLDatabases(db)
 		fmt.Println("\nAvailable MySQL databases:")
+		for i, name := range databases {
+			fmt.Printf("  %d) %s\n", i+1, name)
+		}
+		fmt.Println("  0) Create a new database")
+		option := readInput("Choose a database by number (or 0 to create a new one): ")
+
+		var targetDB string
+		if option == "0" {
+			targetDB = readInput("Enter the new database name: ")
+			createQuery := fmt.Sprintf("CREATE DATABASE %s", targetDB)
+			_, err := db.Exec(createQuery)
+			checkErr(err)
+			fmt.Printf("Database '%s' created.\n", targetDB)
+		} else {
+			index := 0
+			fmt.Sscanf(option, "%d", &index)
+			if index < 1 || index > len(databases) {
+				log.Fatal("Invalid selection.")
+			}
