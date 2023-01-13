@@ -188,3 +188,16 @@ func connectionMain() {
 			if index < 1 || index > len(databases) {
 				log.Fatal("Invalid selection.")
 			}
+			targetDB = databases[index-1]
+		}
+		// Connect to the selected/created database
+		mysqldb := connectMySQL(targetDB)
+		defer mysqldb.Close()
+		// Continue with application logic using mysqldb...
+		fmt.Println("You may now use the MySQL connection as needed.")
+	}
+}
+
+func main() {
+	connectionMain()
+}
