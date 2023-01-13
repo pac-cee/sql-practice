@@ -150,3 +150,22 @@ func connectionMain() {
 		} else {
 			// Use existing database
 			index := 0
+			fmt.Sscanf(option, "%d", &index)
+			if index < 1 || index > len(databases) {
+				log.Fatal("Invalid selection.")
+			}
+			targetDB = databases[index-1]
+		}
+		// Connect to the selected/created database
+		pgdb := connectPostgres(targetDB)
+		defer pgdb.Close()
+		// Continue with application logic using pgdb ...
+		fmt.Println("You may now use the PostgreSQL connection as needed.")
+
+	} else if dbms == "mysql" {
+		// Connect to a default db to list available databases.
+		// For MySQL, connecting to "mysql" system database is common.
+		db := connectMySQL("mysql")
+		defer db.Close()
+		databases := listMySQLDatabases(db)
+		fmt.Println("\nAvailable MySQL databases:")
