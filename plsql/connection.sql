@@ -1,0 +1,19 @@
+-- MySQL Connection Configuration
+DELIMITER //
+
+-- Create a procedure to establish connection
+CREATE PROCEDURE establish_connection()
+BEGIN
+    SET @connection_host = 'localhost';
+    SET @connection_port = 3306;
+    SET @connection_user = 'root';
+    SET @connection_pass = ''; // Set your password here
+    SET @connection_db = 'your_database_name'; // Set your database name here
+END //
+
+-- Create a procedure to use or create a database
+CREATE PROCEDURE use_or_create_database(IN db_name VARCHAR(64))
+BEGIN
+    -- Create database if it doesn't exist
+    SET @create_db = CONCAT('CREATE DATABASE IF NOT EXISTS ', db_name);
+    PREPARE stmt FROM @create_db;
