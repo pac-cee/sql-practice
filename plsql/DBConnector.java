@@ -55,3 +55,22 @@ public class DBConnector {
         while (rs.next()) {
             System.out.println("  " + (index++) + ") " + rs.getString("datname"));
         }
+        rs.close();
+        stmt.close();
+    }
+
+    // List MySQL databases
+    public static void listMySQLDatabases(Connection conn) throws SQLException {
+        String sql = "SHOW DATABASES";
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery(sql);
+        System.out.println("\nAvailable MySQL databases:");
+        int index = 1;
+        while (rs.next()) {
+            System.out.println("  " + (index++) + ") " + rs.getString(1));
+        }
+        rs.close();
+        stmt.close();
+    }
+
+    // Create database method (for both PostgreSQL and MySQL)
