@@ -74,3 +74,22 @@ public class DBConnector {
     }
 
     // Create database method (for both PostgreSQL and MySQL)
+    public static void createDatabase(Connection conn, String dbName, String dbType) throws SQLException {
+        String createSQL = "";
+        if (dbType.equals("postgres")) {
+            createSQL = "CREATE DATABASE " + dbName;
+        } else if (dbType.equals("mysql")) {
+            createSQL = "CREATE DATABASE " + dbName;
+        }
+        Statement stmt = conn.createStatement();
+        stmt.executeUpdate(createSQL);
+        stmt.close();
+        System.out.println("Database '" + dbName + "' created successfully.");
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Choose the database system:");
+        System.out.println("1) PostgreSQL");
+        System.out.println("2) MySQL");
+        String choice = readInput(scanner, "Enter 1 or 2: ");
