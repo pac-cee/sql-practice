@@ -36,3 +36,22 @@ public class DBConnector {
         System.out.println("Connected to PostgreSQL database: " + dbName);
         return conn;
     }
+
+    // Connect to MySQL
+    public static Connection connectMySQL(String dbName) throws SQLException {
+        String url = "jdbc:mysql://" + MYSQL_HOST + ":" + MYSQL_PORT + "/" + dbName;
+        Connection conn = DriverManager.getConnection(url, MYSQL_USER, MYSQL_PASSWORD);
+        System.out.println("Connected to MySQL database: " + dbName);
+        return conn;
+    }
+
+    // List PostgreSQL databases
+    public static void listPostgresDatabases(Connection conn) throws SQLException {
+        String sql = "SELECT datname FROM pg_database WHERE datistemplate = false";
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery(sql);
+        System.out.println("\nAvailable PostgreSQL databases:");
+        int index = 1;
+        while (rs.next()) {
+            System.out.println("  " + (index++) + ") " + rs.getString("datname"));
+        }
