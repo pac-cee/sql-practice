@@ -93,3 +93,22 @@ public class DBConnector {
         System.out.println("1) PostgreSQL");
         System.out.println("2) MySQL");
         String choice = readInput(scanner, "Enter 1 or 2: ");
+        String dbType = "";
+
+        if (choice.equals("1")) {
+            dbType = "postgres";
+        } else if (choice.equals("2")) {
+            dbType = "mysql";
+        } else {
+            System.err.println("Invalid choice.");
+            scanner.close();
+            return;
+        }
+
+        try {
+            if (dbType.equals("postgres")) {
+                // Connect using default database
+                Connection defaultConn = connectPostgres(PG_DEFAULT_DB);
+                listPostgresDatabases(defaultConn);
+                System.out.println("  0) Create a new database");
+                String option = readInput(scanner, "Choose a database by number (or 0 to create): ");
