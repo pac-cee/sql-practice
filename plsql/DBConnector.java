@@ -112,3 +112,22 @@ public class DBConnector {
                 listPostgresDatabases(defaultConn);
                 System.out.println("  0) Create a new database");
                 String option = readInput(scanner, "Choose a database by number (or 0 to create): ");
+
+                String targetDB = "";
+                if (option.equals("0")) {
+                    targetDB = readInput(scanner, "Enter the new database name: ");
+                    createDatabase(defaultConn, targetDB, "postgres");
+                } else {
+                    // We need to re-run the query to map the choice to the database name.
+                    // For simplicity, we fetch the list again.
+                    Statement stmt = defaultConn.createStatement();
+                    ResultSet rs = stmt.executeQuery("SELECT datname FROM pg_database WHERE datistemplate = false");
+                    int index = 1;
+                    while (rs.next()) {
+                        if (Integer.toString(index).equals(option)) {
+                            targetDB = rs.getString("datname");
+                            break;
+                        }
+                        index++;
+                    }
+                    rs.close();
