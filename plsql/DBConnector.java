@@ -150,3 +150,22 @@ public class DBConnector {
                 Connection defaultConn = connectMySQL(MYSQL_DEFAULT_DB);
                 listMySQLDatabases(defaultConn);
                 System.out.println("  0) Create a new database");
+                String option = readInput(scanner, "Choose a database by number (or 0 to create): ");
+
+                String targetDB = "";
+                if (option.equals("0")) {
+                    targetDB = readInput(scanner, "Enter the new database name: ");
+                    createDatabase(defaultConn, targetDB, "mysql");
+                } else {
+                    Statement stmt = defaultConn.createStatement();
+                    ResultSet rs = stmt.executeQuery("SHOW DATABASES");
+                    int index = 1;
+                    while (rs.next()) {
+                        if (Integer.toString(index).equals(option)) {
+                            targetDB = rs.getString(1);
+                            break;
+                        }
+                        index++;
+                    }
+                    rs.close();
+                    stmt.close();
