@@ -131,3 +131,22 @@ public class DBConnector {
                         index++;
                     }
                     rs.close();
+                    stmt.close();
+                    if (targetDB.isEmpty()) {
+                        System.err.println("Invalid selection.");
+                        defaultConn.close();
+                        scanner.close();
+                        return;
+                    }
+                }
+                defaultConn.close();
+                // Connect to the selected/created database
+                Connection targetConn = connectPostgres(targetDB);
+                // Continue using targetConn for your project logic...
+                targetConn.close();
+
+            } else if (dbType.equals("mysql")) {
+                // Connect using default MySQL database.
+                Connection defaultConn = connectMySQL(MYSQL_DEFAULT_DB);
+                listMySQLDatabases(defaultConn);
+                System.out.println("  0) Create a new database");
