@@ -169,3 +169,22 @@ public class DBConnector {
                     }
                     rs.close();
                     stmt.close();
+                    if (targetDB.isEmpty()) {
+                        System.err.println("Invalid selection.");
+                        defaultConn.close();
+                        scanner.close();
+                        return;
+                    }
+                }
+                defaultConn.close();
+                // Connect to the selected/created MySQL database.
+                Connection targetConn = connectMySQL(targetDB);
+                // Continue using targetConn for your project logic...
+                targetConn.close();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        scanner.close();
+    }
+}
