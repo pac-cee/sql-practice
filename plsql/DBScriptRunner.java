@@ -36,3 +36,22 @@ public class DBScriptRunner {
     // Helper method for MySQL connection
     public static Connection connectMySQL(String dbName) throws SQLException {
         String url = "jdbc:mysql://" + MYSQL_HOST + ":" + MYSQL_PORT + "/" + dbName;
+        Connection conn = DriverManager.getConnection(url, MYSQL_USER, MYSQL_PASSWORD);
+        System.out.println("Connected to MySQL database: " + dbName);
+        return conn;
+    }
+
+    // Read the entire SQL file into a String. Adjust the file path as needed.
+    public static String readSQLFile(String filePath) {
+        StringBuilder sqlScript = new StringBuilder();
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                sqlScript.append(line).append("\n");
+            }
+        } catch (IOException e) {
+            System.err.println("Error reading SQL file: " + e.getMessage());
+        }
+        return sqlScript.toString();
+    }
+
