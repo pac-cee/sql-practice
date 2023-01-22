@@ -74,3 +74,22 @@ public class DBScriptRunner {
         }
     }
 
+    public static void main(String[] args) {
+        // For this demonstration, let’s assume you choose which DBMS to use via CLI.
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Choose the database system:");
+        System.out.println("1) PostgreSQL");
+        System.out.println("2) MySQL");
+        String choice = scanner.nextLine().trim();
+
+        Connection connection = null;
+        try {
+            if ("1".equals(choice)) {
+                connection = connectPostgres(PG_DB);
+            } else if ("2".equals(choice)) {
+                connection = connectMySQL(MYSQL_DB);
+            } else {
+                System.err.println("Invalid choice.");
+                scanner.close();
+                return;
+            }
