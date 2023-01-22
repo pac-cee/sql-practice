@@ -55,3 +55,22 @@ public class DBScriptRunner {
         return sqlScript.toString();
     }
 
+    // Execute the SQL script by splitting on semicolons (simple parsing)
+    public static void runSQLScript(Connection conn, String filePath) {
+        String script = readSQLFile(filePath);
+        // Splitting based on semicolon. For production use cases, you might want a more robust parser.
+        String[] statements = script.split(";");
+        try (Statement stmt = conn.createStatement()) {
+            for (String command : statements) {
+                command = command.trim();
+                if (command.isEmpty()) {
+                    continue;
+                }
+                stmt.execute(command);
+                System.out.println("Executed: " + command);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error executing SQL script: " + e.getMessage());
+        }
+    }
+
