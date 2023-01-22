@@ -93,3 +93,24 @@ public class DBScriptRunner {
                 scanner.close();
                 return;
             }
+
+            // Path to your SQL file created in VS Code.
+            String sqlFilePath = "script.sql";  // Ensure this file is at the correct location
+            runSQLScript(connection, sqlFilePath);
+            System.out.println("SQL script execution complete.");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                    System.out.println("Connection closed.");
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            scanner.close();
+        }
+    }
+}
