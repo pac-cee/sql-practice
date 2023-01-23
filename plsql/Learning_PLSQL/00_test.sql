@@ -36,3 +36,22 @@ ALTER TABLE employees RENAME TO staff;
 2. DML (Data Manipulation Language)
 
 -- INSERT commands
+INSERT INTO employees (emp_id, name, salary) 
+VALUES (1, 'John Doe', 50000);
+
+INSERT INTO employees 
+SELECT * FROM old_employees;
+
+-- UPDATE commands
+UPDATE employees 
+SET salary = salary * 1.1
+WHERE department = 'IT';
+
+-- DELETE commands
+DELETE FROM employees 
+WHERE salary < 30000;
+
+-- MERGE command
+MERGE INTO target_table t
+USING source_table s
+ON (t.id = s.id)
