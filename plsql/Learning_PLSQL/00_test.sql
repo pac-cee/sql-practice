@@ -55,3 +55,22 @@ WHERE salary < 30000;
 MERGE INTO target_table t
 USING source_table s
 ON (t.id = s.id)
+WHEN MATCHED THEN
+    UPDATE SET t.column1 = s.column1
+WHEN NOT MATCHED THEN
+    INSERT (id, column1) VALUES (s.id, s.column1);
+
+
+
+
+
+     
+--  3.DQL (Data Query Language)
+-- Basic SELECT
+SELECT * FROM employees;
+SELECT name, salary FROM employees;
+
+-- Filtering
+SELECT * FROM employees 
+WHERE salary > 50000 
+AND department = 'IT';
