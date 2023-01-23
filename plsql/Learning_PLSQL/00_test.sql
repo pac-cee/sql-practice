@@ -17,3 +17,22 @@ ALTER TABLE employees MODIFY (name VARCHAR2(150));
 ALTER TABLE employees DROP COLUMN department;
 ALTER TABLE employees RENAME COLUMN name TO full_name;
 
+-- DROP commands
+DROP TABLE employees;
+DROP VIEW emp_view;
+DROP SEQUENCE emp_seq;
+
+-- TRUNCATE command
+TRUNCATE TABLE employees;
+
+-- RENAME command
+ALTER TABLE employees RENAME TO staff;
+/
+
+
+
+
+
+2. DML (Data Manipulation Language)
+
+-- INSERT commands
