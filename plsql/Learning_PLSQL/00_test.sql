@@ -112,3 +112,22 @@ REVOKE SELECT ON employees FROM user1;
 REVOKE ALL PRIVILEGES ON employees FROM user2;
 
 -- Create/alter roles
+CREATE ROLE manager_role;
+GRANT SELECT, INSERT, UPDATE ON employees TO manager_role;
+GRANT manager_role TO user1;
+
+-- Create user
+CREATE USER new_user 
+IDENTIFIED BY password123;
+
+-- Set quotas
+ALTER USER new_user QUOTA 100M ON users;
+
+--5. TCL (Transaction Control Language)
+-- Transaction control
+COMMIT;
+ROLLBACK;
+SAVEPOINT save1;
+ROLLBACK TO save1;
+SET TRANSACTION READ ONLY;
+
