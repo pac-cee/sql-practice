@@ -131,3 +131,22 @@ SAVEPOINT save1;
 ROLLBACK TO save1;
 SET TRANSACTION READ ONLY;
 
+-- 6. Additional Important Commands
+-- Sequences
+CREATE SEQUENCE emp_seq
+    START WITH 1
+    INCREMENT BY 1
+    NOCACHE
+    NOCYCLE;
+
+-- Views
+-- ---------------------------------------------
+-- emp_dept_view: Creates a logical view combining employee and department data
+-- Purpose: Simplifies queries by joining employee and department information
+-- Use Case: Reporting and analysis where both employee and department info is needed
+-- Benefits: Encapsulates join logic and provides data abstraction
+CREATE VIEW emp_dept_view AS
+SELECT e.name, d.dept_name
+FROM employees e
+JOIN departments d ON e.dept_id = d.dept_id;
+
