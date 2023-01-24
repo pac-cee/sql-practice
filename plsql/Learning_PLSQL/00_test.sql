@@ -150,3 +150,22 @@ SELECT e.name, d.dept_name
 FROM employees e
 JOIN departments d ON e.dept_id = d.dept_id;
 
+-- Indexes
+-- ---------------------------------------------
+-- 1. Basic B-tree index on employee names
+-- Purpose: Speeds up searches on employee names
+-- Use Case: Quick employee lookups by name
+-- Type: Non-unique B-tree index
+CREATE INDEX idx_emp_name ON employees(name);
+
+-- 2. Unique index on employee email
+-- Purpose: Ensures email uniqueness and speeds up email lookups
+-- Use Case: Email validation and user authentication
+-- Type: Unique B-tree index
+-- Note: Also acts as a constraint preventing duplicate emails
+CREATE UNIQUE INDEX idx_emp_email ON employees(email);
+
+-- Constraints
+-- ---------------------------------------------
+-- 1. Foreign Key Constraint
+-- Purpose: Ensures referential integrity between employees and departments
