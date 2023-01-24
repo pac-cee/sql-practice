@@ -74,3 +74,22 @@ SELECT name, salary FROM employees;
 SELECT * FROM employees 
 WHERE salary > 50000 
 AND department = 'IT';
+
+-- Sorting
+SELECT * FROM employees 
+ORDER BY salary DESC, name ASC;
+
+-- Aggregation
+SELECT 
+    department,
+    COUNT(*) as emp_count,
+    AVG(salary) as avg_salary,
+    MAX(salary) as max_salary
+FROM employees
+GROUP BY department
+HAVING COUNT(*) > 5;
+
+-- Joins
+SELECT e.name, d.dept_name
+FROM employees e
+INNER JOIN departments d ON e.dept_id = d.dept_id;
