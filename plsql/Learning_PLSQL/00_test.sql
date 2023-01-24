@@ -93,3 +93,22 @@ HAVING COUNT(*) > 5;
 SELECT e.name, d.dept_name
 FROM employees e
 INNER JOIN departments d ON e.dept_id = d.dept_id;
+
+LEFT JOIN departments d ON e.dept_id = d.dept_id;
+RIGHT JOIN departments d ON e.dept_id = d.dept_id;
+FULL OUTER JOIN departments d ON e.dept_id = d.dept_id;
+
+-- Subqueries
+SELECT * FROM employees 
+WHERE salary > (SELECT AVG(salary) FROM employees);
+
+-- 4. DCL (Data Control Language)
+-- Grant permissions
+GRANT SELECT, INSERT ON employees TO user1;
+GRANT ALL PRIVILEGES ON employees TO user2;
+
+-- Revoke permissions
+REVOKE SELECT ON employees FROM user1;
+REVOKE ALL PRIVILEGES ON employees FROM user2;
+
+-- Create/alter roles
