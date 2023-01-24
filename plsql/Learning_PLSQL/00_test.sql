@@ -188,3 +188,22 @@ ALTER TABLE employees ADD CONSTRAINT chk_salary
 
 
 CREATE OR REPLACE PACKAGE emp_mgmt_pkg IS
+  -- Public constants
+  c_min_salary CONSTANT NUMBER := 30000;
+  c_max_salary CONSTANT NUMBER := 150000;
+  
+  -- Public types
+  TYPE emp_record_type IS RECORD (
+    emp_id    employees.emp_id%TYPE,
+    full_name employees.full_name%TYPE,
+    salary    employees.salary%TYPE
+  );
+  
+  -- Collection types
+  TYPE emp_table_type IS TABLE OF emp_record_type INDEX BY PLS_INTEGER;
+  
+  -- Function declarations
+  FUNCTION get_employee_salary(p_emp_id IN NUMBER) RETURN NUMBER;
+  FUNCTION calculate_bonus(p_salary IN NUMBER, p_years_service IN NUMBER) RETURN NUMBER;
+  
+  -- Procedure declarations
