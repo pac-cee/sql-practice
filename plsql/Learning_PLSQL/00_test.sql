@@ -169,3 +169,22 @@ CREATE UNIQUE INDEX idx_emp_email ON employees(email);
 -- ---------------------------------------------
 -- 1. Foreign Key Constraint
 -- Purpose: Ensures referential integrity between employees and departments
+-- Behavior: 
+--   - Prevents adding employees with invalid department IDs
+--   - Prevents deleting departments that have employees (by default)
+ALTER TABLE employees ADD CONSTRAINT fk_dept 
+    FOREIGN KEY (dept_id) 
+    REFERENCES departments(dept_id);
+
+-- 2. Check Constraint
+-- Purpose: Enforces business rule for valid salary values
+-- Behavior: 
+--   - Prevents negative salary values
+--   - Validates both INSERT and UPDATE operations
+-- Note: Basic data validation to maintain data integrity
+ALTER TABLE employees ADD CONSTRAINT chk_salary 
+    CHECK (salary > 0);
+
+
+
+CREATE OR REPLACE PACKAGE emp_mgmt_pkg IS
