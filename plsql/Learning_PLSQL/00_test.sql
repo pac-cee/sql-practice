@@ -207,3 +207,22 @@ CREATE OR REPLACE PACKAGE emp_mgmt_pkg IS
   FUNCTION calculate_bonus(p_salary IN NUMBER, p_years_service IN NUMBER) RETURN NUMBER;
   
   -- Procedure declarations
+  PROCEDURE update_employee_salary(
+    p_emp_id IN NUMBER,
+    p_new_salary IN NUMBER,
+    p_effective_date IN DATE DEFAULT SYSDATE
+  );
+  
+  PROCEDURE bulk_update_salaries(
+    p_department_id IN NUMBER,
+    p_increase_percent IN NUMBER
+  );
+END emp_mgmt_pkg;
+/
+
+CREATE OR REPLACE PACKAGE BODY emp_mgmt_pkg IS
+  -- Private variables
+  v_last_updated_by VARCHAR2(30);
+  
+  -- Private procedures
+  PROCEDURE log_salary_change(
