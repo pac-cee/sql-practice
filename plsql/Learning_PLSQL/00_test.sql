@@ -226,3 +226,22 @@ CREATE OR REPLACE PACKAGE BODY emp_mgmt_pkg IS
   
   -- Private procedures
   PROCEDURE log_salary_change(
+    p_emp_id IN NUMBER,
+    p_old_salary IN NUMBER,
+    p_new_salary IN NUMBER
+  ) IS
+  BEGIN
+    INSERT INTO salary_change_log (
+      emp_id, old_salary, new_salary, change_date, changed_by
+    ) VALUES (
+      p_emp_id, p_old_salary, p_new_salary, SYSDATE, v_last_updated_by
+    );
+  END log_salary_change;
+
+  -- Function implementations
+  FUNCTION get_employee_salary(p_emp_id IN NUMBER) RETURN NUMBER IS
+    v_salary employees.salary%TYPE;
+  BEGIN
+    SELECT salary INTO v_salary
+    FROM employees
+    WHERE emp_id = p_emp_id;
