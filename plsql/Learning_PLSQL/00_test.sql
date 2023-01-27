@@ -245,3 +245,22 @@ CREATE OR REPLACE PACKAGE BODY emp_mgmt_pkg IS
     SELECT salary INTO v_salary
     FROM employees
     WHERE emp_id = p_emp_id;
+    
+    RETURN v_salary;
+  EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+      RAISE_APPLICATION_ERROR(-20001, 'Employee ID ' || p_emp_id || ' not found');
+  END get_employee_salary;
+
+  FUNCTION calculate_bonus(
+    p_salary IN NUMBER, 
+    p_years_service IN NUMBER
+  ) RETURN NUMBER IS
+    v_bonus_percent NUMBER;
+  BEGIN
+    v_bonus_percent := CASE
+      WHEN p_years_service < 2 THEN 0.05
+      WHEN p_years_service < 5 THEN 0.10
+      WHEN p_years_service < 10 THEN 0.15
+      ELSE 0.20
+    END;
