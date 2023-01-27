@@ -264,3 +264,22 @@ CREATE OR REPLACE PACKAGE BODY emp_mgmt_pkg IS
       WHEN p_years_service < 10 THEN 0.15
       ELSE 0.20
     END;
+    
+    RETURN ROUND(p_salary * v_bonus_percent, 2);
+  END calculate_bonus;
+
+  -- Procedure implementations
+  PROCEDURE update_employee_salary(
+    p_emp_id IN NUMBER,
+    p_new_salary IN NUMBER,
+    p_effective_date IN DATE DEFAULT SYSDATE
+  ) IS
+    v_old_salary employees.salary%TYPE;
+  BEGIN
+    -- Input validation
+    IF p_new_salary < c_min_salary OR p_new_salary > c_max_salary THEN
+      RAISE_APPLICATION_ERROR(-20002, 'Salary must be between ' || 
+        c_min_salary || ' and ' || c_max_salary);
+    END IF;
+    
+    -- Get current salary
