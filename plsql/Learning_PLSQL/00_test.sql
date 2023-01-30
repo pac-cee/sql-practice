@@ -378,3 +378,22 @@ BEGIN
   -- Build XML of changed fields for updates
   IF UPDATING THEN
     SELECT XMLELEMENT("changes",
+      CASE WHEN :NEW.salary != :OLD.salary 
+        THEN XMLELEMENT("salary", 
+          XMLELEMENT("old", :OLD.salary),
+          XMLELEMENT("new", :NEW.salary))
+      END,
+      CASE WHEN :NEW.department_id != :OLD.department_id 
+        THEN XMLELEMENT("department", 
+          XMLELEMENT("old", :OLD.department_id),
+          XMLELEMENT("new", :NEW.department_id))
+      END
+    ) INTO v_changed_fields
+    FROM dual;
+  END IF;
+
+  -- Insert audit record
+  INSERT INTO employee_audit (
+    audit_id,
+    action_type,
+    action_date,
