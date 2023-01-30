@@ -359,3 +359,22 @@ BEGIN
 END emp_mgmt_pkg;
 /
 
+----2.advanced trigger example 
+
+CREATE OR REPLACE TRIGGER trg_employee_audit
+  AFTER INSERT OR UPDATE OR DELETE ON employees
+  FOR EACH ROW
+DECLARE
+  v_action VARCHAR2(10);
+  v_changed_fields XMLTYPE;
+BEGIN
+  -- Determine action type
+  v_action := CASE
+    WHEN INSERTING THEN 'INSERT'
+    WHEN UPDATING THEN 'UPDATE'
+    WHEN DELETING THEN 'DELETE'
+  END;
+
+  -- Build XML of changed fields for updates
+  IF UPDATING THEN
+    SELECT XMLELEMENT("changes",
