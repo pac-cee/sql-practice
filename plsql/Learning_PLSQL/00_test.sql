@@ -340,3 +340,22 @@ CREATE OR REPLACE PACKAGE BODY emp_mgmt_pkg IS
     
     -- Process remaining records
     IF v_count > 0 THEN
+      FORALL i IN 1..v_count
+        UPDATE employees
+        SET salary = v_updates(i).salary
+        WHERE emp_id = v_updates(i).emp_id;
+    END IF;
+    
+    COMMIT;
+  EXCEPTION
+    WHEN OTHERS THEN
+      ROLLBACK;
+      RAISE;
+  END bulk_update_salaries;
+
+BEGIN
+  -- Package initialization
+  v_last_updated_by := SYS_CONTEXT('USERENV', 'SESSION_USER');
+END emp_mgmt_pkg;
+/
+
