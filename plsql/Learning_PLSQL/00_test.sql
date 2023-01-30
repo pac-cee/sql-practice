@@ -321,3 +321,22 @@ CREATE OR REPLACE PACKAGE BODY emp_mgmt_pkg IS
       RAISE_APPLICATION_ERROR(-20003, 'Increase percentage must be between 0 and 25');
     END IF;
     
+    -- Bulk collect and process
+    FOR emp_rec IN c_emp_salaries LOOP
+      v_count := v_count + 1;
+      v_updates(v_count).emp_id := emp_rec.emp_id;
+      v_updates(v_count).salary := emp_rec.salary * (1 + p_increase_percent/100);
+      
+      -- Update in batches of 100
+      IF v_count = 100 THEN
+        FORALL i IN 1..v_count
+          UPDATE employees
+          SET salary = v_updates(i).salary
+          WHERE emp_id = v_updates(i).emp_id;
+        
+        v_count := 0;
+      END IF;
+    END LOOP;
+    
+    -- Process remaining records
+    IF v_count > 0 THEN
