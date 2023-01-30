@@ -397,3 +397,22 @@ BEGIN
     audit_id,
     action_type,
     action_date,
+    emp_id,
+    changed_by,
+    changed_fields
+  ) VALUES (
+    audit_seq.NEXTVAL,
+    v_action,
+    SYSTIMESTAMP,
+    :NEW.emp_id,
+    SYS_CONTEXT('USERENV', 'SESSION_USER'),
+    v_changed_fields
+  );
+END;
+/
+
+-- 3. Advanced PL/SQL fucntion with custom types and exception handling 
+-- Create custom types
+CREATE TYPE address_type AS OBJECT (
+  street VARCHAR2(100),
+  city VARCHAR2(50),
