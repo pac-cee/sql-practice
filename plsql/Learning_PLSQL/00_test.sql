@@ -302,3 +302,22 @@ CREATE OR REPLACE PACKAGE BODY emp_mgmt_pkg IS
   END update_employee_salary;
 
   PROCEDURE bulk_update_salaries(
+    p_department_id IN NUMBER,
+    p_increase_percent IN NUMBER
+  ) IS
+    -- Declare cursor
+    CURSOR c_emp_salaries IS
+      SELECT emp_id, salary
+      FROM employees
+      WHERE department_id = p_department_id
+      FOR UPDATE OF salary;
+    
+    -- Collection to store updates
+    v_updates emp_table_type;
+    v_count PLS_INTEGER := 0;
+  BEGIN
+    -- Validate input
+    IF p_increase_percent < 0 OR p_increase_percent > 25 THEN
+      RAISE_APPLICATION_ERROR(-20003, 'Increase percentage must be between 0 and 25');
+    END IF;
+    
