@@ -283,3 +283,22 @@ CREATE OR REPLACE PACKAGE BODY emp_mgmt_pkg IS
     END IF;
     
     -- Get current salary
+    v_old_salary := get_employee_salary(p_emp_id);
+    
+    -- Update salary
+    UPDATE employees
+    SET salary = p_new_salary,
+        last_updated_date = p_effective_date
+    WHERE emp_id = p_emp_id;
+    
+    -- Log the change
+    log_salary_change(p_emp_id, v_old_salary, p_new_salary);
+    
+    COMMIT;
+  EXCEPTION
+    WHEN OTHERS THEN
+      ROLLBACK;
+      RAISE;
+  END update_employee_salary;
+
+  PROCEDURE bulk_update_salaries(
