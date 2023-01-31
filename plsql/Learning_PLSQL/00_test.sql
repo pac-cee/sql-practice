@@ -416,3 +416,22 @@ END;
 CREATE TYPE address_type AS OBJECT (
   street VARCHAR2(100),
   city VARCHAR2(50),
+  state VARCHAR2(2),
+  zip VARCHAR2(10)
+);
+/
+
+CREATE TYPE employee_details_type AS OBJECT (
+  emp_id NUMBER,
+  full_name VARCHAR2(100),
+  address address_type,
+  department VARCHAR2(50),
+  salary NUMBER,
+  hire_date DATE
+);
+/
+
+-- Create table of type
+CREATE TYPE employee_details_table AS TABLE OF employee_details_type;
+/
+
