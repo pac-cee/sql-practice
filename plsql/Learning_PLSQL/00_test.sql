@@ -435,3 +435,22 @@ CREATE TYPE employee_details_type AS OBJECT (
 CREATE TYPE employee_details_table AS TABLE OF employee_details_type;
 /
 
+-- Create function that returns complex data
+CREATE OR REPLACE FUNCTION get_department_employees(
+  p_dept_id IN NUMBER,
+  p_include_inactive IN BOOLEAN DEFAULT FALSE
+) RETURN employee_details_table 
+  PIPELINED
+  AUTHID CURRENT_USER
+IS
+  v_address address_type;
+  v_employee employee_details_type;
+  
+  -- Custom exception
+  e_invalid_department EXCEPTION;
+  PRAGMA EXCEPTION_INIT(e_invalid_department, -20100);
+BEGIN
+  -- Validate department
+  IF NOT department_exists(p_dept_id) THEN
+    RAISE e_invalid_department;
+  END IF;
