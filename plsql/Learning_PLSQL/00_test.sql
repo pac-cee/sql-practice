@@ -454,3 +454,22 @@ BEGIN
   IF NOT department_exists(p_dept_id) THEN
     RAISE e_invalid_department;
   END IF;
+
+  -- Cursor for employee processing
+  FOR emp_rec IN (
+    SELECT e.emp_id, e.full_name, e.salary, e.hire_date,
+           e.street_address, e.city, e.state, e.zip_code,
+           d.department_name
+    FROM employees e
+    JOIN departments d ON e.department_id = d.department_id
+    WHERE e.department_id = p_dept_id
+    AND (p_include_inactive = TRUE OR e.active_flag = 'Y')
+  ) LOOP
+    -- Create address object
+    v_address := address_type(
+      emp_rec.street_address,
+      emp_rec.city,
+      emp_rec.state,
+      emp_rec.zip_code
+    );
+    
