@@ -492,3 +492,22 @@ EXCEPTION
   WHEN e_invalid_department THEN
     RAISE_APPLICATION_ERROR(-20100, 'Invalid department ID: ' || p_dept_id);
   WHEN OTHERS THEN
+    -- Log error
+    log_error(SQLCODE, SQLERRM, 'get_department_employees');
+    RAISE;
+END get_department_employees;
+/
+
+
+--usage of example
+-- Using the package
+BEGIN
+  -- Update single employee salary
+  emp_mgmt_pkg.update_employee_salary(
+    p_emp_id => 1001,
+    p_new_salary => 75000
+  );
+  
+  -- Bulk update department salaries
+  emp_mgmt_pkg.bulk_update_salaries(
+    p_department_id => 50,
