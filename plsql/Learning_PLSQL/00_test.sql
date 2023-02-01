@@ -530,3 +530,22 @@ FETCH FIRST 10 ROWS ONLY;
 
 
 /*
+Let's dive into advanced PL/SQL concepts with practical examples. I'll cover exception handling, functions, procedures, packages, and best practices.
+
+### 1. Advanced Exception Handling
+
+#### a. User-Defined Exceptions
+```plsql
+DECLARE
+  negative_salary EXCEPTION;
+  PRAGMA EXCEPTION_INIT(negative_salary, -20001);
+  v_salary NUMBER := -5000;
+BEGIN
+  IF v_salary < 0 THEN
+    RAISE_APPLICATION_ERROR(-20001, 'Salary cannot be negative');
+  END IF;
+EXCEPTION
+  WHEN negative_salary THEN
+    DBMS_OUTPUT.PUT_LINE('Error: ' || SQLERRM);
+    ROLLBACK;
+END;
