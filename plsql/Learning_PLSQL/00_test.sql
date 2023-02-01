@@ -549,3 +549,22 @@ EXCEPTION
     DBMS_OUTPUT.PUT_LINE('Error: ' || SQLERRM);
     ROLLBACK;
 END;
+/
+```
+
+#### b. Bulk Operation Exceptions (FORALL SAVE EXCEPTIONS)
+```plsql
+DECLARE
+  TYPE emp_table IS TABLE OF employees%ROWTYPE;
+  v_emps emp_table;
+  
+  ex_dml_errors EXCEPTION;
+  PRAGMA EXCEPTION_INIT(ex_dml_errors, -24381);
+BEGIN
+  SELECT * BULK COLLECT INTO v_emps FROM employees;
+  
+  -- Intentionally create duplicate ID error
+  FORALL i IN 1..v_emps.COUNT SAVE EXCEPTIONS
+    INSERT INTO employees VALUES v_emps(i);
+  
+EXCEPTION
