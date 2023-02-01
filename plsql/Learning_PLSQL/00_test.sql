@@ -511,3 +511,22 @@ BEGIN
   -- Bulk update department salaries
   emp_mgmt_pkg.bulk_update_salaries(
     p_department_id => 50,
+    p_increase_percent => 5
+  );
+END;
+/
+
+-- Using the complex function
+SELECT e.emp_id, e.full_name, 
+       e.address.city as city,
+       e.department,
+       e.salary
+FROM TABLE(get_department_employees(50, TRUE)) e
+WHERE e.salary > 50000
+ORDER BY e.salary DESC
+FETCH FIRST 10 ROWS ONLY;
+/
+
+
+
+/*
