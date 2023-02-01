@@ -473,3 +473,22 @@ BEGIN
       emp_rec.zip_code
     );
     
+    -- Create employee details object
+    v_employee := employee_details_type(
+      emp_rec.emp_id,
+      emp_rec.full_name,
+      v_address,
+      emp_rec.department_name,
+      emp_rec.salary,
+      emp_rec.hire_date
+    );
+    
+    -- Pipeline the result
+    PIPE ROW(v_employee);
+  END LOOP;
+  
+  RETURN;
+EXCEPTION
+  WHEN e_invalid_department THEN
+    RAISE_APPLICATION_ERROR(-20100, 'Invalid department ID: ' || p_dept_id);
+  WHEN OTHERS THEN
