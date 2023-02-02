@@ -568,3 +568,22 @@ BEGIN
     INSERT INTO employees VALUES v_emps(i);
   
 EXCEPTION
+  WHEN ex_dml_errors THEN
+    DBMS_OUTPUT.PUT_LINE('Number of errors: ' || SQL%BULK_EXCEPTIONS.COUNT);
+    FOR j IN 1..SQL%BULK_EXCEPTIONS.COUNT LOOP
+      DBMS_OUTPUT.PUT_LINE('Error ' || j || ': Index ' 
+        || SQL%BULK_EXCEPTIONS(j).ERROR_INDEX || ' - Code ' 
+        || SQL%BULK_EXCEPTIONS(j).ERROR_CODE);
+    END LOOP;
+END;
+/
+```
+
+### 2. Advanced Functions
+
+#### a. Deterministic Function
+```plsql
+CREATE OR REPLACE FUNCTION calculate_tax(
+  p_salary NUMBER
+) RETURN NUMBER DETERMINISTIC
+IS
