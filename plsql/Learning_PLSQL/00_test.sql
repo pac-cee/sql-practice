@@ -606,3 +606,22 @@ IS
   v_dept_name departments.department_name%TYPE;
 BEGIN
   SELECT department_name INTO v_dept_name
+  FROM departments
+  WHERE department_id = p_dept_id;
+  
+  RETURN v_dept_name;
+END;
+/
+```
+
+### 3. Advanced Procedures
+
+#### a. Transaction Control
+```plsql
+CREATE OR REPLACE PROCEDURE update_salary(
+  p_emp_id IN NUMBER,
+  p_new_salary IN NUMBER
+)
+IS
+BEGIN
+  UPDATE employees
