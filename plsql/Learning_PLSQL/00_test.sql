@@ -625,3 +625,22 @@ CREATE OR REPLACE PROCEDURE update_salary(
 IS
 BEGIN
   UPDATE employees
+  SET salary = p_new_salary
+  WHERE employee_id = p_emp_id;
+  
+  -- Explicit commit
+  COMMIT;
+EXCEPTION
+  WHEN OTHERS THEN
+    ROLLBACK;
+    RAISE;
+END;
+/
+```
+
+#### b. Autonomous Transaction (For Logging)
+```plsql
+CREATE OR REPLACE PROCEDURE log_error(
+  p_error_message VARCHAR2
+) 
+IS
