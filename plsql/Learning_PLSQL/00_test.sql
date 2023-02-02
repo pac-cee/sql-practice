@@ -587,3 +587,22 @@ CREATE OR REPLACE FUNCTION calculate_tax(
   p_salary NUMBER
 ) RETURN NUMBER DETERMINISTIC
 IS
+BEGIN
+  RETURN p_salary * 0.2; -- 20% tax
+END;
+/
+
+-- Usage in SQL
+SELECT employee_id, calculate_tax(salary) AS tax
+FROM employees;
+```
+
+#### b. Result-Cached Function
+```plsql
+CREATE OR REPLACE FUNCTION get_department_name(
+  p_dept_id NUMBER
+) RETURN VARCHAR2 RESULT_CACHE
+IS
+  v_dept_name departments.department_name%TYPE;
+BEGIN
+  SELECT department_name INTO v_dept_name
