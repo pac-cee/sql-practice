@@ -663,3 +663,22 @@ EXCEPTION
     log_error(SQLERRM);
     RAISE;
 END;
+/
+```
+
+### 4. Packages
+
+#### a. Package Specification
+```plsql
+CREATE OR REPLACE PACKAGE emp_pkg AS
+  -- Global constant
+  g_max_salary CONSTANT NUMBER := 100000;
+  
+  -- Function declaration
+  FUNCTION get_employee_name(p_emp_id NUMBER) RETURN VARCHAR2;
+  
+  -- Procedure declaration
+  PROCEDURE update_salary(p_emp_id NUMBER, p_new_salary NUMBER);
+END emp_pkg;
+/
+```
