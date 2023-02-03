@@ -644,3 +644,22 @@ CREATE OR REPLACE PROCEDURE log_error(
   p_error_message VARCHAR2
 ) 
 IS
+  PRAGMA AUTONOMOUS_TRANSACTION;
+BEGIN
+  INSERT INTO error_log (error_date, error_message)
+  VALUES (SYSDATE, p_error_message);
+  
+  COMMIT;
+END;
+/
+
+-- Usage in main procedure
+CREATE OR REPLACE PROCEDURE process_order IS
+BEGIN
+  -- Business logic here
+  ...
+EXCEPTION
+  WHEN OTHERS THEN
+    log_error(SQLERRM);
+    RAISE;
+END;
