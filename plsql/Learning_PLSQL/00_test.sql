@@ -739,3 +739,22 @@ END emp_pkg;
    PROCEDURE process_data(
      p_input IN CLOB,
      p_output OUT NOCOPY CLOB
+   )
+   ```
+
+3. **Performance**:
+   - Use bulk operations (BULK COLLECT, FORALL) for batch processing
+   - Use result-cached functions for frequently called, static data
+   - Avoid context switching between SQL and PL/SQL engines
+
+4. **Security**:
+   - Use invoker's rights (`AUTHID CURRENT_USER`) when appropriate
+   - Sanitize inputs to prevent SQL injection
+   - Encrypt sensitive data in packages
+
+### 6. Advanced Exception Propagation
+
+```plsql
+CREATE OR REPLACE PROCEDURE outer_proc IS
+  e_custom_error EXCEPTION;
+  
