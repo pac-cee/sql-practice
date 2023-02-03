@@ -720,3 +720,22 @@ CREATE OR REPLACE PACKAGE BODY emp_pkg AS
     
     COMMIT;
   END;
+END emp_pkg;
+/
+```
+
+### 5. Best Practices
+
+1. **Error Handling**:
+   - Always handle `NO_DATA_FOUND` and `TOO_MANY_ROWS` exceptions
+   - Use `RAISE_APPLICATION_ERROR` for business rule violations
+   - Log errors before re-raising them
+
+2. **Parameter Modes**:
+   - Use `IN` parameters for input-only values
+   - Use `OUT` parameters sparingly - prefer function returns
+   - Use `NOCOPY` hint for large `OUT` parameters
+   ```plsql
+   PROCEDURE process_data(
+     p_input IN CLOB,
+     p_output OUT NOCOPY CLOB
