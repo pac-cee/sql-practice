@@ -682,3 +682,22 @@ CREATE OR REPLACE PACKAGE emp_pkg AS
 END emp_pkg;
 /
 ```
+
+#### b. Package Body
+```plsql
+CREATE OR REPLACE PACKAGE BODY emp_pkg AS
+  -- Private variable
+  v_audit_enabled BOOLEAN := TRUE;
+  
+  FUNCTION get_employee_name(p_emp_id NUMBER) RETURN VARCHAR2 IS
+    v_full_name VARCHAR2(100);
+  BEGIN
+    SELECT first_name || ' ' || last_name
+    INTO v_full_name
+    FROM employees
+    WHERE employee_id = p_emp_id;
+    
+    RETURN v_full_name;
+  EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+      RETURN NULL;
