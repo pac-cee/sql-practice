@@ -777,3 +777,10 @@ END;
 This structure demonstrates how exceptions bubble up through nested procedures until handled or reach the calling environment.
 
 Practice these concepts by:
+1. Creating a package for employee management
+2. Implementing complex business rules with error logging
+3. Using bulk operations for data migration tasks
+4. Creating result-cached functions for frequently accessed reference data
+
+Remember to always test your code with both expected and unexpected input values, and consider edge cases in your exception handling.
+*/
