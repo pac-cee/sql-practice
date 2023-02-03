@@ -758,3 +758,22 @@ END emp_pkg;
 CREATE OR REPLACE PROCEDURE outer_proc IS
   e_custom_error EXCEPTION;
   
+  PROCEDURE inner_proc IS
+  BEGIN
+    RAISE e_custom_error;
+  END;
+  
+BEGIN
+  inner_proc;
+EXCEPTION
+  WHEN e_custom_error THEN
+    DBMS_OUTPUT.PUT_LINE('Custom error handled at outer level');
+    log_error('Custom error occurred');
+    RAISE;  -- Re-raise to calling environment
+END;
+/
+```
+
+This structure demonstrates how exceptions bubble up through nested procedures until handled or reach the calling environment.
+
+Practice these concepts by:
