@@ -701,3 +701,22 @@ CREATE OR REPLACE PACKAGE BODY emp_pkg AS
   EXCEPTION
     WHEN NO_DATA_FOUND THEN
       RETURN NULL;
+  END;
+  
+  PROCEDURE update_salary(p_emp_id NUMBER, p_new_salary NUMBER) IS
+  BEGIN
+    IF p_new_salary > g_max_salary THEN
+      RAISE_APPLICATION_ERROR(-20002, 'Salary exceeds maximum allowed');
+    END IF;
+    
+    UPDATE employees
+    SET salary = p_new_salary
+    WHERE employee_id = p_emp_id;
+    
+    IF v_audit_enabled THEN
+      INSERT INTO salary_audit 
+      VALUES (p_emp_id, p_new_salary, SYSDATE, USER);
+    END IF;
+    
+    COMMIT;
+  END;
