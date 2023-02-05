@@ -55,3 +55,22 @@ BEGIN
 END;
 /
 
+-- 4. Conditional Statements
+DECLARE
+    v_number NUMBER := 42;
+BEGIN
+    -- IF-THEN-ELSIF-ELSE
+    IF v_number < 0 THEN
+        DBMS_OUTPUT.PUT_LINE('Number is negative');
+    ELSIF v_number = 0 THEN
+        DBMS_OUTPUT.PUT_LINE('Number is zero');
+    ELSE
+        DBMS_OUTPUT.PUT_LINE('Number is positive');
+    END IF;
+    
+    -- CASE statement
+    CASE
+        WHEN v_number < 0 THEN
+            DBMS_OUTPUT.PUT_LINE('Negative');
+        WHEN v_number = 0 THEN
+            DBMS_OUTPUT.PUT_LINE('Zero');
