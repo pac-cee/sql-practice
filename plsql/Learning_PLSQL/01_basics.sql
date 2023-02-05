@@ -93,3 +93,22 @@ BEGIN
     
     -- While loop
     v_counter := 1;
+    WHILE v_counter <= 3 LOOP
+        DBMS_OUTPUT.PUT_LINE('While loop iteration: ' || v_counter);
+        v_counter := v_counter + 1;
+    END LOOP;
+    
+    -- For loop
+    FOR i IN 1..3 LOOP
+        DBMS_OUTPUT.PUT_LINE('For loop iteration: ' || i);
+    END LOOP;
+END;
+/
+
+-- Enable DBMS_OUTPUT before running these examples
+SET SERVEROUTPUT ON;
+
+CREATE OR REPLACE PROCEDURE Calculate_loan_interest(
+    p_principal IN NUMBER ,
+    p_interest IN NUMBER ,
+    p_loan IN NUMBER ,
