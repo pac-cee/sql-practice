@@ -74,3 +74,22 @@ BEGIN
             DBMS_OUTPUT.PUT_LINE('Negative');
         WHEN v_number = 0 THEN
             DBMS_OUTPUT.PUT_LINE('Zero');
+        ELSE
+            DBMS_OUTPUT.PUT_LINE('Positive');
+    END CASE;
+END;
+/
+
+-- 5. Loops
+DECLARE
+    v_counter NUMBER := 1;
+BEGIN
+    -- Basic loop
+    LOOP
+        DBMS_OUTPUT.PUT_LINE('Basic loop iteration: ' || v_counter);
+        v_counter := v_counter + 1;
+        EXIT WHEN v_counter > 3;
+    END LOOP;
+    
+    -- While loop
+    v_counter := 1;
