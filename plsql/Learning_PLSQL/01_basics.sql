@@ -36,3 +36,22 @@ BEGIN
     DBMS_OUTPUT.PUT_LINE('Number: ' || v_number);
     DBMS_OUTPUT.PUT_LINE('Integer: ' || v_integer);
     DBMS_OUTPUT.PUT_LINE('Text: ' || v_text);
+    DBMS_OUTPUT.PUT_LINE('Date: ' || TO_CHAR(v_date, 'DD-MON-YYYY HH24:MI:SS'));
+    -- Note: Cannot directly print boolean values
+    IF v_boolean THEN
+        DBMS_OUTPUT.PUT_LINE('Boolean is TRUE');
+    END IF;
+END;
+/
+
+-- 3. Constants
+DECLARE
+    -- Constants must be initialized when declared
+    c_pi CONSTANT NUMBER := 3.14159;
+    c_max_length CONSTANT PLS_INTEGER := 100;
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('Pi value: ' || c_pi);
+    DBMS_OUTPUT.PUT_LINE('Max length: ' || c_max_length);
+END;
+/
+
