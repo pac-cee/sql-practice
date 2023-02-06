@@ -17,3 +17,22 @@ CREATE OR REPLACE PROCEDURE add_employee(
     p_email      IN VARCHAR2,
     p_salary     IN NUMBER
 ) IS
+    v_employee_id NUMBER;
+BEGIN
+    -- Get next employee ID
+    SELECT NVL(MAX(employee_id), 0) + 1
+    INTO v_employee_id
+    FROM employees;
+    
+    -- Insert new employee
+    INSERT INTO employees (
+        employee_id, first_name, last_name, 
+        email, hire_date, salary
+    ) VALUES (
+        v_employee_id, p_first_name, p_last_name,
+        p_email, SYSDATE, p_salary
+    );
+    
+    COMMIT;
+    DBMS_OUTPUT.PUT_LINE('Employee added successfully. ID: ' || v_employee_id);
+EXCEPTION
