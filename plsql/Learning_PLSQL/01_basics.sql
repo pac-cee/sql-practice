@@ -112,3 +112,22 @@ CREATE OR REPLACE PROCEDURE Calculate_loan_interest(
     p_principal IN NUMBER ,
     p_interest IN NUMBER ,
     p_loan IN NUMBER ,
+    P_Calculated_interest  IN OUT NUMBER
+) AS 
+V_REDUCTION CONSTANT NUMBER := 0.002;
+BEGIN 
+    IF p_principal <= 0 THEN 
+        RAISE_APPLICATION_ERROR(-20001, 'The principal must be greater than zero');
+    END IF;
+
+    P_Calculated_interest := p_principal * p_interest * p_loan * V_REDUCTION;
+    DBMS_OUTPUT.PUT_LINE('THE CALCULATED INTEREST IS :' || P_Calculated_interest);  
+EXCEPTION
+    WHEN OTHERS THEN 
+    DBMS_OUTPUT.PUT_LINE('ERROR ');
+    WHEN ZERO_DIVIDE THEN 
+        DBMS_OUTPUT.PUT_LINE('Division by zero error');
+END Calculate_loan_interest;
+
+
+/
