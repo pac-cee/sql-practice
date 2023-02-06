@@ -131,3 +131,22 @@ END Calculate_loan_interest;
 
 
 /
+BEGIN
+        Calculate_loan_interest(1000000, 0.05, 2);
+        
+        -- You may want to add handling or further actions here after calculating the interest
+        DBMS_OUTPUT.PUT_LINE('Interest calculation complete.');
+END;
+
+CREATE OR REPLACE PROCEDURE REDUCED_FEES(
+    p_payment_date IN DATE DEFAULT SYSDATE,
+    p_due_date IN DATE DEFAULT SYSDATE,
+    p_total_fees IN NUMBER,
+    p_reduced_fee OUT NUMBER
+)IS
+BEGIN 
+    v_rate_reduction:=0.002;
+    v_temp;
+    IF p_total_fees <0 THEN 
+    RAISE_APPLICATION_ERROR('ERROR');
+    END IF;  -- Added missing END IF for p_total_fees check
