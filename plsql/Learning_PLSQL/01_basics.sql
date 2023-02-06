@@ -150,3 +150,18 @@ BEGIN
     IF p_total_fees <0 THEN 
     RAISE_APPLICATION_ERROR('ERROR');
     END IF;  -- Added missing END IF for p_total_fees check
+    IF p_payment_date IS NULL AND p_payment_date != SYSDATE THEN 
+    RAISE_APPLICATION_ERROR('ERROR');  -- Added missing error message
+    END IF;  -- Added missing END IF for p_payment_date check
+    
+     IF p_payment_date < p_due_date THEN 
+        v_temp := v_rate_reduction * p_total_fees;
+        p_reduced_fee := p_total_fees - v_temp;
+    ELSE
+        p_reduced_fee := p_total_fees;
+    END IF; 
+    DBMS_OUTPUT.PUT_LINE('THE FEES AMOUNT TO BE PAID IS :' || p_reduced_fee);
+EXCEPTION
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('ERROR');
+END REDUCED_FEES;  -- Added missing END for the procedure
