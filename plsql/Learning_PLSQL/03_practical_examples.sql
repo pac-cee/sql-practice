@@ -36,3 +36,22 @@ BEGIN
     COMMIT;
     DBMS_OUTPUT.PUT_LINE('Employee added successfully. ID: ' || v_employee_id);
 EXCEPTION
+    WHEN OTHERS THEN
+        ROLLBACK;
+        DBMS_OUTPUT.PUT_LINE('Error adding employee: ' || SQLERRM);
+END;
+/
+
+-- 3. Function to calculate annual salary with bonus
+CREATE OR REPLACE FUNCTION calculate_annual_salary(
+    p_employee_id IN NUMBER,
+    p_bonus_percent IN NUMBER DEFAULT 10
+) RETURN NUMBER IS
+    v_annual_salary NUMBER;
+    v_monthly_salary NUMBER;
+BEGIN
+    -- Get employee's monthly salary
+    SELECT salary
+    INTO v_monthly_salary
+    FROM employees
+    WHERE employee_id = p_employee_id;
