@@ -74,3 +74,22 @@ CREATE OR REPLACE PROCEDURE give_salary_raise(
     p_raise_percent IN NUMBER
 ) IS
     v_employees_updated NUMBER := 0;
+BEGIN
+    -- Update salaries
+    UPDATE employees
+    SET salary = salary * (1 + p_raise_percent/100)
+    WHERE salary <= p_min_salary;
+    
+    v_employees_updated := SQL%ROWCOUNT;
+    
+    COMMIT;
+    DBMS_OUTPUT.PUT_LINE(v_employees_updated || ' employees received a raise.');
+EXCEPTION
+    WHEN OTHERS THEN
+        ROLLBACK;
+        DBMS_OUTPUT.PUT_LINE('Error giving raises: ' || SQLERRM);
+END;
+/
+
+-- 5. Example usage of the above objects
+BEGIN
