@@ -55,3 +55,22 @@ BEGIN
     INTO v_monthly_salary
     FROM employees
     WHERE employee_id = p_employee_id;
+    
+    -- Calculate annual salary with bonus
+    v_annual_salary := (v_monthly_salary * 12) * (1 + p_bonus_percent/100);
+    
+    RETURN v_annual_salary;
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        RETURN NULL;
+    WHEN OTHERS THEN
+        RETURN NULL;
+END;
+/
+
+-- 4. Procedure to give salary raises
+CREATE OR REPLACE PROCEDURE give_salary_raise(
+    p_min_salary IN NUMBER,
+    p_raise_percent IN NUMBER
+) IS
+    v_employees_updated NUMBER := 0;
