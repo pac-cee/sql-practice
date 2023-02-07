@@ -93,3 +93,22 @@ END;
 
 -- 5. Example usage of the above objects
 BEGIN
+    -- Add some employees
+    add_employee('John', 'Doe', 'john.doe@email.com', 5000);
+    add_employee('Jane', 'Smith', 'jane.smith@email.com', 6000);
+    add_employee('Bob', 'Johnson', 'bob.johnson@email.com', 4500);
+    
+    -- Calculate and display annual salary for an employee
+    DBMS_OUTPUT.PUT_LINE('Annual salary with bonus: ' || 
+        calculate_annual_salary(1, 15));
+    
+    -- Give raises to employees earning less than 5000
+    give_salary_raise(5000, 10);
+    
+    -- Display all employees
+    FOR emp IN (SELECT * FROM employees ORDER BY employee_id) LOOP
+        DBMS_OUTPUT.PUT_LINE(
+            'Employee: ' || emp.first_name || ' ' || emp.last_name || 
+            ', Salary: ' || emp.salary
+        );
+    END LOOP;
