@@ -112,3 +112,22 @@ BEGIN
             ', Salary: ' || emp.salary
         );
     END LOOP;
+END;
+/
+
+-- 6. Trigger example - Audit employee salary changes
+CREATE TABLE salary_audit_log (
+    audit_id     NUMBER PRIMARY KEY,
+    employee_id  NUMBER,
+    old_salary   NUMBER,
+    new_salary   NUMBER,
+    change_date  DATE,
+    changed_by   VARCHAR2(30)
+);
+
+CREATE SEQUENCE salary_audit_seq;
+
+CREATE OR REPLACE TRIGGER trg_audit_salary_change
+AFTER UPDATE OF salary ON employees
+FOR EACH ROW
+BEGIN
