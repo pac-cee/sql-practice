@@ -188,3 +188,22 @@ CREATE OR REPLACE PACKAGE BODY emp_mgmt IS
         INTO v_details
         FROM employees
         WHERE employee_id = p_employee_id;
+        
+        RETURN v_details;
+    EXCEPTION
+        WHEN NO_DATA_FOUND THEN
+            RETURN 'Employee not found';
+    END get_employee_details;
+    
+    -- Implementation of update_salary
+    PROCEDURE update_salary(
+        p_employee_id IN NUMBER,
+        p_new_salary IN NUMBER
+    ) IS
+    BEGIN
+        UPDATE employees
+        SET salary = p_new_salary
+        WHERE employee_id = p_employee_id;
+        
+        IF SQL%ROWCOUNT = 0 THEN
+            RAISE_APPLICATION_ERROR(-20001, 'Employee not found');
