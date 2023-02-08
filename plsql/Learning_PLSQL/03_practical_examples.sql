@@ -131,3 +131,22 @@ CREATE OR REPLACE TRIGGER trg_audit_salary_change
 AFTER UPDATE OF salary ON employees
 FOR EACH ROW
 BEGIN
+    INSERT INTO salary_audit_log (
+        audit_id, employee_id, old_salary,
+        new_salary, change_date, changed_by
+    ) VALUES (
+        salary_audit_seq.NEXTVAL,
+        :OLD.employee_id,
+        :OLD.salary,
+        :NEW.salary,
+        SYSDATE,
+        USER
+    );
+END;
+/
+
+-- 7. Package for employee management
+CREATE OR REPLACE PACKAGE emp_mgmt IS
+    -- Public procedures and functions
+    PROCEDURE add_employee(
+        p_first_name IN VARCHAR2,
