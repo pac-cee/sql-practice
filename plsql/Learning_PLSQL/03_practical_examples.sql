@@ -207,3 +207,22 @@ CREATE OR REPLACE PACKAGE BODY emp_mgmt IS
         
         IF SQL%ROWCOUNT = 0 THEN
             RAISE_APPLICATION_ERROR(-20001, 'Employee not found');
+        END IF;
+        
+        COMMIT;
+    EXCEPTION
+        WHEN OTHERS THEN
+            ROLLBACK;
+            RAISE;
+    END update_salary;
+END emp_mgmt;
+/
+
+
+
+
+-- Project: Employee Management System Database Package
+-- Demonstrates comprehensive PL/SQL programming techniques
+
+-- 1. Create a package specification for employee management
+CREATE OR REPLACE PACKAGE emp_management AS
