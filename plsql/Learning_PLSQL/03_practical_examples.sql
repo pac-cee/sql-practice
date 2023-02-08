@@ -169,3 +169,22 @@ END emp_mgmt;
 CREATE OR REPLACE PACKAGE BODY emp_mgmt IS
     -- Implementation of add_employee
     PROCEDURE add_employee(
+        p_first_name IN VARCHAR2,
+        p_last_name  IN VARCHAR2,
+        p_email      IN VARCHAR2,
+        p_salary     IN NUMBER
+    ) IS
+    BEGIN
+        add_employee(p_first_name, p_last_name, p_email, p_salary);
+    END add_employee;
+    
+    -- Implementation of get_employee_details
+    FUNCTION get_employee_details(
+        p_employee_id IN NUMBER
+    ) RETURN VARCHAR2 IS
+        v_details VARCHAR2(200);
+    BEGIN
+        SELECT first_name || ' ' || last_name || ' (Salary: ' || salary || ')'
+        INTO v_details
+        FROM employees
+        WHERE employee_id = p_employee_id;
