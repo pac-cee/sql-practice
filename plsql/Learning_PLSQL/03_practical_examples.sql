@@ -226,3 +226,22 @@ END emp_mgmt;
 
 -- 1. Create a package specification for employee management
 CREATE OR REPLACE PACKAGE emp_management AS
+    -- Global constants
+    c_max_salary CONSTANT NUMBER := 1000000;
+    c_min_salary CONSTANT NUMBER := 30000;
+    
+    -- Custom exception for salary validation
+    ex_salary_out_of_range EXCEPTION;
+    
+    -- Function to calculate employee bonus
+    FUNCTION calculate_bonus(
+        p_employee_id IN NUMBER, 
+        p_performance_rating IN NUMBER
+    ) RETURN NUMBER;
+    
+    -- Procedure to update employee salary
+    PROCEDURE update_employee_salary(
+        p_employee_id IN NUMBER,
+        p_new_salary IN NUMBER
+    );
+    
