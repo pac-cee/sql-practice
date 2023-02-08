@@ -150,3 +150,22 @@ CREATE OR REPLACE PACKAGE emp_mgmt IS
     -- Public procedures and functions
     PROCEDURE add_employee(
         p_first_name IN VARCHAR2,
+        p_last_name  IN VARCHAR2,
+        p_email      IN VARCHAR2,
+        p_salary     IN NUMBER
+    );
+    
+    FUNCTION get_employee_details(
+        p_employee_id IN NUMBER
+    ) RETURN VARCHAR2;
+    
+    PROCEDURE update_salary(
+        p_employee_id IN NUMBER,
+        p_new_salary IN NUMBER
+    );
+END emp_mgmt;
+/
+
+CREATE OR REPLACE PACKAGE BODY emp_mgmt IS
+    -- Implementation of add_employee
+    PROCEDURE add_employee(
