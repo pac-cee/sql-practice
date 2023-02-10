@@ -245,3 +245,22 @@ CREATE OR REPLACE PACKAGE emp_management AS
         p_new_salary IN NUMBER
     );
     
+    -- Procedure to insert new employee
+    PROCEDURE insert_employee(
+        p_first_name IN VARCHAR2,
+        p_last_name IN VARCHAR2,
+        p_department_id IN NUMBER,
+        p_salary IN NUMBER
+    );
+    
+    -- Function to get department total salary
+    FUNCTION get_department_total_salary(
+        p_department_id IN NUMBER
+    ) RETURN NUMBER;
+END emp_management;
+/
+
+-- 2. Package Body Implementation
+CREATE OR REPLACE PACKAGE BODY emp_management AS
+    -- Bonus calculation function
+    FUNCTION calculate_bonus(
