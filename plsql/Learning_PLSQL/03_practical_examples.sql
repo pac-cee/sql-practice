@@ -302,3 +302,22 @@ CREATE OR REPLACE PACKAGE BODY emp_management AS
             RAISE ex_salary_out_of_range;
         END IF;
         
+        -- Update salary
+        UPDATE employees
+        SET salary = p_new_salary,
+            last_updated = SYSDATE
+        WHERE employee_id = p_employee_id;
+        
+        -- Log salary changes
+        INSERT INTO salary_change_log(
+            employee_id, 
+            old_salary, 
+            new_salary, 
+            change_date
+        )
+        SELECT 
+            employee_id, 
+            salary, 
+            p_new_salary, 
+            SYSDATE
+        FROM employees
