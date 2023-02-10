@@ -321,3 +321,22 @@ CREATE OR REPLACE PACKAGE BODY emp_management AS
             p_new_salary, 
             SYSDATE
         FROM employees
+        WHERE employee_id = p_employee_id;
+        
+        COMMIT;
+    EXCEPTION
+        WHEN ex_salary_out_of_range THEN
+            RAISE_APPLICATION_ERROR(-20001, 'Salary outside allowed range');
+        WHEN OTHERS THEN
+            ROLLBACK;
+            RAISE;
+    END update_employee_salary;
+    
+    -- Insert new employee procedure
+    PROCEDURE insert_employee(
+        p_first_name IN VARCHAR2,
+        p_last_name IN VARCHAR2,
+        p_department_id IN NUMBER,
+        p_salary IN NUMBER
+    ) IS
+        v_employee_id NUMBER;
