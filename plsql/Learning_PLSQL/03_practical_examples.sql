@@ -264,3 +264,22 @@ END emp_management;
 CREATE OR REPLACE PACKAGE BODY emp_management AS
     -- Bonus calculation function
     FUNCTION calculate_bonus(
+        p_employee_id IN NUMBER, 
+        p_performance_rating IN NUMBER
+    ) RETURN NUMBER IS
+        v_base_salary NUMBER;
+        v_bonus NUMBER;
+    BEGIN
+        -- Retrieve base salary
+        SELECT salary INTO v_base_salary
+        FROM employees
+        WHERE employee_id = p_employee_id;
+        
+        -- Calculate bonus based on performance
+        v_bonus := CASE 
+            WHEN p_performance_rating >= 4.5 THEN v_base_salary * 0.2
+            WHEN p_performance_rating >= 3.5 THEN v_base_salary * 0.15
+            WHEN p_performance_rating >= 2.5 THEN v_base_salary * 0.10
+            ELSE 0
+        END;
+        
