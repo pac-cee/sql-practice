@@ -283,3 +283,22 @@ CREATE OR REPLACE PACKAGE BODY emp_management AS
             ELSE 0
         END;
         
+        RETURN v_bonus;
+    EXCEPTION
+        WHEN NO_DATA_FOUND THEN
+            RETURN 0;
+        WHEN OTHERS THEN
+            RAISE;
+    END calculate_bonus;
+    
+    -- Salary update procedure with validation
+    PROCEDURE update_employee_salary(
+        p_employee_id IN NUMBER,
+        p_new_salary IN NUMBER
+    ) IS
+    BEGIN
+        -- Salary range validation
+        IF p_new_salary < c_min_salary OR p_new_salary > c_max_salary THEN
+            RAISE ex_salary_out_of_range;
+        END IF;
+        
