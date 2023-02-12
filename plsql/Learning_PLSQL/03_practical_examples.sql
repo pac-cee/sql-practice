@@ -397,3 +397,22 @@ END emp_management;
 CREATE OR REPLACE PROCEDURE process_employee_bonus IS
     -- Cursor with bulk collect for performance optimization
     CURSOR c_employee_performance IS
+    SELECT employee_id, performance_rating
+    FROM employee_performance
+    WHERE bonus_processed = 'N';
+    
+    -- Collections for bulk processing
+    TYPE t_emp_id_table IS TABLE OF NUMBER;
+    TYPE t_bonus_table IS TABLE OF NUMBER;
+    
+    l_emp_ids t_emp_id_table;
+    l_bonuses t_bonus_table;
+BEGIN
+    -- Bulk collect employee data
+    SELECT 
+        employee_id, 
+        emp_management.calculate_bonus(employee_id, performance_rating)
+    BULK COLLECT INTO l_emp_ids, l_bonuses
+    FROM employee_performance
+    WHERE bonus_processed = 'N';
+    
