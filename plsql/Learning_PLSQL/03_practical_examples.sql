@@ -359,3 +359,22 @@ CREATE OR REPLACE PACKAGE BODY emp_management AS
             hire_date
         ) VALUES (
             v_employee_id,
+            p_first_name,
+            p_last_name,
+            p_department_id,
+            p_salary,
+            SYSDATE
+        );
+        
+        COMMIT;
+    EXCEPTION
+        WHEN ex_salary_out_of_range THEN
+            RAISE_APPLICATION_ERROR(-20002, 'Salary outside allowed range');
+        WHEN OTHERS THEN
+            ROLLBACK;
+            RAISE;
+    END insert_employee;
+    
+    -- Department total salary function
+    FUNCTION get_department_total_salary(
+        p_department_id IN NUMBER
