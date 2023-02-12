@@ -378,3 +378,22 @@ CREATE OR REPLACE PACKAGE BODY emp_management AS
     -- Department total salary function
     FUNCTION get_department_total_salary(
         p_department_id IN NUMBER
+    ) RETURN NUMBER IS
+        v_total_salary NUMBER;
+    BEGIN
+        SELECT NVL(SUM(salary), 0) INTO v_total_salary
+        FROM employees
+        WHERE department_id = p_department_id;
+        
+        RETURN v_total_salary;
+    EXCEPTION
+        WHEN OTHERS THEN
+            RETURN 0;
+    END get_department_total_salary;
+END emp_management;
+/
+
+-- 3. Advanced Cursor with Bulk Collect and Forall
+CREATE OR REPLACE PROCEDURE process_employee_bonus IS
+    -- Cursor with bulk collect for performance optimization
+    CURSOR c_employee_performance IS
