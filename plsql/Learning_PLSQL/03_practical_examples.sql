@@ -511,3 +511,22 @@ END dynamic_query_executor;
 -- 3. Calculate bonus
 -- DECLARE
 --     v_bonus NUMBER;
+-- BEGIN
+--     v_bonus := emp_management.calculate_bonus(100, 4.7);
+-- END;
+
+-- 4. Execute dynamic query
+-- BEGIN
+--     dynamic_query_executor('employees', 'department_id = 10');
+-- END;
+
+
+
+
+
+-- Oracle PL/SQL Best Practices Project Template
+
+-- 1. Package Design Pattern
+CREATE OR REPLACE PACKAGE employee_management AS
+    -- Type declarations
+    TYPE employee_record IS RECORD (
