@@ -454,3 +454,22 @@ BEGIN
             WHEN UPDATING THEN 'UPDATE'
             WHEN DELETING THEN 'DELETE'
         END;
+    
+    -- Log changes to audit table
+    INSERT INTO employee_audit_log(
+        employee_id,
+        action_type,
+        old_salary,
+        new_salary,
+        action_date,
+        changed_by
+    ) VALUES (
+        COALESCE(:NEW.employee_id, :OLD.employee_id),
+        v_action,
+        :OLD.salary,
+        :NEW.salary,
+        SYSDATE,
+        USER
+    );
+END;
+/
