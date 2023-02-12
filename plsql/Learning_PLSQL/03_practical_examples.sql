@@ -340,3 +340,22 @@ CREATE OR REPLACE PACKAGE BODY emp_management AS
         p_salary IN NUMBER
     ) IS
         v_employee_id NUMBER;
+    BEGIN
+        -- Validate salary
+        IF p_salary < c_min_salary OR p_salary > c_max_salary THEN
+            RAISE ex_salary_out_of_range;
+        END IF;
+        
+        -- Get next employee ID
+        SELECT employees_seq.NEXTVAL INTO v_employee_id FROM dual;
+        
+        -- Insert new employee
+        INSERT INTO employees(
+            employee_id, 
+            first_name, 
+            last_name, 
+            department_id, 
+            salary, 
+            hire_date
+        ) VALUES (
+            v_employee_id,
