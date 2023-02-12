@@ -435,3 +435,22 @@ EXCEPTION
         ) VALUES (
             SYSDATE, 
             SQLCODE, 
+            SQLERRM
+        );
+END process_employee_bonus;
+/
+
+-- 4. Complex Trigger Example
+CREATE OR REPLACE TRIGGER trg_employee_audit
+AFTER INSERT OR UPDATE OR DELETE ON employees
+FOR EACH ROW
+DECLARE
+    v_action VARCHAR2(10);
+BEGIN
+    -- Determine the type of action
+    v_action := 
+        CASE 
+            WHEN INSERTING THEN 'INSERT'
+            WHEN UPDATING THEN 'UPDATE'
+            WHEN DELETING THEN 'DELETE'
+        END;
