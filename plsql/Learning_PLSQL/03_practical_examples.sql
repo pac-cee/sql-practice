@@ -416,3 +416,22 @@ BEGIN
     FROM employee_performance
     WHERE bonus_processed = 'N';
     
+    -- Bulk update using FORALL
+    FORALL i IN 1..l_emp_ids.COUNT
+        UPDATE employee_performance
+        SET bonus_amount = l_bonuses(i),
+            bonus_processed = 'Y'
+        WHERE employee_id = l_emp_ids(i);
+    
+    COMMIT;
+EXCEPTION
+    WHEN OTHERS THEN
+        ROLLBACK;
+        -- Log error
+        INSERT INTO error_log(
+            error_date, 
+            error_code, 
+            error_message
+        ) VALUES (
+            SYSDATE, 
+            SQLCODE, 
