@@ -473,3 +473,22 @@ BEGIN
     );
 END;
 /
+
+-- 5. Dynamic SQL Procedure
+CREATE OR REPLACE PROCEDURE dynamic_query_executor(
+    p_table_name IN VARCHAR2,
+    p_where_clause IN VARCHAR2 DEFAULT NULL
+) IS
+    v_dynamic_query VARCHAR2(4000);
+    v_cursor SYS_REFCURSOR;
+BEGIN
+    -- Construct dynamic SQL
+    v_dynamic_query := 'SELECT * FROM ' || p_table_name;
+    
+    IF p_where_clause IS NOT NULL THEN
+        v_dynamic_query := v_dynamic_query || ' WHERE ' || p_where_clause;
+    END IF;
+    
+    -- Open cursor and return results
+    OPEN v_cursor FOR v_dynamic_query;
+    
