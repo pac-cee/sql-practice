@@ -492,3 +492,22 @@ BEGIN
     -- Open cursor and return results
     OPEN v_cursor FOR v_dynamic_query;
     
+    -- Can be used with application to fetch results
+    DBMS_SQL.RETURN_RESULT(v_cursor);
+END dynamic_query_executor;
+/
+
+-- Usage Examples:
+-- 1. Insert new employee
+-- BEGIN
+--     emp_management.insert_employee('John', 'Doe', 10, 50000);
+-- END;
+
+-- 2. Update employee salary
+-- BEGIN
+--     emp_management.update_employee_salary(100, 55000);
+-- END;
+
+-- 3. Calculate bonus
+-- DECLARE
+--     v_bonus NUMBER;
