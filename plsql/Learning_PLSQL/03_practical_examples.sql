@@ -530,3 +530,22 @@ END dynamic_query_executor;
 CREATE OR REPLACE PACKAGE employee_management AS
     -- Type declarations
     TYPE employee_record IS RECORD (
+        emp_id NUMBER,
+        full_name VARCHAR2(200),
+        salary NUMBER(10,2),
+        department_id NUMBER
+    );
+    
+    TYPE employee_table IS TABLE OF employee_record;
+    
+    -- Global constants
+    g_base_salary CONSTANT NUMBER := 30000;
+    g_max_salary CONSTANT NUMBER := 500000;
+    
+    -- Interface for procedures and functions
+    PROCEDURE hire_employee(
+        p_first_name IN VARCHAR2,
+        p_last_name IN VARCHAR2,
+        p_department_id IN NUMBER,
+        p_salary IN NUMBER
+    );
