@@ -549,3 +549,22 @@ CREATE OR REPLACE PACKAGE employee_management AS
         p_department_id IN NUMBER,
         p_salary IN NUMBER
     );
+    
+    FUNCTION calculate_annual_bonus(
+        p_employee_id IN NUMBER
+    ) RETURN NUMBER;
+    
+    PROCEDURE update_employee_salary(
+        p_employee_id IN NUMBER,
+        p_new_salary IN NUMBER
+    );
+    
+    -- Advanced cursor function to retrieve employee details
+    FUNCTION get_employee_details(
+        p_employee_id IN NUMBER
+    ) RETURN employee_record;
+END employee_management;
+/
+
+CREATE OR REPLACE PACKAGE BODY employee_management AS
+    -- Logging utility (internal use)
