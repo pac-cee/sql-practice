@@ -568,3 +568,22 @@ END employee_management;
 
 CREATE OR REPLACE PACKAGE BODY employee_management AS
     -- Logging utility (internal use)
+    PROCEDURE log_action(
+        p_action IN VARCHAR2,
+        p_details IN VARCHAR2
+    ) IS
+    BEGIN
+        INSERT INTO action_log (
+            log_timestamp, 
+            action_type, 
+            action_details
+        ) VALUES (
+            SYSTIMESTAMP, 
+            p_action, 
+            p_details
+        );
+    END log_action;
+    
+    -- Hire employee procedure with error handling
+    PROCEDURE hire_employee(
+        p_first_name IN VARCHAR2,
