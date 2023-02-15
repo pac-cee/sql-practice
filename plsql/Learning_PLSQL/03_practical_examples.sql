@@ -587,3 +587,22 @@ CREATE OR REPLACE PACKAGE BODY employee_management AS
     -- Hire employee procedure with error handling
     PROCEDURE hire_employee(
         p_first_name IN VARCHAR2,
+        p_last_name IN VARCHAR2,
+        p_department_id IN NUMBER,
+        p_salary IN NUMBER
+    ) IS
+        v_employee_id NUMBER;
+        v_validate_salary EXCEPTION;
+    BEGIN
+        -- Input validation
+        IF p_salary < g_base_salary OR p_salary > g_max_salary THEN
+            RAISE v_validate_salary;
+        END IF;
+        
+        -- Generate unique employee ID
+        SELECT employee_seq.NEXTVAL INTO v_employee_id FROM dual;
+        
+        -- Insert new employee
+        INSERT INTO employees (
+            employee_id, 
+            first_name, 
