@@ -606,3 +606,22 @@ CREATE OR REPLACE PACKAGE BODY employee_management AS
         INSERT INTO employees (
             employee_id, 
             first_name, 
+            last_name, 
+            department_id, 
+            salary, 
+            hire_date
+        ) VALUES (
+            v_employee_id,
+            p_first_name,
+            p_last_name,
+            p_department_id,
+            p_salary,
+            SYSDATE
+        );
+        
+        -- Log action
+        log_action('HIRE', 'Employee ' || v_employee_id || ' hired');
+        
+        -- Commit transaction
+        COMMIT;
+    EXCEPTION
