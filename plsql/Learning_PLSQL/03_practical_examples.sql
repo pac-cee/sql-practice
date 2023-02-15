@@ -625,3 +625,22 @@ CREATE OR REPLACE PACKAGE BODY employee_management AS
         -- Commit transaction
         COMMIT;
     EXCEPTION
+        WHEN v_validate_salary THEN
+            RAISE_APPLICATION_ERROR(-20001, 'Salary out of valid range');
+        WHEN OTHERS THEN
+            ROLLBACK;
+            log_action('ERROR', 'Hire failed: ' || SQLERRM);
+            RAISE;
+    END hire_employee;
+    
+    -- Advanced cursor function with error handling
+    FUNCTION get_employee_details(
+        p_employee_id IN NUMBER
+    ) RETURN employee_record 
+    IS
+        v_employee employee_record;
+        v_not_found EXCEPTION;
+    BEGIN
+        SELECT 
+            employee_id,
+            first_name || ' ' || last_name,
