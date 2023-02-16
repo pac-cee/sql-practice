@@ -720,3 +720,22 @@ CREATE OR REPLACE PACKAGE BODY employee_management AS
             change_date
         ) VALUES (
             p_employee_id,
+            v_old_salary,
+            p_new_salary,
+            SYSDATE
+        );
+        
+        -- Log action
+        log_action('SALARY_UPDATE', 
+            'Employee ' || p_employee_id || 
+            ' salary changed from ' || v_old_salary || 
+            ' to ' || p_new_salary
+        );
+        
+        COMMIT;
+    EXCEPTION
+        WHEN OTHERS THEN
+            ROLLBACK;
+            log_action('ERROR', 'Salary update failed: ' || SQLERRM);
+            RAISE;
+    END update_employee_salary;
