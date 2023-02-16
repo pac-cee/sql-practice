@@ -701,3 +701,22 @@ CREATE OR REPLACE PACKAGE BODY employee_management AS
         p_new_salary IN NUMBER
     ) IS
         v_old_salary NUMBER;
+    BEGIN
+        -- Retrieve current salary
+        SELECT salary INTO v_old_salary
+        FROM employees
+        WHERE employee_id = p_employee_id;
+        
+        -- Update salary
+        UPDATE employees
+        SET salary = p_new_salary
+        WHERE employee_id = p_employee_id;
+        
+        -- Create audit record
+        INSERT INTO salary_history (
+            employee_id,
+            old_salary,
+            new_salary,
+            change_date
+        ) VALUES (
+            p_employee_id,
