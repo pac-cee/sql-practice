@@ -663,3 +663,22 @@ CREATE OR REPLACE PACKAGE BODY employee_management AS
             RAISE;
     END get_employee_details;
     
+    -- Performance-based bonus calculation
+    FUNCTION calculate_annual_bonus(
+        p_employee_id IN NUMBER
+    ) RETURN NUMBER 
+    IS
+        v_performance_factor NUMBER;
+        v_bonus NUMBER;
+    BEGIN
+        -- Complex bonus calculation logic
+        SELECT 
+            CASE 
+                WHEN performance_rating >= 4.5 THEN 0.2
+                WHEN performance_rating >= 3.5 THEN 0.15
+                WHEN performance_rating >= 2.5 THEN 0.1
+                ELSE 0.05
+            END INTO v_performance_factor
+        FROM employee_performance
+        WHERE employee_id = p_employee_id;
+        
