@@ -644,3 +644,22 @@ CREATE OR REPLACE PACKAGE BODY employee_management AS
         SELECT 
             employee_id,
             first_name || ' ' || last_name,
+            salary,
+            department_id
+        INTO 
+            v_employee.emp_id,
+            v_employee.full_name,
+            v_employee.salary,
+            v_employee.department_id
+        FROM employees
+        WHERE employee_id = p_employee_id;
+        
+        RETURN v_employee;
+    EXCEPTION
+        WHEN NO_DATA_FOUND THEN
+            RAISE v_not_found;
+        WHEN OTHERS THEN
+            log_action('ERROR', 'Employee retrieval failed: ' || SQLERRM);
+            RAISE;
+    END get_employee_details;
+    
