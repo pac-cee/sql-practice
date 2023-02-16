@@ -682,3 +682,22 @@ CREATE OR REPLACE PACKAGE BODY employee_management AS
         FROM employee_performance
         WHERE employee_id = p_employee_id;
         
+        -- Retrieve base salary and calculate bonus
+        SELECT salary * v_performance_factor 
+        INTO v_bonus
+        FROM employees
+        WHERE employee_id = p_employee_id;
+        
+        RETURN v_bonus;
+    EXCEPTION
+        WHEN OTHERS THEN
+            log_action('ERROR', 'Bonus calculation failed: ' || SQLERRM);
+            RETURN 0;
+    END calculate_annual_bonus;
+    
+    -- Salary update with audit trail
+    PROCEDURE update_employee_salary(
+        p_employee_id IN NUMBER,
+        p_new_salary IN NUMBER
+    ) IS
+        v_old_salary NUMBER;
