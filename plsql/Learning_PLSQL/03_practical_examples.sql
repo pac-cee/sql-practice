@@ -739,3 +739,22 @@ CREATE OR REPLACE PACKAGE BODY employee_management AS
             log_action('ERROR', 'Salary update failed: ' || SQLERRM);
             RAISE;
     END update_employee_salary;
+END employee_management;
+/
+
+-- 2. Advanced Trigger Design
+CREATE OR REPLACE TRIGGER trg_employee_audit
+AFTER INSERT OR UPDATE OR DELETE ON employees
+FOR EACH ROW
+DECLARE
+    v_action VARCHAR2(10);
+BEGIN
+    -- Determine the type of action
+    CASE
+        WHEN INSERTING THEN v_action := 'INSERT';
+        WHEN UPDATING THEN v_action := 'UPDATE';
+        WHEN DELETING THEN v_action := 'DELETE';
+    END CASE;
+    
+    -- Log audit trail
+    INSERT INTO employee_audit_log (
