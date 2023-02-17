@@ -796,3 +796,22 @@ CREATE OR REPLACE PROCEDURE process_monthly_payroll IS
     WHERE salary >= p_min_salary 
     AND department_id = p_department_id
     FOR UPDATE OF salary NOWAIT;
+    
+    v_bonus NUMBER;
+BEGIN
+    -- Bulk processing with performance considerations
+    FOR emp_rec IN c_employee_payroll(50000, 10) LOOP
+        BEGIN
+            -- Calculate performance bonus
+            v_bonus := employee_management.calculate_annual_bonus(emp_rec.employee_id);
+            
+            -- Update salary with bonus
+            UPDATE employees
+            SET salary = salary + v_bonus
+            WHERE CURRENT OF c_employee_payroll;
+        EXCEPTION
+            WHEN OTHERS THEN
+                -- Log error, continue processing
+                employee_management.log_action(
+                    'PAYROLL_ERROR', 
+                    'Failed to process employee ' || emp_rec.employee_id
