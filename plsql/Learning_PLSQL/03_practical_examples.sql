@@ -758,3 +758,22 @@ BEGIN
     
     -- Log audit trail
     INSERT INTO employee_audit_log (
+        audit_timestamp,
+        employee_id,
+        action_type,
+        old_value,
+        new_value
+    ) VALUES (
+        SYSTIMESTAMP,
+        COALESCE(:OLD.employee_id, :NEW.employee_id),
+        v_action,
+        CASE v_action 
+            WHEN 'UPDATE' THEN TO_CHAR(:OLD.salary)
+            WHEN 'DELETE' THEN TO_CHAR(:OLD.salary)
+            ELSE NULL 
+        END,
+        CASE v_action 
+            WHEN 'UPDATE' THEN TO_CHAR(:NEW.salary)
+            WHEN 'INSERT' THEN TO_CHAR(:NEW.salary)
+            ELSE NULL 
+        END
