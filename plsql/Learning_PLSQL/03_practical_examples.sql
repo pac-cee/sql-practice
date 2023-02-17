@@ -815,3 +815,14 @@ BEGIN
                 employee_management.log_action(
                     'PAYROLL_ERROR', 
                     'Failed to process employee ' || emp_rec.employee_id
+                );
+        END;
+    END LOOP;
+    
+    COMMIT;
+EXCEPTION
+    WHEN OTHERS THEN
+        ROLLBACK;
+        employee_management.log_action('PAYROLL_FATAL', SQLERRM);
+END process_monthly_payroll;
+/
