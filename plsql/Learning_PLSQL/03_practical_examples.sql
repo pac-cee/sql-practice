@@ -777,3 +777,22 @@ BEGIN
             WHEN 'INSERT' THEN TO_CHAR(:NEW.salary)
             ELSE NULL 
         END
+    );
+END;
+/
+
+-- 3. Advanced Cursor with Performance Optimization
+CREATE OR REPLACE PROCEDURE process_monthly_payroll IS
+    -- Cursor with parameterized complexity
+    CURSOR c_employee_payroll (
+        p_min_salary NUMBER, 
+        p_department_id NUMBER
+    ) IS
+    SELECT 
+        employee_id,
+        salary,
+        department_id
+    FROM employees
+    WHERE salary >= p_min_salary 
+    AND department_id = p_department_id
+    FOR UPDATE OF salary NOWAIT;
