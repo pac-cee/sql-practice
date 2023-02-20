@@ -36,3 +36,22 @@ CREATE TABLE users (
     last_login      TIMESTAMP,
     login_attempts  NUMBER(2) DEFAULT 0,
     is_admin        NUMBER(1) DEFAULT 0 CHECK (is_admin IN (0,1))
+);
+
+-- Create a procedure to add new users
+CREATE OR REPLACE PROCEDURE add_user(
+    p_username      IN VARCHAR2,
+    p_password_hash IN VARCHAR2,
+    p_email        IN VARCHAR2,
+    p_first_name   IN VARCHAR2,
+    p_last_name    IN VARCHAR2,
+    p_date_of_birth IN DATE,
+    p_phone_number IN VARCHAR2
+) IS
+BEGIN
+    INSERT INTO users (
+        username, password_hash, email, first_name, 
+        last_name, date_of_birth, phone_number
+    ) VALUES (
+        p_username, p_password_hash, p_email, p_first_name,
+        p_last_name, p_date_of_birth, p_phone_number
