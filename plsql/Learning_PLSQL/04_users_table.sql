@@ -74,3 +74,22 @@ BEGIN
     add_user(
         'admin',
         'hashed_password_123',
+        'admin@example.com',
+        'System',
+        'Administrator',
+        TO_DATE('1990-01-01', 'YYYY-MM-DD'),
+        '+1234567890'
+    );
+    
+    -- Regular users
+    add_user(
+        'john_doe',
+        'hashed_password_456',
+        'john.doe@example.com',
+        'John',
+        'Doe',
+        TO_DATE('1995-05-15', 'YYYY-MM-DD'),
+        '+1987654321'
+    );
+    
+    add_user(
