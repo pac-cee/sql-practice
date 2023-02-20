@@ -93,3 +93,22 @@ BEGIN
     );
     
     add_user(
+        'jane_smith',
+        'hashed_password_789',
+        'jane.smith@example.com',
+        'Jane',
+        'Smith',
+        TO_DATE('1992-08-23', 'YYYY-MM-DD'),
+        '+1122334455'
+    );
+    
+    -- Make admin user an administrator
+    UPDATE users SET is_admin = 1 WHERE username = 'admin';
+    COMMIT;
+END;
+/
+
+-- Create a procedure to display user information
+CREATE OR REPLACE PROCEDURE display_users IS
+    CURSOR user_cur IS
+        SELECT 
