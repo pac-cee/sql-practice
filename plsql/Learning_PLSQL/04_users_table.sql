@@ -55,3 +55,22 @@ BEGIN
     ) VALUES (
         p_username, p_password_hash, p_email, p_first_name,
         p_last_name, p_date_of_birth, p_phone_number
+    );
+    
+    COMMIT;
+    DBMS_OUTPUT.PUT_LINE('User ' || p_username || ' added successfully!');
+EXCEPTION
+    WHEN DUP_VAL_ON_INDEX THEN
+        DBMS_OUTPUT.PUT_LINE('Error: Username or email already exists!');
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('Error: ' || SQLERRM);
+        ROLLBACK;
+END;
+/
+
+-- Insert some sample users
+BEGIN
+    -- Admin user
+    add_user(
+        'admin',
+        'hashed_password_123',
