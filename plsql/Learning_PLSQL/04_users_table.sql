@@ -112,3 +112,22 @@ END;
 CREATE OR REPLACE PROCEDURE display_users IS
     CURSOR user_cur IS
         SELECT 
+            user_id,
+            username,
+            email,
+            first_name,
+            last_name,
+            date_of_birth,
+            status,
+            CASE is_admin 
+                WHEN 1 THEN 'Yes'
+                ELSE 'No'
+            END as is_admin_text
+        FROM users
+        ORDER BY user_id;
+    
+    v_user user_cur%ROWTYPE;
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('----------------------------------------');
+    DBMS_OUTPUT.PUT_LINE('User List:');
+    DBMS_OUTPUT.PUT_LINE('----------------------------------------');
