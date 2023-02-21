@@ -131,3 +131,22 @@ BEGIN
     DBMS_OUTPUT.PUT_LINE('----------------------------------------');
     DBMS_OUTPUT.PUT_LINE('User List:');
     DBMS_OUTPUT.PUT_LINE('----------------------------------------');
+    
+    FOR v_user IN user_cur LOOP
+        DBMS_OUTPUT.PUT_LINE(
+            'ID: ' || v_user.user_id || CHR(10) ||
+            'Username: ' || v_user.username || CHR(10) ||
+            'Name: ' || v_user.first_name || ' ' || v_user.last_name || CHR(10) ||
+            'Email: ' || v_user.email || CHR(10) ||
+            'Admin: ' || v_user.is_admin_text || CHR(10) ||
+            'Status: ' || v_user.status || CHR(10) ||
+            '----------------------------------------'
+        );
+    END LOOP;
+END;
+/
+
+-- Display all users
+EXEC display_users;
+
+-- Example queries to try:
