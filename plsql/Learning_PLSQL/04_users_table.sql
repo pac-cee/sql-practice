@@ -150,3 +150,23 @@ END;
 EXEC display_users;
 
 -- Example queries to try:
+
+-- 1. Find all active users
+SELECT username, email, status 
+FROM users 
+WHERE status = 'ACTIVE';
+
+-- 2. Find admin users
+SELECT username, email, first_name, last_name 
+FROM users 
+WHERE is_admin = 1;
+
+-- 3. Count users by status
+SELECT status, COUNT(*) as user_count 
+FROM users 
+GROUP BY status;
+
+-- 4. Find users created in the last 24 hours
+SELECT username, created_at 
+FROM users 
+WHERE created_at > SYSTIMESTAMP - INTERVAL '1' DAY;
