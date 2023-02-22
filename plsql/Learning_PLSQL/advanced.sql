@@ -74,3 +74,22 @@ EXCEPTION
     p_result := NULL;
 END;
 /
+
+-- Calling the procedure:
+DECLARE
+  v_numerator NUMBER := 10;
+  v_denominator NUMBER := 0;
+  v_result NUMBER;
+BEGIN
+  divide_numbers(v_numerator, v_denominator, v_result);
+  IF v_result IS NOT NULL THEN
+    DBMS_OUTPUT.PUT_LINE('Result: ' || v_result);
+  END IF;
+END;
+/
+
+-- Example 4: Procedure with a cursor and loop
+CREATE OR REPLACE PROCEDURE display_employees AS
+  CURSOR emp_cursor IS
+    SELECT employee_id, last_name, salary
+    FROM employees;
