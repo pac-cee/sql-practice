@@ -55,3 +55,22 @@ END;
 /
 
 -- Example 3: Procedure with exception handling
+CREATE OR REPLACE PROCEDURE divide_numbers (
+  p_numerator NUMBER,
+  p_denominator NUMBER,
+  p_result OUT NUMBER
+) AS
+BEGIN
+  IF p_denominator = 0 THEN
+    RAISE ZERO_DIVIDE;
+  END IF;
+  p_result := p_numerator / p_denominator;
+EXCEPTION
+  WHEN ZERO_DIVIDE THEN
+    DBMS_OUTPUT.PUT_LINE('Error: Division by zero.');
+    p_result := NULL;
+  WHEN OTHERS THEN
+    DBMS_OUTPUT.PUT_LINE('An unexpected error occurred.');
+    p_result := NULL;
+END;
+/
