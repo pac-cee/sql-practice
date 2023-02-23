@@ -93,3 +93,22 @@ CREATE OR REPLACE PROCEDURE display_employees AS
   CURSOR emp_cursor IS
     SELECT employee_id, last_name, salary
     FROM employees;
+  v_employee_id employees.employee_id%TYPE;
+  v_last_name employees.last_name%TYPE;
+  v_salary employees.salary%TYPE;
+BEGIN
+  OPEN emp_cursor;
+  LOOP
+    FETCH emp_cursor INTO v_employee_id, v_last_name, v_salary;
+    EXIT WHEN emp_cursor%NOTFOUND;
+    DBMS_OUTPUT.PUT_LINE('Employee ID: ' || v_employee_id || ', Last Name: ' || v_last_name || ', Salary: ' || v_salary);
+  END LOOP;
+  CLOSE emp_cursor;
+EXCEPTION
+  WHEN NO_DATA_FOUND THEN
+    DBMS_OUTPUT.PUT_LINE('No employee data found.');
+  WHEN OTHERS THEN
+    DBMS_OUTPUT.PUT_LINE('An error occurred while fetching employee data.');
+END;
+/
+
