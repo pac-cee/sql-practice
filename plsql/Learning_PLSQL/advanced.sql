@@ -150,3 +150,22 @@ BEGIN
     DBMS_OUTPUT.PUT_LINE('Employee Name: ' || employee_record.last_name || ', Salary: ' || employee_record.salary);
 EXCEPTION
     WHEN NO_DATA_FOUND THEN
+        DBMS_OUTPUT.PUT_LINE('Employee with ID ' || p_employee_id || ' not found.');
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('An error occurred.');
+END;
+/
+
+--Calling the procedure
+BEGIN
+    display_employee_record(100); --Replace 100 with an actual employee ID.
+END;
+
+/
+
+-- 2. Functions
+-- Functions are subprograms that return a value
+CREATE OR REPLACE FUNCTION calculate_area(p_radius IN NUMBER)
+RETURN NUMBER IS
+    v_pi CONSTANT NUMBER := 3.14159;
+BEGIN
