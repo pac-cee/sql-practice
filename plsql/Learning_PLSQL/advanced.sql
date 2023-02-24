@@ -112,3 +112,22 @@ EXCEPTION
 END;
 /
 
+-- Calling the procedure:
+BEGIN
+  display_employees;
+END;
+/
+
+--Example 5: Procedure with an IN OUT parameter to increment a value.
+CREATE OR REPLACE PROCEDURE increment_value(io_value IN OUT NUMBER) AS
+BEGIN
+    io_value := io_value + 1;
+END;
+/
+
+--Calling the procedure
+DECLARE
+    my_value NUMBER := 10;
+BEGIN
+    increment_value(my_value);
+    DBMS_OUTPUT.PUT_LINE('Incremented value: ' || my_value);
