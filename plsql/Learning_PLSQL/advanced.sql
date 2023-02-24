@@ -131,3 +131,22 @@ DECLARE
 BEGIN
     increment_value(my_value);
     DBMS_OUTPUT.PUT_LINE('Incremented value: ' || my_value);
+END;
+/
+
+--Example 6: Procedure demonstrating the use of a record type.
+CREATE OR REPLACE PROCEDURE display_employee_record(p_employee_id employees.employee_id%TYPE) AS
+    TYPE employee_record_type IS RECORD (
+        last_name employees.last_name%TYPE,
+        salary employees.salary%TYPE
+    );
+    employee_record employee_record_type;
+BEGIN
+    SELECT last_name, salary
+    INTO employee_record
+    FROM employees
+    WHERE employee_id = p_employee_id;
+
+    DBMS_OUTPUT.PUT_LINE('Employee Name: ' || employee_record.last_name || ', Salary: ' || employee_record.salary);
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
