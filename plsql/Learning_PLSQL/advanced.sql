@@ -245,3 +245,22 @@ CREATE OR REPLACE PACKAGE emp_mgmt_pkg IS
     -- Custom Types section
     -- -------------------
     -- Record type for employee data
+    -- Benefits: 
+    -- - Strong typing
+    -- - Reduced parameter lists
+    -- - Improved maintainability
+    TYPE emp_record_type IS RECORD (
+        emp_id    NUMBER,
+        name      VARCHAR2(100),
+        salary    NUMBER,
+        dept_id   NUMBER
+    );
+    
+    -- Collection type for bulk operations
+    -- Benefits:
+    -- - Efficient bulk processing
+    -- - Reduced context switching
+    -- - Better performance for large datasets
+    TYPE emp_table_type IS TABLE OF emp_record_type;
+    
+    -- Function Declarations
