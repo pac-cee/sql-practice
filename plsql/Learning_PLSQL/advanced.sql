@@ -169,3 +169,22 @@ CREATE OR REPLACE FUNCTION calculate_area(p_radius IN NUMBER)
 RETURN NUMBER IS
     v_pi CONSTANT NUMBER := 3.14159;
 BEGIN
+    RETURN v_pi * POWER(p_radius, 2);
+EXCEPTION
+    WHEN OTHERS THEN
+        RETURN NULL;
+END;
+/
+
+-- Use the function
+DECLARE
+    v_area NUMBER;
+BEGIN
+    v_area := calculate_area(5);
+    DBMS_OUTPUT.PUT_LINE('Area of circle: ' || v_area);
+END;
+/
+
+-- 3. Packages
+-- Packages are collections of related procedures and functions
+CREATE OR REPLACE PACKAGE math_utils IS
