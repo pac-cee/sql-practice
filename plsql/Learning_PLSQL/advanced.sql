@@ -207,3 +207,22 @@ CREATE OR REPLACE PACKAGE BODY math_utils IS
     END multiply_numbers;
 END math_utils;
 /
+
+-- Use the package
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('Sum: ' || math_utils.add_numbers(10, 20));
+    DBMS_OUTPUT.PUT_LINE('Product: ' || math_utils.multiply_numbers(10, 20));
+END;
+/
+
+-- =============================================
+-- Advanced PL/SQL Package Definition
+-- =============================================
+
+/*
+Package: emp_mgmt_pkg
+Purpose: Comprehensive employee management functionality
+Features: 
+- Salary management
+- Bonus calculations
+- Bulk updates
