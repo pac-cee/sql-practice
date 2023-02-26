@@ -264,3 +264,22 @@ CREATE OR REPLACE PACKAGE emp_mgmt_pkg IS
     TYPE emp_table_type IS TABLE OF emp_record_type;
     
     -- Function Declarations
+    -- --------------------
+    -- Calculate employee bonus based on performance and tenure
+    -- Parameters:
+    --   p_emp_id: Employee ID
+    --   p_performance_rating: Rating from 1-5
+    -- Returns: Calculated bonus amount
+    FUNCTION calculate_bonus(
+        p_emp_id IN NUMBER,
+        p_performance_rating IN NUMBER
+    ) RETURN NUMBER;
+    
+    -- Procedure Declarations
+    -- ---------------------
+    -- Updates employee salary with full audit trail
+    -- Features:
+    -- - Validation of salary ranges
+    -- - Automatic audit logging
+    -- - Transaction management
+    -- - Error handling
