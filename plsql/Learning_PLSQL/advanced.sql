@@ -188,3 +188,22 @@ END;
 -- 3. Packages
 -- Packages are collections of related procedures and functions
 CREATE OR REPLACE PACKAGE math_utils IS
+    -- Package specification (header)
+    FUNCTION add_numbers(p_num1 IN NUMBER, p_num2 IN NUMBER) RETURN NUMBER;
+    FUNCTION multiply_numbers(p_num1 IN NUMBER, p_num2 IN NUMBER) RETURN NUMBER;
+END math_utils;
+/
+
+CREATE OR REPLACE PACKAGE BODY math_utils IS
+    -- Package body (implementation)
+    FUNCTION add_numbers(p_num1 IN NUMBER, p_num2 IN NUMBER) RETURN NUMBER IS
+    BEGIN
+        RETURN p_num1 + p_num2;
+    END add_numbers;
+    
+    FUNCTION multiply_numbers(p_num1 IN NUMBER, p_num2 IN NUMBER) RETURN NUMBER IS
+    BEGIN
+        RETURN p_num1 * p_num2;
+    END multiply_numbers;
+END math_utils;
+/
