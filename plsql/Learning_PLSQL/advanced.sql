@@ -226,3 +226,22 @@ Features:
 - Salary management
 - Bonus calculations
 - Bulk updates
+- Audit logging
+Benefits:
+- Encapsulation of related functionality
+- State management across calls
+- Better performance through caching
+- Modular and maintainable code
+*/
+
+CREATE OR REPLACE PACKAGE emp_mgmt_pkg IS
+    -- Constants section
+    -- ----------------
+    -- Defines business rules and limits
+    c_min_salary CONSTANT NUMBER := 30000;  -- Minimum allowed salary
+    c_max_salary CONSTANT NUMBER := 150000; -- Maximum allowed salary
+    c_max_bonus_pct CONSTANT NUMBER := 0.20; -- Maximum bonus percentage
+    
+    -- Custom Types section
+    -- -------------------
+    -- Record type for employee data
