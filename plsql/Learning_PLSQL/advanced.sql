@@ -340,3 +340,22 @@ CREATE OR REPLACE PACKAGE BODY emp_mgmt_pkg IS
     BEGIN
         -- Input validation
         IF p_performance_rating NOT BETWEEN 1 AND 5 THEN
+            RAISE_APPLICATION_ERROR(-20001, 'Invalid performance rating');
+        END IF;
+        
+        -- Get employee details
+        SELECT salary, FLOOR(MONTHS_BETWEEN(SYSDATE, hire_date)/12)
+        INTO v_salary, v_years_service
+        FROM employees
+        WHERE employee_id = p_emp_id;
+        
+        -- Calculate bonus percentage based on performance and tenure
+        v_bonus_pct := (p_performance_rating/5) * 
+                       (LEAST(v_years_service, 10)/10) * 
+                       c_max_bonus_pct;
+        
+        RETURN ROUND(v_salary * v_bonus_pct, 2);
+    EXCEPTION
+        WHEN NO_DATA_FOUND THEN
+            RAISE_APPLICATION_ERROR(-20002, 'Employee not found');
+        WHEN OTHERS THEN
