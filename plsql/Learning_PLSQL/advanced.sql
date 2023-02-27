@@ -283,3 +283,22 @@ CREATE OR REPLACE PACKAGE emp_mgmt_pkg IS
     -- - Automatic audit logging
     -- - Transaction management
     -- - Error handling
+    PROCEDURE update_salary(
+        p_emp_id IN NUMBER,
+        p_new_salary IN NUMBER,
+        p_reason_code IN VARCHAR2,
+        p_effective_date IN DATE DEFAULT SYSDATE
+    );
+END emp_mgmt_pkg;
+/
+
+-- Package Body Implementation
+-- =========================
+-- Contains the actual implementation of package components
+CREATE OR REPLACE PACKAGE BODY emp_mgmt_pkg IS
+    -- Private Variables
+    -- ----------------
+    -- Used for internal state management
+    v_last_updated_by VARCHAR2(30);
+    v_last_update_date DATE;
+    
