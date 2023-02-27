@@ -378,3 +378,22 @@ CREATE OR REPLACE PACKAGE BODY emp_mgmt_pkg IS
         -- Custom exception for invalid salary
         e_invalid_salary EXCEPTION;
         PRAGMA EXCEPTION_INIT(e_invalid_salary, -20003);
+    BEGIN
+        -- Get current employee details
+        SELECT salary, department_id 
+        INTO v_old_salary, v_dept_id
+        FROM employees
+        WHERE employee_id = p_emp_id;
+        
+        -- Validate new salary
+        IF NOT is_valid_salary(p_new_salary, v_dept_id) THEN
+            RAISE e_invalid_salary;
+        END IF;
+        
+        -- Update salary
+        UPDATE employees
+        SET salary = p_new_salary,
+            last_updated_date = p_effective_date,
+            last_updated_by = v_last_updated_by
+        WHERE employee_id = p_emp_id;
+        
