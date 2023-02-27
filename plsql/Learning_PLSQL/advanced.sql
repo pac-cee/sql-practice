@@ -359,3 +359,22 @@ CREATE OR REPLACE PACKAGE BODY emp_mgmt_pkg IS
         WHEN NO_DATA_FOUND THEN
             RAISE_APPLICATION_ERROR(-20002, 'Employee not found');
         WHEN OTHERS THEN
+            -- Log error and re-raise
+            log_error(SQLCODE, SQLERRM, 'calculate_bonus');
+            RAISE;
+    END calculate_bonus;
+    
+    -- Public Procedure Implementations
+    -- ------------------------------
+    PROCEDURE update_salary(
+        p_emp_id IN NUMBER,
+        p_new_salary IN NUMBER,
+        p_reason_code IN VARCHAR2,
+        p_effective_date IN DATE DEFAULT SYSDATE
+    ) IS
+        v_old_salary NUMBER;
+        v_dept_id NUMBER;
+        
+        -- Custom exception for invalid salary
+        e_invalid_salary EXCEPTION;
+        PRAGMA EXCEPTION_INIT(e_invalid_salary, -20003);
