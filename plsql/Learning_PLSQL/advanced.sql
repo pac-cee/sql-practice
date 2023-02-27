@@ -321,3 +321,22 @@ CREATE OR REPLACE PACKAGE BODY emp_mgmt_pkg IS
         
         -- Calculate maximum allowed based on department average
         v_max_allowed := v_dept_avg * 2;
+        
+        -- Check against both absolute and relative limits
+        RETURN (p_salary BETWEEN c_min_salary AND c_max_salary) AND
+               (p_salary <= v_max_allowed);
+    END is_valid_salary;
+    
+    -- Public Function Implementations
+    -- -----------------------------
+    FUNCTION calculate_bonus(
+        p_emp_id IN NUMBER,
+        p_performance_rating IN NUMBER
+    ) RETURN NUMBER
+    IS
+        v_salary NUMBER;
+        v_years_service NUMBER;
+        v_bonus_pct NUMBER;
+    BEGIN
+        -- Input validation
+        IF p_performance_rating NOT BETWEEN 1 AND 5 THEN
