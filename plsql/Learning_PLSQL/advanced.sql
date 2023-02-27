@@ -302,3 +302,22 @@ CREATE OR REPLACE PACKAGE BODY emp_mgmt_pkg IS
     v_last_updated_by VARCHAR2(30);
     v_last_update_date DATE;
     
+    -- Private Helper Functions
+    -- -----------------------
+    -- Validates salary against business rules
+    -- Returns: TRUE if salary is valid, FALSE otherwise
+    FUNCTION is_valid_salary(
+        p_salary IN NUMBER,
+        p_dept_id IN NUMBER
+    ) RETURN BOOLEAN
+    IS
+        v_dept_avg NUMBER;
+        v_max_allowed NUMBER;
+    BEGIN
+        -- Get department average for comparison
+        SELECT AVG(salary) INTO v_dept_avg
+        FROM employees
+        WHERE department_id = p_dept_id;
+        
+        -- Calculate maximum allowed based on department average
+        v_max_allowed := v_dept_avg * 2;
