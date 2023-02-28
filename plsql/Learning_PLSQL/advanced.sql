@@ -492,3 +492,22 @@ BEGIN
     -- Print the array
     FOR i IN v_numbers.FIRST..v_numbers.LAST LOOP
         DBMS_OUTPUT.PUT_LINE('Index ' || i || ': ' || v_numbers(i));
+    END LOOP;
+END;
+/
+
+-- 7. Records (Custom Data Types)
+DECLARE
+    -- Define record structure
+    TYPE t_person IS RECORD (
+        first_name VARCHAR2(50),
+        last_name  VARCHAR2(50),
+        age       NUMBER
+    );
+    
+    -- Declare record variable
+    v_person t_person;
+BEGIN
+    -- Assign values
+    v_person.first_name := 'John';
+    v_person.last_name := 'Doe';
