@@ -435,3 +435,22 @@ CREATE OR REPLACE PACKAGE BODY emp_mgmt_pkg IS
         v_last_updated_by := SYS_CONTEXT('USERENV', 'SESSION_USER');
         v_last_update_date := SYSDATE;
 END emp_mgmt_pkg;
+/
+
+-- 4. Cursors
+-- Explicit cursor example
+DECLARE
+    CURSOR emp_cursor IS
+        SELECT employee_id, first_name, salary 
+        FROM hr.employees 
+        WHERE salary > 5000; 
+    
+    v_emp_record emp_cursor%ROWTYPE;
+BEGIN
+    OPEN emp_cursor;
+    LOOP
+        FETCH emp_cursor INTO v_emp_record;
+        EXIT WHEN emp_cursor%NOTFOUND;
+        
+        DBMS_OUTPUT.PUT_LINE('Employee: ' || v_emp_record.first_name || 
+                            ', Salary: ' || v_emp_record.salary);
