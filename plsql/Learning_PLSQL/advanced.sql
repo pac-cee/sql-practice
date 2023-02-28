@@ -473,3 +473,22 @@ EXCEPTION
         DBMS_OUTPUT.PUT_LINE('Error: Value error occurred!');
     WHEN OTHERS THEN
         DBMS_OUTPUT.PUT_LINE('Error: ' || SQLERRM);
+END;
+/
+
+-- 6. Collections
+DECLARE
+    -- Associative array (PL/SQL table)
+    TYPE t_number_table IS TABLE OF NUMBER
+        INDEX BY PLS_INTEGER;
+    
+    v_numbers t_number_table;
+BEGIN
+    -- Populate the array
+    FOR i IN 1..5 LOOP
+        v_numbers(i) := i * 10;
+    END LOOP;
+    
+    -- Print the array
+    FOR i IN v_numbers.FIRST..v_numbers.LAST LOOP
+        DBMS_OUTPUT.PUT_LINE('Index ' || i || ': ' || v_numbers(i));
