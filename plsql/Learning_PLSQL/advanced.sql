@@ -397,3 +397,22 @@ CREATE OR REPLACE PACKAGE BODY emp_mgmt_pkg IS
             last_updated_by = v_last_updated_by
         WHERE employee_id = p_emp_id;
         
+        -- Create audit record
+        INSERT INTO salary_changes (
+            employee_id,
+            old_salary,
+            new_salary,
+            change_date,
+            reason_code,
+            changed_by
+        ) VALUES (
+            p_emp_id,
+            v_old_salary,
+            p_new_salary,
+            p_effective_date,
+            p_reason_code,
+            v_last_updated_by
+        );
+        
+        COMMIT;
+        
