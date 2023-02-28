@@ -530,3 +530,10 @@ DECLARE
     v_final_amount NUMBER;
 BEGIN
     v_vat := v_total_amount * 0.18;
+    v_final_amount := v_total_amount + v_vat;
+    
+    DBMS_OUTPUT.PUT_LINE('Amount: ' || v_total_amount);
+    DBMS_OUTPUT.PUT_LINE('VAT: ' || v_vat);
+    DBMS_OUTPUT.PUT_LINE('Final Amount: ' || v_final_amount);
+END;
+/
