@@ -511,3 +511,22 @@ BEGIN
     -- Assign values
     v_person.first_name := 'John';
     v_person.last_name := 'Doe';
+    v_person.age := 30;
+    
+    -- Print record
+    DBMS_OUTPUT.PUT_LINE('Person: ' || v_person.first_name || ' ' || 
+                        v_person.last_name || ', Age: ' || v_person.age);
+END;
+/
+-- First enable server output
+SET SERVEROUTPUT ON;
+
+-- Accept user input
+ACCEPT p_amount PROMPT 'Enter amount: ';
+
+DECLARE
+    v_total_amount NUMBER := &p_amount;
+    v_vat NUMBER;
+    v_final_amount NUMBER;
+BEGIN
+    v_vat := v_total_amount * 0.18;
