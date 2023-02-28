@@ -454,3 +454,22 @@ BEGIN
         
         DBMS_OUTPUT.PUT_LINE('Employee: ' || v_emp_record.first_name || 
                             ', Salary: ' || v_emp_record.salary);
+    END LOOP;
+    CLOSE emp_cursor;
+END;
+/
+
+-- 5. Exception Handling
+DECLARE
+    v_result NUMBER;
+BEGIN
+    -- Divide by zero will raise an exception
+    v_result := 1/0;
+    
+EXCEPTION
+    WHEN ZERO_DIVIDE THEN
+        DBMS_OUTPUT.PUT_LINE('Error: Division by zero!');
+    WHEN VALUE_ERROR THEN
+        DBMS_OUTPUT.PUT_LINE('Error: Value error occurred!');
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('Error: ' || SQLERRM);
