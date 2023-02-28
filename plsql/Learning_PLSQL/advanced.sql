@@ -416,3 +416,22 @@ CREATE OR REPLACE PACKAGE BODY emp_mgmt_pkg IS
         
         COMMIT;
         
+    EXCEPTION
+        WHEN e_invalid_salary THEN
+            ROLLBACK;
+            RAISE_APPLICATION_ERROR(-20003, 
+                'Invalid salary: Must be between ' || c_min_salary || 
+                ' and ' || c_max_salary || ' and within department limits');
+        WHEN OTHERS THEN
+            ROLLBACK;
+            log_error(SQLCODE, SQLERRM, 'update_salary');
+            RAISE;
+    END update_salary;
+    
+    -- Package Initialization
+    -- --------------------
+    -- Runs when package is first loaded into memory
+    BEGIN
+        v_last_updated_by := SYS_CONTEXT('USERENV', 'SESSION_USER');
+        v_last_update_date := SYSDATE;
+END emp_mgmt_pkg;
