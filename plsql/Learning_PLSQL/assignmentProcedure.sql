@@ -36,3 +36,22 @@ Question 2: Employee Bonus Calculation
 ─────────────────────────────
 
 This procedure calculates a bonus based on the employee’s performance rating: 20% for ‘A’, 10% for ‘B’, and 5% for ‘C’.
+*/
+CREATE OR REPLACE PROCEDURE Calculate_Bonus (
+    p_employee_id IN NUMBER,   -- Employee ID (for logging purposes)
+    p_salary IN NUMBER,        -- Input: employee's salary
+    p_rating IN CHAR,          -- Input: performance rating ('A', 'B', 'C')
+    p_bonus OUT NUMBER         -- Output: calculated bonus
+) AS
+BEGIN
+    -- Use UPPER to handle lowercase inputs and calculate bonus accordingly
+    IF UPPER(p_rating) = 'A' THEN
+        p_bonus := p_salary * 0.20;  -- 20% bonus for rating A
+    ELSIF UPPER(p_rating) = 'B' THEN
+        p_bonus := p_salary * 0.10;  -- 10% bonus for rating B
+    ELSIF UPPER(p_rating) = 'C' THEN
+        p_bonus := p_salary * 0.05;  -- 5% bonus for rating C
+    ELSE
+        -- If the rating does not match, assign a bonus of zero
+        p_bonus := 0;
+    END IF;
