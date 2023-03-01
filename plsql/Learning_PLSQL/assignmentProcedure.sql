@@ -55,3 +55,22 @@ BEGIN
         -- If the rating does not match, assign a bonus of zero
         p_bonus := 0;
     END IF;
+    
+    -- Display bonus for the given employee
+    DBMS_OUTPUT.PUT_LINE('Employee ID: ' || p_employee_id || ' Bonus: ' || p_bonus);
+EXCEPTION
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('Error in Calculate_Bonus: ' || SQLERRM);
+END Calculate_Bonus;
+/
+/*
+─────────────────────────────
+Question 3: Customer Discount Calculation
+─────────────────────────────
+
+This procedure applies a discount based on the purchase amount:
+– 10% if greater than 100,000 RWF,
+– 5% if between 50,000 and 100,000 RWF,
+– 0% if below 50,000 RWF.
+*/
+CREATE OR REPLACE PROCEDURE Calculate_Discount (
