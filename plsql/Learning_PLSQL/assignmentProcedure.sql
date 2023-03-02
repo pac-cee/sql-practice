@@ -131,3 +131,22 @@ This procedure updates the price of a product in the products table by applying 
 */
 CREATE OR REPLACE PROCEDURE Update_Product_Price (
     p_product_id IN NUMBER,          -- Input: product identifier
+    p_percentage_increase IN NUMBER, -- Input: percentage increase (e.g., 15 for 15%)
+    p_updated_price OUT NUMBER       -- Output: updated product price
+) AS
+BEGIN
+    -- Update the product's price by applying the percentage increase
+    UPDATE products
+    SET price = price * (1 + p_percentage_increase / 100)
+    WHERE product_id = p_product_id;
+    
+    -- Retrieve the updated price from the table
+    SELECT price INTO p_updated_price 
+    FROM products 
+    WHERE product_id = p_product_id;
+    
+    -- Display the updated price
+    DBMS_OUTPUT.PUT_LINE('Updated Price for Product ' || p_product_id || ': ' || p_updated_price);
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        DBMS_OUTPUT.PUT_LINE('No product found with ID ' || p_product_id);
