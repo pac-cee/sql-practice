@@ -169,3 +169,22 @@ CREATE OR REPLACE PROCEDURE Increment_Salary (
     v_increment NUMBER;         -- Local variable to hold the increment percentage
 BEGIN
     -- Determine the increment rate based on years of service
+    IF p_years_of_service > 10 THEN
+        v_increment := 0.15;   -- 15% increment for more than 10 years
+    ELSIF p_years_of_service BETWEEN 5 AND 10 THEN
+        v_increment := 0.10;   -- 10% increment for 5-10 years
+    ELSE
+        v_increment := 0.05;   -- 5% increment for less than 5 years
+    END IF;
+    
+    -- Update the employee's salary in the EMPLOYEES table
+    UPDATE employees
+    SET salary = salary * (1 + v_increment)
+    WHERE employee_id = p_employee_id;
+    
+    -- Retrieve the updated salary
+    SELECT salary INTO p_updated_salary 
+    FROM employees 
+    WHERE employee_id = p_employee_id;
+    
+    -- Output the updated salary
