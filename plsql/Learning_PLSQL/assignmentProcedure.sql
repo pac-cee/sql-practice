@@ -93,3 +93,22 @@ BEGIN
     
     -- Output the results
     DBMS_OUTPUT.PUT_LINE('Discount: ' || p_discount || ', Final Amount: ' || p_final_amount);
+EXCEPTION
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('Error in Calculate_Discount: ' || SQLERRM);
+END Calculate_Discount;
+/
+/*
+─────────────────────────────
+Question 4: Student Grade Calculation
+─────────────────────────────
+
+This procedure calculates the average of three subject marks to determine a student’s final grade.
+*/
+CREATE OR REPLACE PROCEDURE Calculate_Grade (
+    p_math IN NUMBER,          -- Input: Math mark
+    p_science IN NUMBER,       -- Input: Science mark
+    p_english IN NUMBER,       -- Input: English mark
+    p_final_grade OUT NUMBER   -- Output: calculated average grade
+) AS
+BEGIN
