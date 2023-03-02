@@ -74,3 +74,22 @@ This procedure applies a discount based on the purchase amount:
 – 0% if below 50,000 RWF.
 */
 CREATE OR REPLACE PROCEDURE Calculate_Discount (
+    p_purchase_amount IN NUMBER,  -- Input: total purchase amount
+    p_discount OUT NUMBER,        -- Output: calculated discount amount
+    p_final_amount OUT NUMBER     -- Output: final amount after discount
+) AS
+BEGIN
+    -- Apply discount rules based on purchase amount
+    IF p_purchase_amount > 100000 THEN
+        p_discount := p_purchase_amount * 0.10;  -- 10% discount
+    ELSIF p_purchase_amount BETWEEN 50000 AND 100000 THEN
+        p_discount := p_purchase_amount * 0.05;   -- 5% discount
+    ELSE
+        p_discount := 0;                          -- No discount
+    END IF;
+    
+    -- Calculate the final amount after discount
+    p_final_amount := p_purchase_amount - p_discount;
+    
+    -- Output the results
+    DBMS_OUTPUT.PUT_LINE('Discount: ' || p_discount || ', Final Amount: ' || p_final_amount);
