@@ -150,3 +150,22 @@ BEGIN
 EXCEPTION
     WHEN NO_DATA_FOUND THEN
         DBMS_OUTPUT.PUT_LINE('No product found with ID ' || p_product_id);
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('Error in Update_Product_Price: ' || SQLERRM);
+END Update_Product_Price;
+/
+/*
+─────────────────────────────
+Question 6: Employee Salary Increment
+─────────────────────────────
+
+This procedure increments an employee’s salary based on their years of service. (Assumes an EMPLOYEES table with columns EMPLOYEE_ID and SALARY.)
+*/
+CREATE OR REPLACE PROCEDURE Increment_Salary (
+    p_employee_id IN NUMBER,    -- Input: employee identifier
+    p_years_of_service IN NUMBER,  -- Input: number of years the employee has served
+    p_updated_salary OUT NUMBER -- Output: updated salary after increment
+) AS
+    v_increment NUMBER;         -- Local variable to hold the increment percentage
+BEGIN
+    -- Determine the increment rate based on years of service
