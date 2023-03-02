@@ -112,3 +112,22 @@ CREATE OR REPLACE PROCEDURE Calculate_Grade (
     p_final_grade OUT NUMBER   -- Output: calculated average grade
 ) AS
 BEGIN
+    -- Compute the average of the three marks
+    p_final_grade := (p_math + p_science + p_english) / 3;
+    
+    -- Display the final grade
+    DBMS_OUTPUT.PUT_LINE('Final Grade: ' || p_final_grade);
+EXCEPTION
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('Error in Calculate_Grade: ' || SQLERRM);
+END Calculate_Grade;
+/
+/*
+─────────────────────────────
+Question 5: Product Price Update
+─────────────────────────────
+
+This procedure updates the price of a product in the products table by applying a percentage increase. (Assumes a table named PRODUCTS with columns PRODUCT_ID and PRICE.)
+*/
+CREATE OR REPLACE PROCEDURE Update_Product_Price (
+    p_product_id IN NUMBER,          -- Input: product identifier
