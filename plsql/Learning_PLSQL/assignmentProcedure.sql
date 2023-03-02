@@ -188,3 +188,22 @@ BEGIN
     WHERE employee_id = p_employee_id;
     
     -- Output the updated salary
+    DBMS_OUTPUT.PUT_LINE('Updated Salary for Employee ' || p_employee_id || ': ' || p_updated_salary);
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        DBMS_OUTPUT.PUT_LINE('No employee found with ID ' || p_employee_id);
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('Error in Increment_Salary: ' || SQLERRM);
+END Increment_Salary;
+/
+/*
+─────────────────────────────
+Question 7: Order Total Calculation
+─────────────────────────────
+
+This procedure calculates the total order cost by adding a shipping fee. A shipping fee of 5,000 RWF is applied for orders below 50,000 RWF; orders of 50,000 RWF or more get free shipping.
+*/
+CREATE OR REPLACE PROCEDURE Calculate_Order_Total (
+    p_order_amount IN NUMBER,   -- Input: amount of the order
+    p_total_cost OUT NUMBER     -- Output: total cost including shipping fee
+) AS
