@@ -226,3 +226,22 @@ EXCEPTION
         DBMS_OUTPUT.PUT_LINE('Error in Calculate_Order_Total: ' || SQLERRM);
 END Calculate_Order_Total;
 /
+/*
+─────────────────────────────
+Question 8: Loan Interest Calculation
+─────────────────────────────
+
+This procedure calculates simple interest based on the principal amount, interest rate, and loan duration (in years).
+*/
+
+CREATE OR REPLACE PROCEDURE Calculate_Loan_Interest (
+    p_principal IN NUMBER,  -- Input: principal loan amount
+    p_rate IN NUMBER,       -- Input: interest rate (as a decimal, e.g., 0.08 for 8%)
+    p_duration IN NUMBER,   -- Input: loan duration in years
+    p_interest OUT NUMBER   -- Output: calculated interest
+) AS
+BEGIN
+    -- Calculate interest using the simple interest formula: Principal * Rate * Time
+    p_interest := p_principal * p_rate * p_duration;
+    
+    -- Display the calculated interest
