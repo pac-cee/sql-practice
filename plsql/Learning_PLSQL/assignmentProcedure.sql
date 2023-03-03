@@ -245,3 +245,22 @@ BEGIN
     p_interest := p_principal * p_rate * p_duration;
     
     -- Display the calculated interest
+    DBMS_OUTPUT.PUT_LINE('Calculated Interest: ' || p_interest);
+EXCEPTION
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('Error in Calculate_Loan_Interest: ' || SQLERRM);
+END Calculate_Loan_Interest;
+/
+/*
+─────────────────────────────
+Question 9: Customer Age Verification
+─────────────────────────────
+
+This procedure verifies whether a customer is at least 18 years old based on their date of birth.
+*/
+CREATE OR REPLACE PROCEDURE Verify_Age (
+    p_dob IN DATE,            -- Input: customer's date of birth
+    p_message OUT VARCHAR2    -- Output: eligibility message
+) AS
+    v_age NUMBER;             -- Local variable to hold the calculated age
+BEGIN
