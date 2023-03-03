@@ -207,3 +207,22 @@ CREATE OR REPLACE PROCEDURE Calculate_Order_Total (
     p_order_amount IN NUMBER,   -- Input: amount of the order
     p_total_cost OUT NUMBER     -- Output: total cost including shipping fee
 ) AS
+    v_shipping_fee NUMBER;       -- Local variable for the shipping fee
+BEGIN
+    -- Determine shipping fee based on the order amount
+    IF p_order_amount < 50000 THEN
+        v_shipping_fee := 5000;
+    ELSE
+        v_shipping_fee := 0;
+    END IF;
+    
+    -- Calculate the total cost
+    p_total_cost := p_order_amount + v_shipping_fee;
+    
+    -- Display the total order cost
+    DBMS_OUTPUT.PUT_LINE('Total Order Cost: ' || p_total_cost);
+EXCEPTION
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('Error in Calculate_Order_Total: ' || SQLERRM);
+END Calculate_Order_Total;
+/
