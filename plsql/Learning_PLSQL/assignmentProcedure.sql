@@ -264,3 +264,22 @@ CREATE OR REPLACE PROCEDURE Verify_Age (
 ) AS
     v_age NUMBER;             -- Local variable to hold the calculated age
 BEGIN
+    -- Calculate age in years using months_between and truncating the result
+    v_age := TRUNC(MONTHS_BETWEEN(SYSDATE, p_dob) / 12);
+    
+    -- Check if the customer meets the age requirement for registration
+    IF v_age >= 18 THEN
+        p_message := 'Customer is eligible for registration. Age: ' || v_age;
+    ELSE
+        p_message := 'Customer is NOT eligible for registration. Age: ' || v_age;
+    END IF;
+    
+    -- Display the eligibility message
+    DBMS_OUTPUT.PUT_LINE(p_message);
+EXCEPTION
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('Error in Verify_Age: ' || SQLERRM);
+END Verify_Age;
+/
+/*
+─────────────────────────────
