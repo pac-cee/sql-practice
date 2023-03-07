@@ -321,3 +321,22 @@ This anonymous PL/SQL block retrieves and displays details for an employee (with
 DECLARE
     -- Declare a record variable that matches the structure of the EMPLOYEES table row
     v_employee employees%ROWTYPE;
+BEGIN
+    -- Retrieve employee details for employee_id = 3 into the record variable
+    SELECT employee_id, first_name, last_name, salary, hire_date
+      INTO v_employee
+      FROM employees
+     WHERE employee_id = 3;
+     
+    -- Display the employee details using DBMS_OUTPUT.PUT_LINE
+    DBMS_OUTPUT.PUT_LINE('Employee ID: ' || v_employee.employee_id);
+    DBMS_OUTPUT.PUT_LINE('First Name: ' || v_employee.first_name);
+    DBMS_OUTPUT.PUT_LINE('Last Name: ' || v_employee.last_name);
+    DBMS_OUTPUT.PUT_LINE('Salary: ' || v_employee.salary);
+    DBMS_OUTPUT.PUT_LINE('Hire Date: ' || TO_CHAR(v_employee.hire_date, 'DD-MON-YYYY'));
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        DBMS_OUTPUT.PUT_LINE('No employee found with ID 3.');
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('Error fetching employee details: ' || SQLERRM);
+END;
