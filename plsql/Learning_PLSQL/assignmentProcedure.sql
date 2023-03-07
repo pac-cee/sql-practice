@@ -302,3 +302,22 @@ BEGIN
         p_message := 'Employee is eligible for retirement. Age: ' || v_age;
     ELSE
         p_message := 'Employee is NOT eligible for retirement. Age: ' || v_age;
+    END IF;
+    
+    -- Output the eligibility message
+    DBMS_OUTPUT.PUT_LINE(p_message);
+EXCEPTION
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('Error in Check_Retirement_Eligibility: ' || SQLERRM);
+END Check_Retirement_Eligibility;
+/
+/*
+─────────────────────────────
+Question 11a: Fetch and Display Employee Details
+─────────────────────────────
+
+This anonymous PL/SQL block retrieves and displays details for an employee (with employee_id = 3) from the EMPLOYEES table using a record declared with %ROWTYPE.
+*/
+DECLARE
+    -- Declare a record variable that matches the structure of the EMPLOYEES table row
+    v_employee employees%ROWTYPE;
