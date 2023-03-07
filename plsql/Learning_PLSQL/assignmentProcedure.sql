@@ -283,3 +283,22 @@ END Verify_Age;
 /
 /*
 ─────────────────────────────
+Question 10: Employee Retirement Eligibility
+─────────────────────────────
+
+This procedure checks if an employee is eligible for retirement (defined as age 60 or above) based on their date of birth.
+*/
+CREATE OR REPLACE PROCEDURE Check_Retirement_Eligibility (
+    p_dob IN DATE,           -- Input: employee's date of birth
+    p_message OUT VARCHAR2   -- Output: retirement eligibility message
+) AS
+    v_age NUMBER;            -- Local variable for employee's age
+BEGIN
+    -- Calculate the employee's age
+    v_age := TRUNC(MONTHS_BETWEEN(SYSDATE, p_dob) / 12);
+    
+    -- Determine retirement eligibility based on age
+    IF v_age >= 60 THEN
+        p_message := 'Employee is eligible for retirement. Age: ' || v_age;
+    ELSE
+        p_message := 'Employee is NOT eligible for retirement. Age: ' || v_age;
