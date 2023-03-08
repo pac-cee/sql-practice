@@ -359,3 +359,17 @@ BEGIN
     
     -- Check eligibility: age 60 or older qualifies
     IF v_age >= 60 THEN
+        v_message := 'Eligible for insurance benefit. Age: ' || v_age;
+    ELSE
+        v_message := 'Not eligible for insurance benefit. Age: ' || v_age;
+    END IF;
+    
+    -- Output the eligibility message
+    DBMS_OUTPUT.PUT_LINE(v_message);
+EXCEPTION
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('Error in insurance eligibility check: ' || SQLERRM);
+END;
+/
+
+-- Each solution is carefully commented so that you can see what every section does—from variable declarations and calculations to error handling and output via DBMS_OUTPUT. You can adjust table names, column names, or logic as needed for your environment. Happy coding and learning PL/SQL!
