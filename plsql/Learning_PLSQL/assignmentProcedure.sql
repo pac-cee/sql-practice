@@ -340,3 +340,22 @@ EXCEPTION
     WHEN OTHERS THEN
         DBMS_OUTPUT.PUT_LINE('Error fetching employee details: ' || SQLERRM);
 END;
+/
+/*
+─────────────────────────────
+Question 11b: Insurance Company Eligibility Check
+─────────────────────────────
+
+This anonymous PL/SQL block calculates the age of a policyholder (using a fixed DOB of January 1, 1960) and determines if they are eligible for an insurance benefit (eligibility if age is 60 or older).
+*/
+DECLARE
+    -- Define the policyholder's date of birth
+    v_dob DATE := TO_DATE('01-JAN-1960', 'DD-MON-YYYY');
+    v_age NUMBER;            -- Variable to store calculated age
+    v_message VARCHAR2(100); -- Variable to store the eligibility message
+BEGIN
+    -- Calculate the age in years
+    v_age := TRUNC(MONTHS_BETWEEN(SYSDATE, v_dob) / 12);
+    
+    -- Check eligibility: age 60 or older qualifies
+    IF v_age >= 60 THEN
