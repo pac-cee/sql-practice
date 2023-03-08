@@ -93,3 +93,22 @@ BEGIN
         DBMS_OUTPUT.PUT_LINE('Employee: ' || emp_record.first_name ||
                             ', Salary: ' || emp_record.salary);
     END LOOP;
+    CLOSE emp_cursor;
+    
+    -- Cursor FOR loop (simpler syntax)
+    FOR emp_rec IN emp_cursor LOOP
+        DBMS_OUTPUT.PUT_LINE('Employee: ' || emp_rec.first_name);
+    END LOOP;
+END;
+/
+
+-- 5. Procedures
+CREATE OR REPLACE PROCEDURE update_salary (
+    p_employee_id IN employees.employee_id%TYPE,
+    p_percentage IN NUMBER
+) IS
+    v_current_salary employees.salary%TYPE;
+BEGIN
+    -- Get current salary
+    SELECT salary INTO v_current_salary
+    FROM employees
