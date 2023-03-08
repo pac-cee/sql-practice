@@ -74,3 +74,22 @@ BEGIN
 END;
 /
 
+-- 4. Cursors
+DECLARE
+    -- Explicit cursor
+    CURSOR emp_cursor IS
+        SELECT employee_id, first_name, salary
+        FROM employees
+        WHERE department_id = 10;
+    
+    -- Record variable to store cursor data
+    emp_record emp_cursor%ROWTYPE;
+BEGIN
+    OPEN emp_cursor;
+    LOOP
+        FETCH emp_cursor INTO emp_record;
+        EXIT WHEN emp_cursor%NOTFOUND;
+        
+        DBMS_OUTPUT.PUT_LINE('Employee: ' || emp_record.first_name ||
+                            ', Salary: ' || emp_record.salary);
+    END LOOP;
