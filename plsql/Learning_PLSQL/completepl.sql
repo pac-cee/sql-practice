@@ -131,3 +131,22 @@ END update_salary;
 
 -- 6. Functions
 CREATE OR REPLACE FUNCTION calculate_bonus (
+    p_salary IN NUMBER,
+    p_years_service IN NUMBER
+) RETURN NUMBER IS
+    v_bonus_amount NUMBER;
+BEGIN
+    v_bonus_amount := CASE
+        WHEN p_years_service >= 10 THEN p_salary * 0.20
+        WHEN p_years_service >= 5 THEN p_salary * 0.15
+        ELSE p_salary * 0.10
+    END;
+    
+    RETURN v_bonus_amount;
+EXCEPTION
+    WHEN OTHERS THEN
+        RETURN 0;
+END calculate_bonus;
+/
+
+-- 7. Packages
