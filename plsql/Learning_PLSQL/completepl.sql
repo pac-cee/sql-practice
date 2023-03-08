@@ -150,3 +150,22 @@ END calculate_bonus;
 /
 
 -- 7. Packages
+CREATE OR REPLACE PACKAGE emp_mgmt AS
+    -- Package specifications
+    PROCEDURE update_salary (
+        p_employee_id IN employees.employee_id%TYPE,
+        p_percentage IN NUMBER
+    );
+    
+    FUNCTION calculate_bonus (
+        p_salary IN NUMBER,
+        p_years_service IN NUMBER
+    ) RETURN NUMBER;
+    
+    -- Package variables
+    g_company_name CONSTANT VARCHAR2(50) := 'My Company';
+END emp_mgmt;
+/
+
+CREATE OR REPLACE PACKAGE BODY emp_mgmt AS
+    -- Procedure implementation
