@@ -36,3 +36,22 @@ END;
 -- 3. Control Structures
 DECLARE
     v_grade CHAR(1) := 'B';
+    v_counter NUMBER := 1;
+BEGIN
+    -- IF-THEN-ELSIF
+    IF v_grade = 'A' THEN
+        DBMS_OUTPUT.PUT_LINE('Excellent!');
+    ELSIF v_grade = 'B' THEN
+        DBMS_OUTPUT.PUT_LINE('Good job!');
+    ELSE
+        DBMS_OUTPUT.PUT_LINE('Keep trying!');
+    END IF;
+    
+    -- CASE statement
+    CASE v_grade
+        WHEN 'A' THEN DBMS_OUTPUT.PUT_LINE('Excellent!');
+        WHEN 'B' THEN DBMS_OUTPUT.PUT_LINE('Good job!');
+        ELSE DBMS_OUTPUT.PUT_LINE('Keep trying!');
+    END CASE;
+    
+    -- LOOP
