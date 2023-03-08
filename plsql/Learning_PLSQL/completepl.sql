@@ -112,3 +112,22 @@ BEGIN
     -- Get current salary
     SELECT salary INTO v_current_salary
     FROM employees
+    WHERE employee_id = p_employee_id;
+    
+    -- Update salary
+    UPDATE employees
+    SET salary = salary * (1 + p_percentage/100)
+    WHERE employee_id = p_employee_id;
+    
+    COMMIT;
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        RAISE_APPLICATION_ERROR(-20001, 'Employee not found');
+    WHEN OTHERS THEN
+        ROLLBACK;
+        RAISE;
+END update_salary;
+/
+
+-- 6. Functions
+CREATE OR REPLACE FUNCTION calculate_bonus (
