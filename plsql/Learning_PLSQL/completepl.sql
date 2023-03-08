@@ -55,3 +55,22 @@ BEGIN
     END CASE;
     
     -- LOOP
+    LOOP
+        DBMS_OUTPUT.PUT_LINE('Counter: ' || v_counter);
+        v_counter := v_counter + 1;
+        EXIT WHEN v_counter > 5;
+    END LOOP;
+    
+    -- FOR LOOP
+    FOR i IN 1..5 LOOP
+        DBMS_OUTPUT.PUT_LINE('Iteration ' || i);
+    END LOOP;
+    
+    -- WHILE LOOP
+    WHILE v_counter <= 10 LOOP
+        DBMS_OUTPUT.PUT_LINE('While counter: ' || v_counter);
+        v_counter := v_counter + 1;
+    END LOOP;
+END;
+/
+
