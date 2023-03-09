@@ -207,3 +207,22 @@ DECLARE
     PRAGMA EXCEPTION_INIT(custom_exception, -20999);
 BEGIN
     -- User-defined exception
+    RAISE_APPLICATION_ERROR(-20999, 'Custom error occurred');
+EXCEPTION
+    WHEN custom_exception THEN
+        DBMS_OUTPUT.PUT_LINE('Caught custom exception');
+    WHEN NO_DATA_FOUND THEN
+        DBMS_OUTPUT.PUT_LINE('No data found');
+    WHEN TOO_MANY_ROWS THEN
+        DBMS_OUTPUT.PUT_LINE('Too many rows');
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('Unexpected error: ' || SQLERRM);
+END;
+/
+
+-- 10. Collections
+DECLARE
+    -- Associative array (Index-by table)
+    TYPE name_list_type IS TABLE OF VARCHAR2(50)
+        INDEX BY PLS_INTEGER;
+    name_list name_list_type;
