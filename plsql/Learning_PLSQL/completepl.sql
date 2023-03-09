@@ -226,3 +226,25 @@ DECLARE
     TYPE name_list_type IS TABLE OF VARCHAR2(50)
         INDEX BY PLS_INTEGER;
     name_list name_list_type;
+    
+    -- Nested table
+    TYPE number_list_type IS TABLE OF NUMBER;
+    number_list number_list_type := number_list_type();
+    
+    -- VARRAY
+    TYPE department_list_type IS VARRAY(5) OF NUMBER;
+    department_list department_list_type := department_list_type();
+BEGIN
+    -- Using associative array
+    name_list(1) := 'John';
+    name_list(2) := 'Jane';
+    
+    -- Using nested table
+    number_list.EXTEND;
+    number_list(1) := 100;
+    
+    -- Using VARRAY
+    department_list.EXTEND;
+    department_list(1) := 10;
+END;
+/
