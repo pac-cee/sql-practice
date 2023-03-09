@@ -169,3 +169,22 @@ END emp_mgmt;
 
 CREATE OR REPLACE PACKAGE BODY emp_mgmt AS
     -- Procedure implementation
+    PROCEDURE update_salary (
+        p_employee_id IN employees.employee_id%TYPE,
+        p_percentage IN NUMBER
+    ) IS
+        -- Implementation here
+    BEGIN
+        NULL;
+    END update_salary;
+    
+    -- Function implementation
+    FUNCTION calculate_bonus (
+        p_salary IN NUMBER,
+        p_years_service IN NUMBER
+    ) RETURN NUMBER IS
+        -- Implementation here
+    BEGIN
+        RETURN 0;
+    END calculate_bonus;
+END emp_mgmt;
