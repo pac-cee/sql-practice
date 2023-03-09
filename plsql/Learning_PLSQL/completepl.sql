@@ -188,3 +188,22 @@ CREATE OR REPLACE PACKAGE BODY emp_mgmt AS
         RETURN 0;
     END calculate_bonus;
 END emp_mgmt;
+/
+
+-- 8. Triggers
+CREATE OR REPLACE TRIGGER prevent_salary_decrease
+BEFORE UPDATE OF salary ON employees
+FOR EACH ROW
+BEGIN
+    IF :NEW.salary < :OLD.salary THEN
+        RAISE_APPLICATION_ERROR(-20002, 'Salary cannot be decreased');
+    END IF;
+END;
+/
+
+-- 9. Exception Handling
+DECLARE
+    custom_exception EXCEPTION;
+    PRAGMA EXCEPTION_INIT(custom_exception, -20999);
+BEGIN
+    -- User-defined exception
