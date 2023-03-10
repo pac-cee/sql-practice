@@ -36,3 +36,22 @@ docker logs oracle-free
 3. Remove and recreate container if needed:
 ```powershell
 docker stop oracle-free
+docker rm oracle-free
+docker run -d --name oracle-free -p 1521:1521 -e ORACLE_PWD=YourStrongPassword123 container-registry.oracle.com/database/free:latest
+```
+
+### Issue 2: Database Not Accessible
+If you can't connect to the database:
+
+1. Check if container is healthy:
+```powershell
+docker inspect oracle-free | findstr "Status"
+```
+
+2. Check if port is accessible:
+```powershell
+Test-NetConnection -ComputerName localhost -Port 1521
+```
+
+3. Verify database status from inside container:
+```powershell
