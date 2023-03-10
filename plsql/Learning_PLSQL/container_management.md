@@ -55,3 +55,22 @@ Test-NetConnection -ComputerName localhost -Port 1521
 
 3. Verify database status from inside container:
 ```powershell
+docker exec oracle-free sqlplus / as sysdba <<EOF
+SELECT status FROM v$instance;
+EXIT;
+EOF
+```
+
+### Issue 3: Data Persistence
+To prevent data loss between container restarts:
+
+1. Create a volume:
+```powershell
+docker volume create oracle_data
+```
+
+2. Run container with volume:
+```powershell
+docker run -d --name oracle-free `
+    -p 1521:1521 `
+    -e ORACLE_PWD=YourStrongPassword123 `
