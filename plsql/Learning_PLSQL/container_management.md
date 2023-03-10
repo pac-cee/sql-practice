@@ -150,3 +150,23 @@ docker rm oracle-free
 # View real-time logs
 docker logs -f oracle-free
 ```
+
+### Database Health Check
+```powershell
+# Check database status
+docker exec oracle-free sqlplus -S / as sysdba <<EOF
+SET PAGESIZE 0 FEEDBACK OFF VERIFY OFF HEADING OFF ECHO OFF;
+SELECT status FROM v\$instance;
+EXIT;
+EOF
+
+# Check tablespace usage
+docker exec oracle-free sqlplus -S / as sysdba <<EOF
+SET LINESIZE 200;
+SELECT tablespace_name, 
+       ROUND(used_space * 8192 / 1024 / 1024) "Used (MB)",
+       ROUND(tablespace_size * 8192 / 1024 / 1024) "Total (MB)"
+FROM dba_tablespace_usage_metrics;
+EXIT;
+EOF
+```
