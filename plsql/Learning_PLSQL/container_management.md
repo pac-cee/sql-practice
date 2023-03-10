@@ -112,3 +112,22 @@ docker stats oracle-free
 ```powershell
 # Restart with more resources
 docker update --memory 4g --memory-swap 8g --cpus 2 oracle-free
+```
+
+## 5. Troubleshooting Checklist
+
+1. Container Issues:
+   - Check container status
+   - View logs
+   - Verify resource usage
+   - Ensure ports are not conflicting
+
+2. Database Issues:
+   - Verify listener status
+   - Check database status
+   - Review alert logs
+   - Test connection parameters
+
+3. Data Issues:
+   - Check tablespace usage
+   - Verify user permissions
