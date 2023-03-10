@@ -131,3 +131,22 @@ docker update --memory 4g --memory-swap 8g --cpus 2 oracle-free
 3. Data Issues:
    - Check tablespace usage
    - Verify user permissions
+   - Review transaction logs
+
+## 6. Quick Reference Commands
+
+### Container Management
+```powershell
+# Start container and wait for database
+docker start oracle-free
+Start-Sleep -Seconds 60  # Wait for database initialization
+
+# Stop container gracefully
+docker stop oracle-free
+
+# Remove container (caution: data will be lost without volume)
+docker rm oracle-free
+
+# View real-time logs
+docker logs -f oracle-free
+```
