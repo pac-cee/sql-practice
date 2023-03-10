@@ -93,3 +93,22 @@ docker cp oracle-free:/opt/oracle/backup.dmp D:\oracle_backups\
 ```
 
 ### Restore Backup
+```powershell
+# Copy backup file to container
+docker cp D:\oracle_backups\backup.dmp oracle-free:/opt/oracle/
+
+# Import database
+docker exec oracle-free imp system/YourStrongPassword123@//localhost:1521/FREEPDB1 file=/opt/oracle/backup.dmp
+```
+
+## 4. Performance Tuning
+
+### Check Resource Usage
+```powershell
+docker stats oracle-free
+```
+
+### Adjust Container Resources
+```powershell
+# Restart with more resources
+docker update --memory 4g --memory-swap 8g --cpus 2 oracle-free
