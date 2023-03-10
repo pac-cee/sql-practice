@@ -74,3 +74,22 @@ docker volume create oracle_data
 docker run -d --name oracle-free `
     -p 1521:1521 `
     -e ORACLE_PWD=YourStrongPassword123 `
+    -v oracle_data:/opt/oracle/oradata `
+    container-registry.oracle.com/database/free:latest
+```
+
+## 3. Backup and Recovery
+
+### Create Backup
+```powershell
+# Create backup directory
+mkdir D:\oracle_backups
+
+# Export database
+docker exec oracle-free exp system/YourStrongPassword123@//localhost:1521/FREEPDB1 file=/opt/oracle/backup.dmp
+
+# Copy backup file from container
+docker cp oracle-free:/opt/oracle/backup.dmp D:\oracle_backups\
+```
+
+### Restore Backup
