@@ -36,3 +36,15 @@ INSERT INTO customers (
 ) VALUES (
     customer_seq.NEXTVAL, 'Mary', 'Johnson', 'mary.j@email.com', '555-0102',
     '456 Oak Ave', 'New York', 'NY', '10001', 7500.00, 'ACTIVE'
+);
+
+INSERT INTO customers (
+    customer_id, first_name, last_name, email, phone, 
+    address, city, state, zip_code, credit_limit, status
+) VALUES (
+    customer_seq.NEXTVAL, 'Robert', 'Williams', 'rwilliams@email.com', '555-0103',
+    '789 Pine Rd', 'Chicago', 'IL', '60601', 3000.00, 'ACTIVE'
+);
+
+-- Verify the data
+SELECT * FROM customers;
