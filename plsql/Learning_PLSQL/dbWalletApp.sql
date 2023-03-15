@@ -74,3 +74,22 @@ CREATE TABLE budgets (
     end_date DATE NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT pk_budgets PRIMARY KEY (budget_id),
+    CONSTRAINT fk_budgets_users FOREIGN KEY (user_id) REFERENCES users(user_id),
+    CONSTRAINT fk_budgets_categories FOREIGN KEY (category_id) REFERENCES categories(category_id)
+);
+
+-- 2. Package for User Management
+CREATE OR REPLACE PACKAGE user_mgmt AS
+    -- Create new user
+    PROCEDURE create_user(
+        p_username IN VARCHAR2,
+        p_email IN VARCHAR2,
+        p_password IN VARCHAR2,
+        p_user_id OUT NUMBER
+    );
+    
+    -- Authenticate user
+    FUNCTION authenticate_user(
+        p_username IN VARCHAR2,
+        p_password IN VARCHAR2
+    ) RETURN NUMBER;
