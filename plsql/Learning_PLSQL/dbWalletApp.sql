@@ -55,3 +55,22 @@ CREATE TABLE transactions (
     transaction_id NUMBER GENERATED ALWAYS AS IDENTITY,
     wallet_id NUMBER NOT NULL,
     category_id NUMBER NOT NULL,
+    amount NUMBER(15,2) NOT NULL,
+    transaction_type VARCHAR2(10) CHECK (transaction_type IN ('INCOME', 'EXPENSE')),
+    description VARCHAR2(200),
+    transaction_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT pk_transactions PRIMARY KEY (transaction_id),
+    CONSTRAINT fk_transactions_wallets FOREIGN KEY (wallet_id) REFERENCES wallets(wallet_id),
+    CONSTRAINT fk_transactions_categories FOREIGN KEY (category_id) REFERENCES categories(category_id)
+);
+
+CREATE TABLE budgets (
+    budget_id NUMBER GENERATED ALWAYS AS IDENTITY,
+    user_id NUMBER NOT NULL,
+    category_id NUMBER NOT NULL,
+    amount NUMBER(15,2) NOT NULL,
+    start_date DATE NOT NULL,
+    end_date DATE NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT pk_budgets PRIMARY KEY (budget_id),
