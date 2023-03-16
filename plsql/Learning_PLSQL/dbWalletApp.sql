@@ -93,3 +93,22 @@ CREATE OR REPLACE PACKAGE user_mgmt AS
         p_username IN VARCHAR2,
         p_password IN VARCHAR2
     ) RETURN NUMBER;
+    
+    -- Update user details
+    PROCEDURE update_user(
+        p_user_id IN NUMBER,
+        p_email IN VARCHAR2
+    );
+END user_mgmt;
+/
+
+-- 3. Package for Wallet Management
+CREATE OR REPLACE PACKAGE wallet_mgmt AS
+    -- Create new wallet
+    PROCEDURE create_wallet(
+        p_user_id IN NUMBER,
+        p_wallet_name IN VARCHAR2,
+        p_currency IN VARCHAR2,
+        p_wallet_id OUT NUMBER
+    );
+    
