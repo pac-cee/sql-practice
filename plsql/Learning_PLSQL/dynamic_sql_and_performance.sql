@@ -169,3 +169,22 @@ BEGIN
     WHERE department_id = p_dept_id;
     
     RETURN v_budget;
+END;
+/
+
+-- 2.3 Parallel Execution
+-- --------------------
+-- Purpose: Utilize parallel processing for large datasets
+CREATE OR REPLACE PROCEDURE parallel_data_analysis(
+    p_as_of_date IN DATE
+) IS
+    -- Parallel hint for large table scan
+    v_sql VARCHAR2(32767) := '
+    INSERT /*+ PARALLEL(8) */ INTO employee_stats (
+        analysis_date,
+        department_id,
+        emp_count,
+        total_salary,
+        avg_salary,
+        salary_stddev
+    )
