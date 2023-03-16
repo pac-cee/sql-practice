@@ -74,3 +74,22 @@ BEGIN
         -- Log execution time
         log_execution_time(
             ''' || p_proc_name || ''',
+            EXTRACT(SECOND FROM (SYSTIMESTAMP - v_start_time))
+        );
+    END;';
+    
+    -- Execute dynamic PL/SQL
+    EXECUTE IMMEDIATE v_plsql_block;
+END;
+/
+
+/*
+Section 2: Performance Optimization
+Purpose: Improve execution speed and resource usage
+Benefits:
+- Faster query execution
+- Reduced resource consumption
+- Better scalability
+*/
+
+-- 2.1 Bulk Operations
