@@ -150,3 +150,22 @@ CREATE OR REPLACE PACKAGE budget_mgmt AS
         p_start_date IN DATE,
         p_end_date IN DATE
     ) RETURN NUMBER;
+END budget_mgmt;
+/
+
+-- 5. Triggers for Automatic Updates
+CREATE OR REPLACE TRIGGER trg_update_wallet_balance
+AFTER INSERT OR UPDATE ON transactions
+FOR EACH ROW
+DECLARE
+    v_wallet_balance NUMBER;
+BEGIN
+    IF :NEW.transaction_type = 'INCOME' THEN
+        UPDATE wallets 
+        SET balance = balance + :NEW.amount
+        WHERE wallet_id = :NEW.wallet_id;
+    ELSE
+        UPDATE wallets 
+        SET balance = balance - :NEW.amount
+        WHERE wallet_id = :NEW.wallet_id;
+    END IF;
