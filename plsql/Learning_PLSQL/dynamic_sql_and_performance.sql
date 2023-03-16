@@ -188,3 +188,22 @@ CREATE OR REPLACE PROCEDURE parallel_data_analysis(
         avg_salary,
         salary_stddev
     )
+    SELECT
+        :1 as analysis_date,
+        department_id,
+        COUNT(*) as emp_count,
+        SUM(salary) as total_salary,
+        AVG(salary) as avg_salary,
+        STDDEV(salary) as salary_stddev
+    FROM employees
+    GROUP BY department_id';
+BEGIN
+    -- Execute parallel query
+    EXECUTE IMMEDIATE v_sql USING p_as_of_date;
+    
+    -- Update statistics
+    DBMS_STATS.GATHER_TABLE_STATS(
+        ownname => USER,
+        tabname => 'EMPLOYEE_STATS',
+        estimate_percent => DBMS_STATS.AUTO_SAMPLE_SIZE,
+        degree => DBMS_STATS.AUTO_DEGREE
