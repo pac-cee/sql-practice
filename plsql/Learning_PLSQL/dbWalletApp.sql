@@ -188,3 +188,22 @@ WHERE t.transaction_type = 'EXPENSE'
 GROUP BY u.username, c.category_name, 
          EXTRACT(MONTH FROM t.transaction_date),
          EXTRACT(YEAR FROM t.transaction_date);
+
+-- 7. Report Generation Function
+CREATE OR REPLACE FUNCTION generate_expense_report(
+    p_user_id IN NUMBER,
+    p_start_date IN DATE,
+    p_end_date IN DATE
+) RETURN SYS_REFCURSOR IS
+    v_result SYS_REFCURSOR;
+BEGIN
+    OPEN v_result FOR
+        SELECT 
+            c.category_name,
+            SUM(t.amount) as total_amount,
+            COUNT(*) as transaction_count,
+            MIN(t.amount) as min_amount,
+            MAX(t.amount) as max_amount,
+            AVG(t.amount) as avg_amount
+        FROM transactions t
+        JOIN wallets w ON t.wallet_id = w.wallet_id
