@@ -55,3 +55,22 @@ CREATE OR REPLACE PROCEDURE execute_dynamic_plsql(
     p_params IN VARCHAR2
 ) IS
     v_plsql_block VARCHAR2(32767);
+    v_param_list VARCHAR2(4000);
+BEGIN
+    -- Build parameter list
+    SELECT LISTAGG(param_name || ' => ' || param_value, ', ')
+    INTO v_param_list
+    FROM table(parse_params(p_params));
+    
+    -- Construct PL/SQL block
+    v_plsql_block := '
+    DECLARE
+        -- Runtime variable declarations
+        v_start_time TIMESTAMP := SYSTIMESTAMP;
+    BEGIN
+        -- Execute procedure with parameters
+        ' || p_proc_name || '(' || v_param_list || ');
+        
+        -- Log execution time
+        log_execution_time(
+            ''' || p_proc_name || ''',
