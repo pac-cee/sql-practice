@@ -207,3 +207,22 @@ BEGIN
         tabname => 'EMPLOYEE_STATS',
         estimate_percent => DBMS_STATS.AUTO_SAMPLE_SIZE,
         degree => DBMS_STATS.AUTO_DEGREE
+    );
+END;
+/
+
+/*
+Section 3: Performance Monitoring
+Purpose: Track and analyze execution performance
+Benefits:
+- Identify bottlenecks
+- Optimize resource usage
+- Trend analysis
+*/
+
+-- 3.1 Execution Statistics Package
+-- -----------------------------
+CREATE OR REPLACE PACKAGE performance_stats IS
+    -- Record execution metrics
+    PROCEDURE record_execution(
+        p_module_name IN VARCHAR2,
