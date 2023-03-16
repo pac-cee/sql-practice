@@ -131,3 +131,22 @@ BEGIN
     FOR i IN 1..v_emp_ids.COUNT LOOP
         v_new_salaries(i) := v_old_salaries(i) * (1 + p_increase_percent/100);
     END LOOP;
+    
+    -- Bulk update in batches
+    FOR i IN 0..TRUNC((v_emp_ids.COUNT-1)/c_batch_size) LOOP
+        FORALL j IN (i*c_batch_size+1)..LEAST((i+1)*c_batch_size, v_emp_ids.COUNT)
+            UPDATE employees
+            SET salary = v_new_salaries(j)
+            WHERE employee_id = v_emp_ids(j);
+            
+        -- Commit each batch
+        COMMIT;
+    END LOOP;
+    
+    -- Log performance metrics
+    v_end_time := SYSTIMESTAMP;
+    log_performance_metrics(
+        p_procedure_name => 'bulk_salary_update',
+        p_records_processed => v_emp_ids.COUNT,
+        p_execution_time => EXTRACT(SECOND FROM (v_end_time - v_start_time))
+    );
