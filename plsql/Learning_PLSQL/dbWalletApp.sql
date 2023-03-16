@@ -131,3 +131,22 @@ END wallet_mgmt;
 -- 4. Package for Budget Management
 CREATE OR REPLACE PACKAGE budget_mgmt AS
     -- Create budget
+    PROCEDURE create_budget(
+        p_user_id IN NUMBER,
+        p_category_id IN NUMBER,
+        p_amount IN NUMBER,
+        p_start_date IN DATE,
+        p_end_date IN DATE
+    );
+    
+    -- Check budget status
+    FUNCTION get_budget_status(
+        p_budget_id IN NUMBER
+    ) RETURN NUMBER;
+    
+    -- Get category spending
+    FUNCTION get_category_spending(
+        p_category_id IN NUMBER,
+        p_start_date IN DATE,
+        p_end_date IN DATE
+    ) RETURN NUMBER;
