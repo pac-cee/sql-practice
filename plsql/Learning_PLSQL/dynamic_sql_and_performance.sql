@@ -150,3 +150,22 @@ BEGIN
         p_records_processed => v_emp_ids.COUNT,
         p_execution_time => EXTRACT(SECOND FROM (v_end_time - v_start_time))
     );
+END;
+/
+
+-- 2.2 Result Cache
+-- --------------
+-- Purpose: Cache frequently accessed data
+-- Use Case: Lookup tables and reference data
+CREATE OR REPLACE FUNCTION get_department_budget(
+    p_dept_id IN NUMBER
+) RETURN NUMBER
+    RESULT_CACHE RELIES_ON (departments, employees)
+IS
+    v_budget NUMBER;
+BEGIN
+    SELECT SUM(salary) INTO v_budget
+    FROM employees
+    WHERE department_id = p_dept_id;
+    
+    RETURN v_budget;
