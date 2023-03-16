@@ -36,3 +36,22 @@ BEGIN
     v_sql := 'SELECT ' || v_columns || ' FROM ' || p_table_name;
     IF p_where_clause IS NOT NULL THEN
         v_sql := v_sql || ' WHERE ' || p_where_clause;
+    END IF;
+    
+    -- Execute and process results
+    DBMS_OUTPUT.PUT_LINE('Executing: ' || v_sql);
+    
+    -- Log execution plan for performance monitoring
+    execute_with_plan(v_sql);
+END;
+/
+
+-- 1.2 Advanced Dynamic PL/SQL
+-- --------------------------
+-- Purpose: Dynamic PL/SQL block execution
+-- Use Case: Flexible procedure calls and business logic
+CREATE OR REPLACE PROCEDURE execute_dynamic_plsql(
+    p_proc_name IN VARCHAR2,
+    p_params IN VARCHAR2
+) IS
+    v_plsql_block VARCHAR2(32767);
