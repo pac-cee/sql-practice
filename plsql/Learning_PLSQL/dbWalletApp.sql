@@ -169,3 +169,22 @@ BEGIN
         SET balance = balance - :NEW.amount
         WHERE wallet_id = :NEW.wallet_id;
     END IF;
+END;
+/
+
+-- 6. Views for Reporting
+CREATE OR REPLACE VIEW vw_monthly_spending AS
+SELECT 
+    u.username,
+    c.category_name,
+    EXTRACT(MONTH FROM t.transaction_date) as month,
+    EXTRACT(YEAR FROM t.transaction_date) as year,
+    SUM(t.amount) as total_amount
+FROM transactions t
+JOIN wallets w ON t.wallet_id = w.wallet_id
+JOIN users u ON w.user_id = u.user_id
+JOIN categories c ON t.category_id = c.category_id
+WHERE t.transaction_type = 'EXPENSE'
+GROUP BY u.username, c.category_name, 
+         EXTRACT(MONTH FROM t.transaction_date),
+         EXTRACT(YEAR FROM t.transaction_date);
