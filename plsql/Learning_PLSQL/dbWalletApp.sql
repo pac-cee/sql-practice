@@ -207,3 +207,12 @@ BEGIN
             AVG(t.amount) as avg_amount
         FROM transactions t
         JOIN wallets w ON t.wallet_id = w.wallet_id
+        JOIN categories c ON t.category_id = c.category_id
+        WHERE w.user_id = p_user_id
+        AND t.transaction_date BETWEEN p_start_date AND p_end_date
+        GROUP BY c.category_name;
+    
+    RETURN v_result;
+END;
+
+/
