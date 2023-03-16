@@ -93,3 +93,22 @@ Benefits:
 */
 
 -- 2.1 Bulk Operations
+-- ------------------
+-- Purpose: Optimize DML operations using bulk processing
+CREATE OR REPLACE PROCEDURE bulk_salary_update(
+    p_department_id IN NUMBER,
+    p_increase_percent IN NUMBER
+) IS
+    -- Types for bulk processing
+    TYPE t_emp_ids IS TABLE OF employees.employee_id%TYPE;
+    TYPE t_salaries IS TABLE OF employees.salary%TYPE;
+    
+    -- Collections for bulk operations
+    v_emp_ids t_emp_ids;
+    v_old_salaries t_salaries;
+    v_new_salaries t_salaries;
+    
+    -- Constants for batch size
+    c_batch_size CONSTANT PLS_INTEGER := 100;
+    
+    -- Performance monitoring
