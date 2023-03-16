@@ -112,3 +112,22 @@ CREATE OR REPLACE PROCEDURE bulk_salary_update(
     c_batch_size CONSTANT PLS_INTEGER := 100;
     
     -- Performance monitoring
+    v_start_time TIMESTAMP;
+    v_end_time TIMESTAMP;
+BEGIN
+    v_start_time := SYSTIMESTAMP;
+    
+    -- Bulk collect employee data
+    SELECT employee_id, salary BULK COLLECT 
+    INTO v_emp_ids, v_old_salaries
+    FROM employees
+    WHERE department_id = p_department_id;
+    
+    -- Calculate new salaries
+    v_new_salaries := t_salaries();
+    v_new_salaries.EXTEND(v_emp_ids.COUNT);
+    
+    -- Array processing for calculations
+    FOR i IN 1..v_emp_ids.COUNT LOOP
+        v_new_salaries(i) := v_old_salaries(i) * (1 + p_increase_percent/100);
+    END LOOP;
