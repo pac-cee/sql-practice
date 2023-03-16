@@ -112,3 +112,22 @@ CREATE OR REPLACE PACKAGE wallet_mgmt AS
         p_wallet_id OUT NUMBER
     );
     
+    -- Get wallet balance
+    FUNCTION get_wallet_balance(
+        p_wallet_id IN NUMBER
+    ) RETURN NUMBER;
+    
+    -- Add transaction
+    PROCEDURE add_transaction(
+        p_wallet_id IN NUMBER,
+        p_category_id IN NUMBER,
+        p_amount IN NUMBER,
+        p_transaction_type IN VARCHAR2,
+        p_description IN VARCHAR2
+    );
+END wallet_mgmt;
+/
+
+-- 4. Package for Budget Management
+CREATE OR REPLACE PACKAGE budget_mgmt AS
+    -- Create budget
