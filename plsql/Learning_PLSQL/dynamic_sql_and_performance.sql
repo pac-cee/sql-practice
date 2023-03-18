@@ -283,3 +283,14 @@ CREATE OR REPLACE PACKAGE BODY performance_stats IS
                 AVG(execution_time) as avg_execution_time,
                 MAX(execution_time) as max_execution_time,
                 MIN(execution_time) as min_execution_time,
+                STDDEV(execution_time) as time_stddev,
+                SUM(rows_processed) as total_rows_processed
+            FROM execution_stats
+            WHERE TRUNC(execution_date) BETWEEN p_start_date AND p_end_date
+            GROUP BY module_name
+            ORDER BY avg_execution_time DESC;
+            
+        RETURN v_result;
+    END get_performance_report;
+END performance_stats;
+/
