@@ -226,3 +226,22 @@ CREATE OR REPLACE PACKAGE performance_stats IS
     -- Record execution metrics
     PROCEDURE record_execution(
         p_module_name IN VARCHAR2,
+        p_execution_time IN NUMBER,
+        p_rows_processed IN NUMBER,
+        p_cpu_time IN NUMBER DEFAULT NULL
+    );
+    
+    -- Get performance report
+    FUNCTION get_performance_report(
+        p_start_date IN DATE,
+        p_end_date IN DATE
+    ) RETURN SYS_REFCURSOR;
+END performance_stats;
+/
+
+-- Implementation with detailed stats collection
+CREATE OR REPLACE PACKAGE BODY performance_stats IS
+    PROCEDURE record_execution(
+        p_module_name IN VARCHAR2,
+        p_execution_time IN NUMBER,
+        p_rows_processed IN NUMBER,
