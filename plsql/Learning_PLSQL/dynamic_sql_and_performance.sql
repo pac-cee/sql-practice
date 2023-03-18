@@ -245,3 +245,22 @@ CREATE OR REPLACE PACKAGE BODY performance_stats IS
         p_module_name IN VARCHAR2,
         p_execution_time IN NUMBER,
         p_rows_processed IN NUMBER,
+        p_cpu_time IN NUMBER DEFAULT NULL
+    ) IS
+        PRAGMA AUTONOMOUS_TRANSACTION;
+    BEGIN
+        INSERT INTO execution_stats (
+            module_name,
+            execution_time,
+            rows_processed,
+            cpu_time,
+            execution_date,
+            session_id,
+            instance_id
+        ) VALUES (
+            p_module_name,
+            p_execution_time,
+            p_rows_processed,
+            p_cpu_time,
+            SYSTIMESTAMP,
+            SYS_CONTEXT('USERENV', 'SID'),
