@@ -264,3 +264,22 @@ CREATE OR REPLACE PACKAGE BODY performance_stats IS
             p_cpu_time,
             SYSTIMESTAMP,
             SYS_CONTEXT('USERENV', 'SID'),
+            SYS_CONTEXT('USERENV', 'INSTANCE')
+        );
+        
+        COMMIT;
+    END record_execution;
+    
+    FUNCTION get_performance_report(
+        p_start_date IN DATE,
+        p_end_date IN DATE
+    ) RETURN SYS_REFCURSOR IS
+        v_result SYS_REFCURSOR;
+    BEGIN
+        OPEN v_result FOR
+            SELECT 
+                module_name,
+                COUNT(*) as execution_count,
+                AVG(execution_time) as avg_execution_time,
+                MAX(execution_time) as max_execution_time,
+                MIN(execution_time) as min_execution_time,
