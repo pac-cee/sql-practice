@@ -36,3 +36,22 @@ BEGIN
         VALUES (p_student_id, p_attendance_date, p_status);
         
         -- Return success message
+        p_message := 'Attendance recorded successfully for student ID ' 
+                     || p_student_id 
+                     || ' on ' 
+                     || TO_CHAR(p_attendance_date, 'DD-MON-YYYY');
+    END IF;
+    
+EXCEPTION
+    WHEN attendance_already_recorded THEN
+        p_message := 'Error: Attendance has already been recorded for student ID ' 
+                     || p_student_id 
+                     || ' on ' 
+                     || TO_CHAR(p_attendance_date, 'DD-MON-YYYY');
+                     
+    WHEN OTHERS THEN
+        -- Catch-all for any other errors
+        p_message := 'An unexpected error occurred: ' || SQLERRM;
+END record_attendance;
+/
+
