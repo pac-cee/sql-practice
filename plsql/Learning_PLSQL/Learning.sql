@@ -55,3 +55,22 @@ EXCEPTION
 END record_attendance;
 /
 
+
+
+-- Test Scenario 1: New record (should succeed)
+DECLARE
+    v_message VARCHAR2(200);
+BEGIN
+    record_attendance(
+        p_student_id      => 12345,
+        p_attendance_date => DATE '2025-03-18',
+        p_status          => 'Present',
+        p_message         => v_message
+    );
+    DBMS_OUTPUT.PUT_LINE(v_message);
+END;
+/
+
+-- Test Scenario 2: Duplicate record (should raise the user-defined exception)
+DECLARE
+    v_message VARCHAR2(200);
