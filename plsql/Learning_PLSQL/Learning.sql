@@ -93,3 +93,22 @@ and work with different parameter types in PL/SQL:
 ---
 
 ### 1. Employee Insertion with Duplicate Check
+
+**Task:**  
+Create a procedure named `add_employee` that inserts a new employee record into an `employees` table. The 
+table includes columns like `employee_id`, `first_name`, `last_name`, and `hire_date`.  
+**Requirements:**  
+- Accept the employee details as parameters.
+- Check if an employee with the given `employee_id` already exists.
+- If a duplicate is found, raise a user-defined exception and return an appropriate error message via an
+ OUT parameter.
+- If no duplicate exists, insert the record and return a success message.
+
+---
+*/
+create table employees(
+    employee_id number primary key,
+    first_name varchar2(50),
+    last_name varchar2(50),
+    hire_date date
+);
