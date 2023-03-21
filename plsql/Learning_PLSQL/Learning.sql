@@ -112,3 +112,22 @@ create table employees(
     last_name varchar2(50),
     hire_date date
 );
+
+create or replace procedure add_employee(
+    p_employee_id in number,
+    p_first_name in varchar2,
+    p_last_name in varchar2,
+    p_hire_date in date,
+    p_message out varchar2
+) as
+    employee_already_exists exception;
+    PRAGMA EXCEPTION_INIT(employee_already_exists, -1); -- Initialize the exception
+    v_count number := 0;
+begin
+    -- Check if the employee already exists
+    SELECT COUNT(*)
+      INTO v_count
+      FROM employees
+     WHERE employee_id = p_employee_id;
+
+    IF v_count > 0 THEN
