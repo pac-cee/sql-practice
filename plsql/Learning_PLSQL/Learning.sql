@@ -74,3 +74,22 @@ END;
 -- Test Scenario 2: Duplicate record (should raise the user-defined exception)
 DECLARE
     v_message VARCHAR2(200);
+BEGIN
+    record_attendance(
+        p_student_id      => 12345,
+        p_attendance_date => DATE '2025-03-18',
+        p_status          => 'Absent',  -- or any status
+        p_message         => v_message
+    );
+    DBMS_OUTPUT.PUT_LINE(v_message);
+END;
+/
+
+
+/*
+Here are some practice questions to challenge your ability to create procedures, handle exceptions, 
+and work with different parameter types in PL/SQL:
+
+---
+
+### 1. Employee Insertion with Duplicate Check
