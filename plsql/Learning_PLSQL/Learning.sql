@@ -131,3 +131,22 @@ begin
      WHERE employee_id = p_employee_id;
 
     IF v_count > 0 THEN
+        -- Raise user-defined exception if employee exists
+        RAISE employee_already_exists;
+    ELSE
+        -- Insert new employee record
+        INSERT INTO employees (employee_id, first_name, last_name, hire_date)
+        VALUES (p_employee_id, p_first_name, p_last_name, p_hire_date);
+        
+        -- Return success message
+        p_message := 'Employee added successfully with ID ' || p_employee_id;
+    END IF;
+    
+EXCEPTION
+    WHEN employee_already_exists THEN
+        p_message := 'Error: Employee with ID ' || p_employee_id || ' already exists.';
+        
+    WHEN OTHERS THEN
+        -- Catch-all for any other errors
+        p_message := 'An unexpected error occurred: ' || SQLERRM;
+END add_employee;
