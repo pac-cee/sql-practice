@@ -169,3 +169,22 @@ END;
 DECLARE
     v_message VARCHAR2(200);
 BEGIN
+    add_employee(
+        p_employee_id => 1001,
+        p_first_name => 'Jane',
+        p_last_name => 'Smith',
+        p_hire_date => DATE '2025-03-18',
+        p_message => v_message
+    );
+    DBMS_OUTPUT.PUT_LINE(v_message);
+    
+    -- Test Scenario 3: New employee record (should succeed)
+    add_employee(
+        p_employee_id => 1002,
+        p_first_name => 'Alice',
+        p_last_name => 'Johnson',
+        p_hire_date => DATE '2025-03-19',
+        p_message => v_message
+    );
+    DBMS_OUTPUT.PUT_LINE(v_message);
+END;
