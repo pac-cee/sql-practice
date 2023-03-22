@@ -150,3 +150,22 @@ EXCEPTION
         -- Catch-all for any other errors
         p_message := 'An unexpected error occurred: ' || SQLERRM;
 END add_employee;
+/
+
+-- Test Scenario 1: New employee record (should succeed)
+DECLARE
+    v_message VARCHAR2(200);
+BEGIN
+    add_employee(
+        p_employee_id => 1001,
+        p_first_name => 'John',
+        p_last_name => 'Doe',
+        p_hire_date => DATE '2025-03-18',
+        p_message => v_message
+    );
+    DBMS_OUTPUT.PUT_LINE(v_message);
+END;
+-- Test Scenario 2: Duplicate employee record (should raise the user-defined exception)
+DECLARE
+    v_message VARCHAR2(200);
+BEGIN
