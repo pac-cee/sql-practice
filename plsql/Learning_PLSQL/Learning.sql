@@ -188,3 +188,22 @@ BEGIN
     );
     DBMS_OUTPUT.PUT_LINE(v_message);
 END;
+/*
+### 2. Safe Division
+
+**Task:**  
+Develop a procedure called `safe_division` that takes two numbers (dividend and divisor) and returns the result in an OUT parameter.  
+**Requirements:**  
+- Check if the divisor is zero.  
+- If it is zero, raise a custom exception (or use built-in exception handling) to avoid division by zero and return a descriptive error message.
+- Otherwise, perform the division and return the result.
+
+---
+*/
+create or replace procedure safe_division(
+    p_dividend in number,
+    p_divisor in number,
+    p_result out number,
+    p_message out varchar2
+) as
+    division_by_zero exception;
