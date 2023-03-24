@@ -207,3 +207,22 @@ create or replace procedure safe_division(
     p_message out varchar2
 ) as
     division_by_zero exception;
+    pragma exception_init(division_by_zero, -1);
+begin
+    -- Check if the divisor is zero
+    IF p_divisor = 0 THEN
+        RAISE division_by_zero;
+    ELSE
+        -- Perform the division
+        p_result := p_dividend / p_divisor;
+        p_message := 'Division successful: ' || p_result;
+    END IF;
+    
+EXCEPTION
+    WHEN division_by_zero THEN
+        p_message := 'Error: Division by zero is not allowed.';
+    WHEN OTHERS THEN
+        p_message := 'An unexpected error occurred: ' || SQLERRM;
+END safe_division;
+/*
+### 3. Update Employee Salary
