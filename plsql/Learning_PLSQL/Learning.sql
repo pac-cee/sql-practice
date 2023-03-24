@@ -226,3 +226,22 @@ EXCEPTION
 END safe_division;
 /*
 ### 3. Update Employee Salary
+
+**Task:**  
+Write a procedure named `update_salary` that updates the salary of an employee in an `employees` table.  
+**Requirements:**  
+- Accept an employee ID and a new salary as inputs.
+- Check if the employee exists.
+- If the employee does not exist, raise a user-defined exception and provide an error message.
+- If the employee exists, update the salary and return a confirmation message via an OUT parameter.
+
+---
+
+### 4. Student Grade Calculator
+
+**Task:**  
+Create a procedure called `calculate_grade` that calculates and returns a student's letter grade based on their numeric score.  
+**Requirements:**  
+- Accept a numeric score as an input parameter.
+- Determine the letter grade based on defined thresholds (e.g., A for 90-100, B for 80-89, etc.).
+- Return the letter grade as an OUT parameter.
