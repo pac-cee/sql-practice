@@ -264,3 +264,22 @@ Design a procedure named `create_table_if_missing` that checks if a table (e.g.,
 - **Parameter Modes:** Use IN parameters for inputs and OUT parameters for returning messages or results.
 - **Exception Handling:** Utilize `EXCEPTION` blocks to capture and handle both user-defined and system exceptions.
 - **Testing:** Write anonymous PL/SQL blocks to test each procedure after creating them.
+- **Comments:** Add comments in your code to explain your logic, which is good practice for clarity and maintenance.
+
+Try implementing these one by one, and if you have any questions or run into issues, feel free to ask for guidance or clarification!
+
+
+
+
+Below are several advanced PL/SQL topics with carefully crafted questions along with complete, worked‐out solutions. These exercises will help you gain practical experience in writing functions, using cursors and collections, creating packages, performing bulk operations, and designing triggers.
+
+---
+
+## 1. Recursive Function for Factorial Calculation
+
+**Question:**  
+Write a PL/SQL function named `get_factorial` that calculates the factorial of a positive integer using recursion. The function should return the factorial value. If a non-positive value is passed, return 1.
+
+**Solution:**
+
+```sql
