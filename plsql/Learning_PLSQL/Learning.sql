@@ -283,3 +283,22 @@ Write a PL/SQL function named `get_factorial` that calculates the factorial of a
 **Solution:**
 
 ```sql
+CREATE OR REPLACE FUNCTION get_factorial (
+    n IN NUMBER
+) RETURN NUMBER
+IS
+BEGIN
+    IF n <= 1 THEN
+        RETURN 1;
+    ELSE
+        RETURN n * get_factorial(n - 1);
+    END IF;
+EXCEPTION
+    WHEN OTHERS THEN
+        RETURN NULL; -- In case of an unexpected error
+END get_factorial;
+/
+```
+
+**Explanation:**  
+- The function checks if `n` is less than or equal to 1, returning 1 in that case.  
