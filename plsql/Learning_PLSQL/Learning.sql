@@ -302,3 +302,22 @@ END get_factorial;
 
 **Explanation:**  
 - The function checks if `n` is less than or equal to 1, returning 1 in that case.  
+- Otherwise, it recursively calls itself with `n - 1`.  
+- An exception handler returns `NULL` if any error occurs.
+
+**Testing the Function:**
+
+```sql
+DECLARE
+    v_result NUMBER;
+BEGIN
+    v_result := get_factorial(5);
+    DBMS_OUTPUT.PUT_LINE('Factorial of 5 is: ' || v_result);
+END;
+/
+```
+
+---
+
+## 2. Using Implicit Cursors to List Employees
+
