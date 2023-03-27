@@ -245,3 +245,22 @@ Create a procedure called `calculate_grade` that calculates and returns a studen
 - Accept a numeric score as an input parameter.
 - Determine the letter grade based on defined thresholds (e.g., A for 90-100, B for 80-89, etc.).
 - Return the letter grade as an OUT parameter.
+- Handle any cases where the score might be out of the expected range.
+
+---
+
+### 5. Dynamic Table Creation
+
+**Task:**  
+Design a procedure named `create_table_if_missing` that checks if a table (e.g., `temp_data`) exists and creates it if it doesn’t.  
+**Requirements:**  
+- Use dynamic SQL (`EXECUTE IMMEDIATE`) to perform the check and create the table.
+- Handle exceptions if the table creation fails, returning an appropriate message via an OUT parameter.
+- Ensure that your procedure does not raise an error if the table already exists.
+
+---
+
+### Tips for Attempting These Questions:
+- **Parameter Modes:** Use IN parameters for inputs and OUT parameters for returning messages or results.
+- **Exception Handling:** Utilize `EXCEPTION` blocks to capture and handle both user-defined and system exceptions.
+- **Testing:** Write anonymous PL/SQL blocks to test each procedure after creating them.
