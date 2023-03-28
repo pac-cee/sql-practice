@@ -359,3 +359,22 @@ Create a PL/SQL package named `emp_pkg` that includes two procedures:
 - `raise_salary` for increasing an employee’s salary by a specified percentage.  
 Assume the `employees` table contains `employee_id`, `first_name`, `last_name`, and `salary` columns.
 
+**Solution:**
+
+### Package Specification
+
+```sql
+CREATE OR REPLACE PACKAGE emp_pkg AS
+    PROCEDURE add_emp(
+        p_employee_id IN NUMBER,
+        p_first_name  IN VARCHAR2,
+        p_last_name   IN VARCHAR2,
+        p_salary      IN NUMBER,
+        p_message     OUT VARCHAR2
+    );
+
+    PROCEDURE raise_salary(
+        p_employee_id IN NUMBER,
+        p_percentage  IN NUMBER,
+        p_message     OUT VARCHAR2
+    );
