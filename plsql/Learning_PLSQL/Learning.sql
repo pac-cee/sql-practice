@@ -378,3 +378,22 @@ CREATE OR REPLACE PACKAGE emp_pkg AS
         p_percentage  IN NUMBER,
         p_message     OUT VARCHAR2
     );
+END emp_pkg;
+/
+```
+
+### Package Body
+
+```sql
+CREATE OR REPLACE PACKAGE BODY emp_pkg AS
+
+    PROCEDURE add_emp(
+        p_employee_id IN NUMBER,
+        p_first_name  IN VARCHAR2,
+        p_last_name   IN VARCHAR2,
+        p_salary      IN NUMBER,
+        p_message     OUT VARCHAR2
+    ) IS
+        duplicate_emp EXCEPTION;
+        v_count NUMBER;
+    BEGIN
