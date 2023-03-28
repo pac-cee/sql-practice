@@ -321,3 +321,22 @@ END;
 
 ## 2. Using Implicit Cursors to List Employees
 
+**Question:**  
+Write an anonymous PL/SQL block that uses an implicit cursor to retrieve and display all rows from an `employees` table (assume the table has columns: `employee_id`, `first_name`, and `last_name`).
+
+**Solution:**
+
+```sql
+DECLARE
+    -- Variables to hold each column's data
+    v_employee_id employees.employee_id%TYPE;
+    v_first_name  employees.first_name%TYPE;
+    v_last_name   employees.last_name%TYPE;
+BEGIN
+    FOR rec IN (SELECT employee_id, first_name, last_name FROM employees) LOOP
+        v_employee_id := rec.employee_id;
+        v_first_name  := rec.first_name;
+        v_last_name   := rec.last_name;
+        
+        DBMS_OUTPUT.PUT_LINE('ID: ' || v_employee_id ||
+                             ', Name: ' || v_first_name || ' ' || v_last_name);
