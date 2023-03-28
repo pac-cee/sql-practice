@@ -340,3 +340,22 @@ BEGIN
         
         DBMS_OUTPUT.PUT_LINE('ID: ' || v_employee_id ||
                              ', Name: ' || v_first_name || ' ' || v_last_name);
+    END LOOP;
+END;
+/
+```
+
+**Explanation:**  
+- An implicit cursor FOR loop is used to iterate through the query result.  
+- Each record is printed using `DBMS_OUTPUT.PUT_LINE`.
+
+---
+
+## 3. Creating a Package for Employee Management
+
+**Question:**  
+Create a PL/SQL package named `emp_pkg` that includes two procedures:  
+- `add_emp` for inserting an employee record into the `employees` table.  
+- `raise_salary` for increasing an employee’s salary by a specified percentage.  
+Assume the `employees` table contains `employee_id`, `first_name`, `last_name`, and `salary` columns.
+
