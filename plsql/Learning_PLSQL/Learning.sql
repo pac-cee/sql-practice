@@ -416,3 +416,22 @@ CREATE OR REPLACE PACKAGE BODY emp_pkg AS
             p_message := 'Unexpected error: ' || SQLERRM;
     END add_emp;
     
+    PROCEDURE raise_salary(
+        p_employee_id IN NUMBER,
+        p_percentage  IN NUMBER,
+        p_message     OUT VARCHAR2
+    ) IS
+        v_current_salary employees.salary%TYPE;
+    BEGIN
+        SELECT salary INTO v_current_salary
+        FROM employees
+        WHERE employee_id = p_employee_id;
+        
+        UPDATE employees
+        SET salary = v_current_salary * (1 + p_percentage / 100)
+        WHERE employee_id = p_employee_id;
+        
+        p_message := 'Salary increased by ' || p_percentage || '% for employee ID ' || p_employee_id;
+        
+    EXCEPTION
+        WHEN NO_DATA_FOUND THEN
