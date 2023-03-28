@@ -397,3 +397,22 @@ CREATE OR REPLACE PACKAGE BODY emp_pkg AS
         duplicate_emp EXCEPTION;
         v_count NUMBER;
     BEGIN
+        SELECT COUNT(*) INTO v_count
+        FROM employees
+        WHERE employee_id = p_employee_id;
+        
+        IF v_count > 0 THEN
+            RAISE duplicate_emp;
+        ELSE
+            INSERT INTO employees (employee_id, first_name, last_name, salary)
+            VALUES (p_employee_id, p_first_name, p_last_name, p_salary);
+            p_message := 'Employee added successfully.';
+        END IF;
+        
+    EXCEPTION
+        WHEN duplicate_emp THEN
+            p_message := 'Error: Employee with ID ' || p_employee_id || ' already exists.';
+        WHEN OTHERS THEN
+            p_message := 'Unexpected error: ' || SQLERRM;
+    END add_emp;
+    
