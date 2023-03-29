@@ -435,3 +435,22 @@ CREATE OR REPLACE PACKAGE BODY emp_pkg AS
         
     EXCEPTION
         WHEN NO_DATA_FOUND THEN
+            p_message := 'Error: Employee with ID ' || p_employee_id || ' not found.';
+        WHEN OTHERS THEN
+            p_message := 'Unexpected error: ' || SQLERRM;
+    END raise_salary;
+    
+END emp_pkg;
+/
+```
+
+**Explanation:**  
+- The package specification declares the two procedures.  
+- The body implements them with error checking:  
+  - `add_emp` prevents duplicate insertions.  
+  - `raise_salary` retrieves the current salary and updates it by a percentage.  
+- Both procedures use an OUT parameter (`p_message`) to return status messages.
+
+---
+
+## 4. Bulk Processing Using Collections and FORALL
