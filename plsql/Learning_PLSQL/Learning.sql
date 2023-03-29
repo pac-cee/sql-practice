@@ -454,3 +454,22 @@ END emp_pkg;
 ---
 
 ## 4. Bulk Processing Using Collections and FORALL
+
+**Question:**  
+Write a procedure named `bulk_update_salary` that accepts a collection (array) of employee IDs and a percentage increase. Use bulk processing (i.e., `FORALL`) to update the salary of all listed employees. Report how many records were updated.
+
+**Solution:**
+
+```sql
+-- First, define a collection type at the schema level (or inside a package)
+CREATE OR REPLACE TYPE num_array AS TABLE OF NUMBER;
+/
+
+CREATE OR REPLACE PROCEDURE bulk_update_salary(
+    p_emp_ids   IN num_array,
+    p_percentage IN NUMBER,
+    p_updated_count OUT NUMBER
+)
+IS
+BEGIN
+    -- Use FORALL to update salaries in bulk
