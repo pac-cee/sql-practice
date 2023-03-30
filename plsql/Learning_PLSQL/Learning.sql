@@ -492,3 +492,22 @@ END bulk_update_salary;
 - A collection type (`num_array`) is created to hold numbers (employee IDs).  
 - The procedure uses `FORALL` for bulk updates to improve performance when updating multiple rows.  
 - `SQL%ROWCOUNT` returns the total number of rows updated.  
+- An exception handler sets `p_updated_count` to -1 to indicate an error.
+
+**Testing the Procedure:**
+
+```sql
+DECLARE
+    v_emp_ids num_array := num_array(1001, 1002, 1003);
+    v_count   NUMBER;
+BEGIN
+    bulk_update_salary(v_emp_ids, 10, v_count);
+    DBMS_OUTPUT.PUT_LINE('Number of employees updated: ' || v_count);
+END;
+/
+```
+
+---
+
+## 5. Trigger for Logging Employee Updates
+
