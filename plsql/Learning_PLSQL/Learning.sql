@@ -473,3 +473,22 @@ CREATE OR REPLACE PROCEDURE bulk_update_salary(
 IS
 BEGIN
     -- Use FORALL to update salaries in bulk
+    FORALL i IN INDICES OF p_emp_ids
+        UPDATE employees
+        SET salary = salary * (1 + p_percentage / 100)
+        WHERE employee_id = p_emp_ids(i);
+    
+    -- Get the count of affected rows
+    p_updated_count := SQL%ROWCOUNT;
+    
+EXCEPTION
+    WHEN OTHERS THEN
+        p_updated_count := -1; -- Indicate an error occurred
+END bulk_update_salary;
+/
+```
+
+**Explanation:**  
+- A collection type (`num_array`) is created to hold numbers (employee IDs).  
+- The procedure uses `FORALL` for bulk updates to improve performance when updating multiple rows.  
+- `SQL%ROWCOUNT` returns the total number of rows updated.  
