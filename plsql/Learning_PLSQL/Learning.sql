@@ -625,3 +625,22 @@ Write a procedure called `bulk_update_prices` that accepts a collection of produ
 - Return the number of records updated via an OUT parameter.
 
 ---
+
+### 7. Dynamic SQL and Metadata Querying
+**Question:**  
+Create a procedure named `create_table_if_missing` that takes a table name as a parameter.  
+- The procedure should check if the specified table exists in the schema using dynamic SQL.  
+- If the table does not exist, create it with a simple structure (for example, two columns: `id` and `data`).  
+- Ensure proper exception handling so that no errors are raised if the table already exists.
+
+---
+
+### 8. Exception Handling and Logging in a Trigger
+**Question:**  
+Design a trigger called `log_employee_deletions` on the `employees` table that fires after a deletion.  
+- The trigger should insert a log record into an `employee_deletion_log` table capturing the deleted `employee_id`, the deletion timestamp, and a custom message.  
+- Ensure that any errors during logging are handled gracefully.
+
+---
+
+### 9. Combining Cursors with Collections
