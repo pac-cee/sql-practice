@@ -530,3 +530,22 @@ CREATE TABLE emp_salary_log (
 
 ### Step 2: Create the Trigger
 
+```sql
+CREATE OR REPLACE TRIGGER emp_salary_log_trg
+AFTER UPDATE OF salary ON employees
+FOR EACH ROW
+BEGIN
+    INSERT INTO emp_salary_log (employee_id, old_salary, new_salary, update_date)
+    VALUES (:OLD.employee_id, :OLD.salary, :NEW.salary, SYSDATE);
+END;
+/
+```
+
+**Explanation:**  
+- The trigger is defined to fire after any update to the `salary` column of the `employees` table.  
+- The `:OLD` and `:NEW` qualifiers capture the values before and after the update, respectively.  
+- A record is inserted into `emp_salary_log` for every salary update.
+
+**Testing the Trigger:**
+
+```sql
