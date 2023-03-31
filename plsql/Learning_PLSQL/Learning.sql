@@ -587,3 +587,22 @@ Create a procedure named `insert_product` that inserts a new product record into
 
 ### 2. Procedure with Boolean Logic and Conversion
 **Question:**  
+Develop a procedure named `record_attendance` that accepts a student’s ID, attendance date, and a Boolean parameter indicating presence.  
+- Internally, convert the Boolean to a character value (e.g., `'P'` for present, `'A'` for absent) before inserting the record into an `attendance` table.  
+- Provide appropriate exception handling if the record already exists or if there is any error during insertion.
+
+---
+
+### 3. Recursive Function for Calculations
+**Question:**  
+Write a recursive function called `compute_factorial` that calculates the factorial of a given positive integer.  
+- The function should return `1` if the input is less than or equal to 1, and otherwise return the factorial result.  
+- Add error handling to manage unexpected inputs or errors.
+
+---
+
+### 4. Using Implicit Cursors for Data Retrieval
+**Question:**  
+Write an anonymous PL/SQL block that uses an implicit cursor to retrieve all rows from an `employees` table (assume columns like `employee_id`, `first_name`, `last_name`, and `department`).  
+- For each record retrieved, display the employee's details using `DBMS_OUTPUT.PUT_LINE`.
+
