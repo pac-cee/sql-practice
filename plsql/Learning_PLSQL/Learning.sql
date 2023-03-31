@@ -568,3 +568,22 @@ SELECT * FROM emp_salary_log WHERE employee_id = 1001;
 - **Best Practices:**  
   Include proper exception handling, use meaningful messages, and test each block in a controlled environment.
 
+By exploring these diverse PL/SQL concepts—functions, cursors, packages, bulk processing, and triggers—you will build a solid foundation for writing robust and efficient database applications. Happy coding!
+
+
+
+Below is a comprehensive set of questions designed to cover a wide range of PL/SQL concepts. These questions span from basic procedure and function creation to more advanced topics such as packages, dynamic SQL, bulk processing, cursors, collections, exception handling, recursion, and triggers. Use these challenges to test and extend your understanding of PL/SQL.
+
+---
+
+### 1. Basic Procedure with Exception Handling
+**Question:**  
+Create a procedure named `insert_product` that inserts a new product record into a table named `products` (with columns like `product_id`, `product_name`, and `price`).  
+- The procedure should accept the product details as parameters.  
+- It should check for a duplicate `product_id` and, if found, raise a user-defined exception with an appropriate error message via an OUT parameter.  
+- Otherwise, it should insert the record and return a success message.
+
+---
+
+### 2. Procedure with Boolean Logic and Conversion
+**Question:**  
