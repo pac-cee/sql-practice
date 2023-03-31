@@ -606,3 +606,22 @@ Write a recursive function called `compute_factorial` that calculates the factor
 Write an anonymous PL/SQL block that uses an implicit cursor to retrieve all rows from an `employees` table (assume columns like `employee_id`, `first_name`, `last_name`, and `department`).  
 - For each record retrieved, display the employee's details using `DBMS_OUTPUT.PUT_LINE`.
 
+---
+
+### 5. Package Creation for Business Logic
+**Question:**  
+Create a PL/SQL package named `hr_pkg` that includes:  
+- A procedure `hire_employee` that inserts a new employee record into an `employees` table, ensuring no duplicate employee IDs.  
+- A function `calculate_bonus` that accepts an employee ID and returns the bonus amount based on the employee’s current salary.  
+- Include proper exception handling in both the package specification and body.
+
+---
+
+### 6. Bulk Processing with Collections and FORALL
+**Question:**  
+Write a procedure called `bulk_update_prices` that accepts a collection of product IDs and a percentage change.  
+- Use a collection type (e.g., a nested table of numbers) to store the product IDs.  
+- Use the `FORALL` construct to update the prices of all listed products in the `products` table.  
+- Return the number of records updated via an OUT parameter.
+
+---
