@@ -549,3 +549,22 @@ END;
 **Testing the Trigger:**
 
 ```sql
+-- Update an employee’s salary to test the trigger
+UPDATE employees
+SET salary = salary * 1.05
+WHERE employee_id = 1001;
+
+-- Verify the log entry:
+SELECT * FROM emp_salary_log WHERE employee_id = 1001;
+```
+
+---
+
+### Final Notes
+
+- **Practice & Experimentation:**  
+  Work through these examples, modifying them to fit your own schema or business rules. Experiment with error handling and edge cases to deepen your understanding.
+
+- **Best Practices:**  
+  Include proper exception handling, use meaningful messages, and test each block in a controlled environment.
+
