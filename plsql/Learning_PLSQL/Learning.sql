@@ -644,3 +644,22 @@ Design a trigger called `log_employee_deletions` on the `employees` table that f
 ---
 
 ### 9. Combining Cursors with Collections
+**Question:**  
+Write a procedure named `collect_department_employees` that accepts a department name and returns a collection of employee names working in that department.  
+- Define a collection type (for example, a nested table of VARCHAR2).  
+- Use an explicit cursor to loop through the `employees` table and populate the collection.  
+- Finally, output the employee names via a loop that iterates over the collection.
+
+---
+
+### 10. Advanced Exception Handling in Nested Blocks
+**Question:**  
+Develop an anonymous PL/SQL block that demonstrates nested exception handling.  
+- The block should simulate two operations: a division (which could lead to a divide-by-zero error) and an update to a table (which might fail if the record is missing).  
+- Use nested `BEGIN...EXCEPTION...END;` blocks to handle errors at different levels, and output distinct messages for each error case.
+
+---
+
+These questions cover a broad spectrum of PL/SQL capabilities. As you attempt each one, remember to:
+- Define clear parameter modes (IN, OUT, IN OUT) as needed.
+- Use proper exception handling to manage both expected and unexpected errors.
