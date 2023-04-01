@@ -663,3 +663,11 @@ Develop an anonymous PL/SQL block that demonstrates nested exception handling.
 These questions cover a broad spectrum of PL/SQL capabilities. As you attempt each one, remember to:
 - Define clear parameter modes (IN, OUT, IN OUT) as needed.
 - Use proper exception handling to manage both expected and unexpected errors.
+- Test your procedures and functions with anonymous PL/SQL blocks.
+- Consider edge cases and validate inputs to make your code robust.
+
+Happy coding and exploration of PL/SQL!
+
+
+
+*/
