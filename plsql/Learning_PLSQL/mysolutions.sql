@@ -36,3 +36,18 @@ EXCEPTION
         RAISE_APPLICATION_ERROR(-20001, 'Transaction amount must be greater than zero');
     WHEN OTHERS THEN
         DBMS_OUTPUT.PUT_LINE('Error: ' || SQLERRM);
+        RAISE;
+END Calculate_VAT;
+/
+
+-- Example usage:
+DECLARE
+    v_vat NUMBER;
+    v_total NUMBER;
+BEGIN
+    Calculate_VAT(100000, v_vat, v_total);
+END;
+/
+
+SET SERVEROUTPUT ON;
+EXEC Calculate_VAT(100000, :v_vat, :v_total);
