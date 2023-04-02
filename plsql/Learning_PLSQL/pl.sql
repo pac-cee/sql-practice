@@ -112,3 +112,22 @@ CREATE OR REPLACE PACKAGE BODY math_utils IS
     END add_numbers;
     
     FUNCTION multiply_numbers(p_num1 IN NUMBER, p_num2 IN NUMBER) RETURN NUMBER IS
+    BEGIN
+        RETURN p_num1 * p_num2;
+    END multiply_numbers;
+END math_utils;
+/
+
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('Sum: ' || math_utils.add_numbers(10, 20));
+    DBMS_OUTPUT.PUT_LINE('Product: ' || math_utils.multiply_numbers(10, 20));
+END;
+/
+
+-- 8. Triggers
+CREATE TABLE salary_audit_log (
+    audit_id     NUMBER PRIMARY KEY,
+    employee_id  NUMBER,
+    old_salary   NUMBER,
+    new_salary   NUMBER,
+    change_date  DATE,
