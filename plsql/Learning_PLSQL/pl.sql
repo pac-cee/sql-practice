@@ -150,3 +150,22 @@ BEGIN
         USER
     );
 END trg_audit_salary_change;
+/
+
+-- 9. Nested Functions, Collections, Records, and Cursors
+CREATE OR REPLACE PACKAGE employee_utils IS
+    -- Collection type definitions
+    TYPE emp_name_list IS TABLE OF VARCHAR2(100);
+    TYPE salary_list IS TABLE OF NUMBER;
+    
+    -- Record type definition
+    TYPE emp_summary_rec IS RECORD (
+        dept_id     NUMBER,
+        dept_name   VARCHAR2(50),
+        emp_count   NUMBER,
+        total_salary NUMBER,
+        avg_salary   NUMBER
+    );
+    
+    -- Package function declarations
+    FUNCTION get_department_summary(p_dept_id NUMBER) RETURN emp_summary_rec;
