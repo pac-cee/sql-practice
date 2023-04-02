@@ -321,3 +321,22 @@ BEGIN
     UPDATE employees
     SET salary = salary + 
         calculate_performance_bonus(salary, 8)
+    WHERE department_id = p_dept_id
+    AND months_between(SYSDATE, hire_date) > 60;
+    
+    -- Using implicit cursor attributes
+    IF SQL%FOUND THEN
+        DBMS_OUTPUT.PUT_LINE('Performance bonuses applied to ' || 
+                            SQL%ROWCOUNT || ' senior employees');
+    END IF;
+    
+    DBMS_OUTPUT.PUT_LINE('Total employees processed: ' || v_employees_updated);
+    DBMS_OUTPUT.PUT_LINE('Total salary adjustments: $' || v_total_adjustments);
+    
+EXCEPTION
+    WHEN OTHERS THEN
+        ROLLBACK;
+        RAISE_APPLICATION_ERROR(-20002, 'Error processing department: ' || SQLERRM);
+END process_department_employees;
+/
+
