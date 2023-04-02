@@ -36,3 +36,22 @@ END;
 DECLARE
     v_num1 NUMBER := 10;
     v_num2 NUMBER := 20;
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('Addition: ' || (v_num1 + v_num2));
+    DBMS_OUTPUT.PUT_LINE('Subtraction: ' || (v_num1 - v_num2));
+    DBMS_OUTPUT.PUT_LINE('Multiplication: ' || (v_num1 * v_num2));
+    DBMS_OUTPUT.PUT_LINE('Division: ' || (v_num1 / v_num2));
+    DBMS_OUTPUT.PUT_LINE('Modulus: ' || MOD(v_num1, v_num2));
+END;
+/
+
+-- 4. Control Statements
+DECLARE
+    v_num NUMBER := 5;
+BEGIN
+    IF v_num = 5 THEN
+        DBMS_OUTPUT.PUT_LINE('v_num is 5');
+    ELSIF v_num = 10 THEN
+        DBMS_OUTPUT.PUT_LINE('v_num is 10');
+    ELSE
+        DBMS_OUTPUT.PUT_LINE('v_num is not 5 or 10');
