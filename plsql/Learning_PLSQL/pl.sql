@@ -283,3 +283,22 @@ CREATE OR REPLACE PROCEDURE process_department_employees(
     
     -- Nested function for bonus calculation
     FUNCTION calculate_performance_bonus(
+        p_salary IN NUMBER,
+        p_performance_rating IN NUMBER
+    ) RETURN NUMBER IS
+    BEGIN
+        RETURN p_salary * (p_performance_rating / 10);
+    END calculate_performance_bonus;
+    
+    -- Explicit Cursor
+    CURSOR emp_cur IS
+        SELECT employee_id, first_name, last_name, salary, hire_date
+        FROM employees
+        WHERE department_id = p_dept_id
+        FOR UPDATE OF salary;
+        
+    -- Variables
+    v_total_adjustments NUMBER := 0;
+    v_employees_updated NUMBER := 0;
+    
+BEGIN
