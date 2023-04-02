@@ -245,3 +245,22 @@ CREATE OR REPLACE PACKAGE BODY employee_utils IS
             v_summary.avg_salary := v_summary.total_salary / v_summary.emp_count;
         END IF;
         
+        RETURN v_summary;
+    END get_department_summary;
+END employee_utils;
+/
+
+-- Test the package
+DECLARE
+    v_summary employee_utils.emp_summary_rec;
+    v_bonus NUMBER;
+BEGIN
+    -- Test nested function
+    v_bonus := employee_utils.calculate_bonus(50000, 7);
+    DBMS_OUTPUT.PUT_LINE('Bonus for 7 years: $' || v_bonus);
+    
+    -- Test record and cursor function
+    v_summary := employee_utils.get_department_summary(10);
+    DBMS_OUTPUT.PUT_LINE('Department Summary:');
+    DBMS_OUTPUT.PUT_LINE('-----------------');
+    DBMS_OUTPUT.PUT_LINE('Department: ' || v_summary.dept_name);
