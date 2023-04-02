@@ -264,3 +264,22 @@ BEGIN
     DBMS_OUTPUT.PUT_LINE('Department Summary:');
     DBMS_OUTPUT.PUT_LINE('-----------------');
     DBMS_OUTPUT.PUT_LINE('Department: ' || v_summary.dept_name);
+    DBMS_OUTPUT.PUT_LINE('Employee Count: ' || v_summary.emp_count);
+    DBMS_OUTPUT.PUT_LINE('Total Salary: $' || v_summary.total_salary);
+    DBMS_OUTPUT.PUT_LINE('Average Salary: $' || v_summary.avg_salary);
+END;
+/
+
+-- 10. Advanced Procedure with Nested Functions and Both Cursor Types
+CREATE OR REPLACE PROCEDURE process_department_employees(
+    p_dept_id IN NUMBER,
+    p_salary_increase IN NUMBER DEFAULT 0.05
+) IS
+    -- Nested function for validation
+    FUNCTION is_valid_increase(p_increase IN NUMBER) RETURN BOOLEAN IS
+    BEGIN
+        RETURN p_increase BETWEEN 0 AND 0.25;
+    END is_valid_increase;
+    
+    -- Nested function for bonus calculation
+    FUNCTION calculate_performance_bonus(
