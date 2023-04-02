@@ -397,3 +397,22 @@ DECLARE
     v_dept_id NUMBER := 10;
 BEGIN
     -- Test the procedure
+    process_department_employees(
+        p_dept_id => v_dept_id,
+        p_salary_increase => 0.10
+    );
+    
+    -- Test the trigger with an update
+    UPDATE employees
+    SET salary = salary * 1.05
+    WHERE department_id = v_dept_id;
+    
+    COMMIT;
+    
+    -- Display audit results
+    FOR audit_rec IN (
+        SELECT * FROM salary_audit_log
+        WHERE change_date > SYSDATE - 1/24
+        ORDER BY audit_id DESC
+    ) LOOP
+        DBMS_OUTPUT.PUT_LINE(
