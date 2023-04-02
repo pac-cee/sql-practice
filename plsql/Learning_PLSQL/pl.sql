@@ -359,3 +359,22 @@ BEGIN
     SELECT NVL(MAX(audit_id), 0) + 1 
     INTO v_audit_id 
     FROM salary_audit_log;
+    
+    -- Log the change
+    IF v_action IN ('UPDATE', 'DELETE') THEN
+        INSERT INTO salary_audit_log (
+            audit_id, employee_id, old_salary,
+            new_salary, change_date, changed_by
+        ) VALUES (
+            v_audit_id,
+            :OLD.employee_id,
+            :OLD.salary,
+            CASE WHEN v_action = 'UPDATE' THEN :NEW.salary ELSE NULL END,
+            SYSDATE,
+            USER
+        );
+    END IF;
+    
+    -- Additional logging for new employees
+    IF v_action = 'INSERT' THEN
+        INSERT INTO salary_audit_log (
