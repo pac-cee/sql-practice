@@ -302,3 +302,22 @@ CREATE OR REPLACE PROCEDURE process_department_employees(
     v_employees_updated NUMBER := 0;
     
 BEGIN
+    -- Validate salary increase
+    IF NOT is_valid_increase(p_salary_increase) THEN
+        RAISE_APPLICATION_ERROR(-20001, 'Invalid salary increase percentage');
+    END IF;
+    
+    -- Process each employee using explicit cursor
+    FOR emp_rec IN emp_cur LOOP
+        UPDATE employees
+        SET salary = salary * (1 + p_salary_increase)
+        WHERE CURRENT OF emp_cur;
+        
+        v_total_adjustments := v_total_adjustments + (emp_rec.salary * p_salary_increase);
+        v_employees_updated := v_employees_updated + 1;
+    END LOOP;
+    
+    -- Demonstrate implicit cursor
+    UPDATE employees
+    SET salary = salary + 
+        calculate_performance_bonus(salary, 8)
