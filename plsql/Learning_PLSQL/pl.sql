@@ -188,3 +188,22 @@ CREATE OR REPLACE PACKAGE BODY employee_utils IS
         END get_bonus_percentage;
         /
         v_bonus_percent NUMBER;
+    BEGIN
+        -- Using the nested function
+        v_bonus_percent := get_bonus_percentage(p_years);
+        RETURN p_salary * v_bonus_percent;
+    END calculate_bonus;
+
+    -- Function using records and cursors
+    FUNCTION get_department_summary(p_dept_id NUMBER) RETURN emp_summary_rec IS
+        -- Declare record variable
+        v_summary emp_summary_rec;
+        
+        -- Declare collections
+        v_emp_names emp_name_list := emp_name_list();
+        v_salaries salary_list := salary_list();
+        
+        -- Cursor declaration
+        CURSOR dept_emp_cur IS
+            SELECT e.first_name || ' ' || e.last_name as full_name,
+                   e.salary,
