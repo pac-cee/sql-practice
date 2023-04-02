@@ -340,3 +340,22 @@ EXCEPTION
 END process_department_employees;
 /
 
+-- 11. Advanced Triggers with Compound and Statement-Level Events
+CREATE OR REPLACE TRIGGER trg_employee_changes
+    AFTER INSERT OR UPDATE OR DELETE ON employees
+    FOR EACH ROW
+DECLARE
+    v_action VARCHAR2(10);
+    v_audit_id NUMBER;
+BEGIN
+    -- Determine the type of action
+    v_action := CASE
+        WHEN INSERTING THEN 'INSERT'
+        WHEN UPDATING THEN 'UPDATE'
+        WHEN DELETING THEN 'DELETE'
+    END;
+    
+    -- Generate audit ID
+    SELECT NVL(MAX(audit_id), 0) + 1 
+    INTO v_audit_id 
+    FROM salary_audit_log;
