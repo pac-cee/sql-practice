@@ -226,3 +226,22 @@ CREATE OR REPLACE PACKAGE BODY employee_utils IS
             FETCH dept_emp_cur INTO v_emp_rec;
             EXIT WHEN dept_emp_cur%NOTFOUND;
             
+            -- Populate collections
+            v_emp_names.EXTEND;
+            v_emp_names(v_emp_names.LAST) := v_emp_rec.full_name;
+            
+            v_salaries.EXTEND;
+            v_salaries(v_salaries.LAST) := v_emp_rec.salary;
+            
+            -- Update summary
+            v_summary.dept_name := v_emp_rec.department_name;
+            v_summary.emp_count := v_summary.emp_count + 1;
+            v_summary.total_salary := v_summary.total_salary + v_emp_rec.salary;
+        END LOOP;
+        CLOSE dept_emp_cur;
+        
+        -- Calculate average salary
+        IF v_summary.emp_count > 0 THEN
+            v_summary.avg_salary := v_summary.total_salary / v_summary.emp_count;
+        END IF;
+        
