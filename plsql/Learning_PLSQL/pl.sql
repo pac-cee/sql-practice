@@ -207,3 +207,22 @@ CREATE OR REPLACE PACKAGE BODY employee_utils IS
         CURSOR dept_emp_cur IS
             SELECT e.first_name || ' ' || e.last_name as full_name,
                    e.salary,
+                   d.department_name
+            FROM employees e
+            JOIN departments d ON e.department_id = d.department_id
+            WHERE e.department_id = p_dept_id;
+            
+        -- Cursor variables
+        v_emp_rec dept_emp_cur%ROWTYPE;
+    BEGIN
+        -- Initialize record
+        v_summary.dept_id := p_dept_id;
+        v_summary.emp_count := 0;
+        v_summary.total_salary := 0;
+        
+        -- Open and fetch cursor data
+        OPEN dept_emp_cur;
+        LOOP
+            FETCH dept_emp_cur INTO v_emp_rec;
+            EXIT WHEN dept_emp_cur%NOTFOUND;
+            
