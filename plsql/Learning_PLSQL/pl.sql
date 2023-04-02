@@ -55,3 +55,22 @@ BEGIN
         DBMS_OUTPUT.PUT_LINE('v_num is 10');
     ELSE
         DBMS_OUTPUT.PUT_LINE('v_num is not 5 or 10');
+    END IF;
+    
+    WHILE v_num > 0 LOOP
+        DBMS_OUTPUT.PUT_LINE('v_num is ' || v_num);
+        v_num := v_num - 1;
+    END LOOP;
+    
+    FOR i IN 1..5 LOOP
+        DBMS_OUTPUT.PUT_LINE('i is ' || i);
+    END LOOP;
+END;
+/
+
+-- 5. Functions
+CREATE OR REPLACE FUNCTION add_numbers(p_num1 IN NUMBER, p_num2 IN NUMBER)
+RETURN NUMBER IS
+BEGIN
+    RETURN p_num1 + p_num2;
+END add_numbers;
