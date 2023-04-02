@@ -169,3 +169,22 @@ CREATE OR REPLACE PACKAGE employee_utils IS
     
     -- Package function declarations
     FUNCTION get_department_summary(p_dept_id NUMBER) RETURN emp_summary_rec;
+    FUNCTION calculate_bonus(p_salary NUMBER, p_years NUMBER) RETURN NUMBER;
+END employee_utils;
+/
+
+CREATE OR REPLACE PACKAGE BODY employee_utils IS
+    -- Main function with nested function
+    FUNCTION calculate_bonus(p_salary NUMBER, p_years NUMBER) RETURN NUMBER IS
+        -- Nested function
+        FUNCTION get_bonus_percentage(p_years IN NUMBER) RETURN NUMBER IS
+        BEGIN
+            CASE
+                WHEN p_years < 2 THEN RETURN 0.05;
+                WHEN p_years < 5 THEN RETURN 0.10;
+                WHEN p_years < 10 THEN RETURN 0.15;
+                ELSE RETURN 0.20;
+            END CASE;
+        END get_bonus_percentage;
+        /
+        v_bonus_percent NUMBER;
