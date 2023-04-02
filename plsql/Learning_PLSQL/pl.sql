@@ -74,3 +74,22 @@ RETURN NUMBER IS
 BEGIN
     RETURN p_num1 + p_num2;
 END add_numbers;
+/
+
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('Sum: ' || add_numbers(10, 20));
+END;
+/
+
+-- 6. Procedures
+CREATE OR REPLACE PROCEDURE greet_user(p_name IN VARCHAR2) IS
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('Hello, ' || p_name || '!');
+EXCEPTION
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('Error in greet_user: ' || SQLERRM);
+END greet_user;
+/
+
+BEGIN
+    greet_user('John');
