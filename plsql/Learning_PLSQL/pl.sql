@@ -378,3 +378,22 @@ BEGIN
     -- Additional logging for new employees
     IF v_action = 'INSERT' THEN
         INSERT INTO salary_audit_log (
+            audit_id, employee_id, old_salary,
+            new_salary, change_date, changed_by
+        ) VALUES (
+            v_audit_id,
+            :NEW.employee_id,
+            NULL,
+            :NEW.salary,
+            SYSDATE,
+            USER
+        );
+    END IF;
+END trg_employee_changes;
+/
+
+-- Test the new procedure and trigger
+DECLARE
+    v_dept_id NUMBER := 10;
+BEGIN
+    -- Test the procedure
