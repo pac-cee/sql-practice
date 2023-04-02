@@ -416,3 +416,11 @@ BEGIN
         ORDER BY audit_id DESC
     ) LOOP
         DBMS_OUTPUT.PUT_LINE(
+            'Audit ID: ' || audit_rec.audit_id ||
+            ', Employee: ' || audit_rec.employee_id ||
+            ', Old Salary: ' || audit_rec.old_salary ||
+            ', New Salary: ' || audit_rec.new_salary
+        );
+    END LOOP;
+END;
+/
