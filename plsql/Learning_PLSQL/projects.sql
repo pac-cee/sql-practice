@@ -55,3 +55,22 @@ CREATE OR REPLACE PACKAGE BODY bank_pkg IS
 END bank_pkg;
 /
 
+-- 2. Online Shopping Cart
+
+CREATE TABLE products (
+    product_id   NUMBER PRIMARY KEY,
+    name         VARCHAR2(100),
+    price        NUMBER(10,2)
+);
+
+CREATE TABLE customers (
+    customer_id  NUMBER PRIMARY KEY,
+    name         VARCHAR2(100),
+    email        VARCHAR2(100)
+);
+
+CREATE TABLE orders (
+    order_id     NUMBER PRIMARY KEY,
+    customer_id  NUMBER,
+    product_id   NUMBER,
+    quantity     NUMBER,
