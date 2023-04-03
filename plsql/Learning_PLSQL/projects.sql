@@ -93,3 +93,22 @@ CREATE OR REPLACE PACKAGE BODY shopping_cart_pkg IS
         FROM products
         WHERE product_id = p_product_id;
         
+        INSERT INTO orders (customer_id, product_id, quantity, order_date)
+        VALUES (p_customer_id, p_product_id, p_quantity, SYSDATE);
+        
+        UPDATE customers
+        SET orders = orders + (v_product_price * p_quantity)
+        WHERE customer_id = p_customer_id;
+    END add_product_to_cart;
+    
+    PROCEDURE remove_product_from_cart(p_customer_id IN NUMBER, p_product_id IN NUMBER) IS
+        v_product_price NUMBER(10,2);
+    BEGIN
+        SELECT price
+        INTO v_product_price
+        FROM products
+        WHERE product_id = p_product_id;
+        
+        DELETE FROM orders
+        WHERE customer_id = p_customer_id
+        AND product_id = p_product_id;
