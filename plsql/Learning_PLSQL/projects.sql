@@ -74,3 +74,22 @@ CREATE TABLE orders (
     customer_id  NUMBER,
     product_id   NUMBER,
     quantity     NUMBER,
+    order_date   DATE
+);
+
+CREATE OR REPLACE PACKAGE shopping_cart_pkg IS
+    PROCEDURE add_product_to_cart(p_customer_id IN NUMBER, p_product_id IN NUMBER, p_quantity IN NUMBER);
+    PROCEDURE remove_product_from_cart(p_customer_id IN NUMBER, p_product_id IN NUMBER);
+    FUNCTION get_cart_total(p_customer_id IN NUMBER) RETURN NUMBER;
+END shopping_cart_pkg;
+/
+
+CREATE OR REPLACE PACKAGE BODY shopping_cart_pkg IS
+    PROCEDURE add_product_to_cart(p_customer_id IN NUMBER, p_product_id IN NUMBER, p_quantity IN NUMBER) IS
+        v_product_price NUMBER(10,2);
+    BEGIN
+        SELECT price
+        INTO v_product_price
+        FROM products
+        WHERE product_id = p_product_id;
+        
