@@ -36,3 +36,22 @@ CREATE OR REPLACE PACKAGE BODY bank_pkg IS
         ELSIF balance < 0 THEN
             RAISE_APPLICATION_ERROR(-20002, 'Insufficient funds');
         END IF;
+    END withdraw;
+    
+    FUNCTION get_balance(p_account_id IN NUMBER) RETURN NUMBER IS
+        v_balance NUMBER(10,2);
+    BEGIN
+        SELECT balance
+        INTO v_balance
+        FROM bank_accounts
+        WHERE account_id = p_account_id;
+        
+        IF v_balance IS NULL THEN
+            RAISE_APPLICATION_ERROR(-20001, 'Account not found');
+        END IF;
+        
+        RETURN v_balance;
+    END get_balance;
+END bank_pkg;
+/
+
