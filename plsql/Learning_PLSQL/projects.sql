@@ -188,3 +188,22 @@ CREATE TABLE surveys (
     title        VARCHAR2(100),
     description  VARCHAR2(200)
 );
+
+CREATE TABLE questions (
+    question_id  NUMBER PRIMARY KEY,
+    survey_id    NUMBER,
+    question     VARCHAR2(200)
+);
+
+CREATE TABLE answers (
+    answer_id    NUMBER PRIMARY KEY,
+    question_id  NUMBER,
+    answer       VARCHAR2(200)
+);
+
+CREATE OR REPLACE PACKAGE survey_pkg IS
+    PROCEDURE add_question(p_survey_id IN NUMBER, p_question IN VARCHAR2);
+    PROCEDURE add_answer(p_question_id IN NUMBER, p_answer IN VARCHAR2);
+END survey_pkg;
+/
+
