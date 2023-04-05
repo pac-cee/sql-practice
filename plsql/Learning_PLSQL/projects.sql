@@ -150,3 +150,22 @@ CREATE TABLE reservations (
     reservation_id NUMBER PRIMARY KEY,
     hotel_id      NUMBER,
     room_id       NUMBER,
+    checkin_date  DATE,
+    checkout_date DATE,
+    guest_name    VARCHAR2(100)
+);
+
+CREATE OR REPLACE PACKAGE hotel_reservation_pkg IS
+    PROCEDURE book_room(p_hotel_id IN NUMBER, p_room_id IN NUMBER, p_checkin_date IN DATE, p_checkout_date IN DATE, p_guest_name IN VARCHAR2);
+    FUNCTION get_room_rate(p_room_id IN NUMBER) RETURN NUMBER;
+END hotel_reservation_pkg;
+/
+
+CREATE OR REPLACE PACKAGE BODY hotel_reservation_pkg IS
+    PROCEDURE book_room(p_hotel_id IN NUMBER, p_room_id IN NUMBER, p_checkin_date IN DATE, p_checkout_date IN DATE, p_guest_name IN VARCHAR2) IS
+    BEGIN
+        INSERT INTO reservations (hotel_id, room_id, checkin_date, checkout_date, guest_name)
+        VALUES (p_hotel_id, p_room_id, p_checkin_date, p_checkout_date, p_guest_name);
+    END book_room;
+    
+    FUNCTION get_room_rate(p_room_id IN NUMBER) RETURN NUMBER IS
