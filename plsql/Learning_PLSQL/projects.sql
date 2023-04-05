@@ -169,3 +169,22 @@ CREATE OR REPLACE PACKAGE BODY hotel_reservation_pkg IS
     END book_room;
     
     FUNCTION get_room_rate(p_room_id IN NUMBER) RETURN NUMBER IS
+        v_rate NUMBER(10,2);
+    BEGIN
+        SELECT rate
+        INTO v_rate
+        FROM rooms
+        WHERE room_id = p_room_id;
+        
+        RETURN v_rate;
+    END get_room_rate;
+END hotel_reservation_pkg;
+/
+
+-- 4. Online Survey System
+
+CREATE TABLE surveys (
+    survey_id    NUMBER PRIMARY KEY,
+    title        VARCHAR2(100),
+    description  VARCHAR2(200)
+);
