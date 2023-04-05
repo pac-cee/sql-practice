@@ -207,3 +207,17 @@ CREATE OR REPLACE PACKAGE survey_pkg IS
 END survey_pkg;
 /
 
+CREATE OR REPLACE PACKAGE BODY survey_pkg IS
+    PROCEDURE add_question(p_survey_id IN NUMBER, p_question IN VARCHAR2) IS
+    BEGIN
+        INSERT INTO questions (survey_id, question)
+        VALUES (p_survey_id, p_question);
+    END add_question;
+    
+    PROCEDURE add_answer(p_question_id IN NUMBER, p_answer IN VARCHAR2) IS
+    BEGIN
+        INSERT INTO answers (question_id, answer)
+        VALUES (p_question_id, p_answer);
+    END add_answer;
+END survey_pkg;
+/
