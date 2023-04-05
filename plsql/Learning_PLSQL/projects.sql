@@ -131,3 +131,22 @@ CREATE OR REPLACE PACKAGE BODY shopping_cart_pkg IS
 END shopping_cart_pkg;
 /
 
+-- 3. Hotel Reservation System
+
+CREATE TABLE hotels (
+    hotel_id     NUMBER PRIMARY KEY,
+    name         VARCHAR2(100),
+    address      VARCHAR2(200)
+);
+
+CREATE TABLE rooms (
+    room_id      NUMBER PRIMARY KEY,
+    hotel_id     NUMBER,
+    type         VARCHAR2(50),
+    rate         NUMBER(10,2)
+);
+
+CREATE TABLE reservations (
+    reservation_id NUMBER PRIMARY KEY,
+    hotel_id      NUMBER,
+    room_id       NUMBER,
