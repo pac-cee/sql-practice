@@ -36,3 +36,22 @@ BEGIN
         THEN 'Salary Only'
         ELSE 'Department Only'
     END;
+    
+    -- Insert audit record
+    INSERT INTO employee_audit (
+        emp_id,
+        change_date,
+        change_type,
+        old_salary,
+        new_salary,
+        old_dept_id,
+        new_dept_id,
+        modified_by
+    ) VALUES (
+        :NEW.employee_id,
+        SYSDATE,
+        v_change_type,
+        :OLD.salary,
+        :NEW.salary,
+        :OLD.department_id,
+        :NEW.department_id,
