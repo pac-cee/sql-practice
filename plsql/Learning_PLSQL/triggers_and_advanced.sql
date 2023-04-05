@@ -55,3 +55,22 @@ BEGIN
         :NEW.salary,
         :OLD.department_id,
         :NEW.department_id,
+        SYS_CONTEXT('USERENV', 'SESSION_USER')
+    );
+END;
+/
+
+-- 1.2 Statement-Level Trigger
+-- --------------------------
+-- Purpose: Enforces business hours for data modifications
+-- Fires: Once per SQL statement
+-- Use Case: Global business rule enforcement
+CREATE OR REPLACE TRIGGER trg_business_hours
+    BEFORE INSERT OR UPDATE OR DELETE
+    ON employees
+BEGIN
+    -- Check if operation is during business hours (8 AM to 6 PM)
+    IF TO_NUMBER(TO_CHAR(SYSDATE, 'HH24')) NOT BETWEEN 8 AND 18 OR
+       TO_CHAR(SYSDATE, 'DY') IN ('SAT', 'SUN') THEN
+        RAISE_APPLICATION_ERROR(-20100, 
+            'Data modifications only allowed during business hours (Mon-Fri, 8 AM - 6 PM)');
