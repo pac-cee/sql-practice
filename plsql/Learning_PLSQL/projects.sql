@@ -112,3 +112,22 @@ CREATE OR REPLACE PACKAGE BODY shopping_cart_pkg IS
         DELETE FROM orders
         WHERE customer_id = p_customer_id
         AND product_id = p_product_id;
+        
+        UPDATE customers
+        SET orders = orders - (v_product_price * p_quantity)
+        WHERE customer_id = p_customer_id;
+    END remove_product_from_cart;
+    
+    FUNCTION get_cart_total(p_customer_id IN NUMBER) RETURN NUMBER IS
+        v_total NUMBER(10,2);
+    BEGIN
+        SELECT SUM(price * quantity)
+        INTO v_total
+        FROM orders
+        WHERE customer_id = p_customer_id;
+        
+        RETURN v_total;
+    END get_cart_total;
+END shopping_cart_pkg;
+/
+
