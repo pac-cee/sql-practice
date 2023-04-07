@@ -169,3 +169,22 @@ CREATE OR REPLACE PACKAGE error_handler IS
     -- Custom exceptions
     e_invalid_department EXCEPTION;
     PRAGMA EXCEPTION_INIT(e_invalid_department, -20200);
+    
+    -- Error handling procedure
+    PROCEDURE handle_error(
+        p_error_code IN NUMBER,
+        p_error_msg IN VARCHAR2,
+        p_procedure_name IN VARCHAR2,
+        p_additional_info IN VARCHAR2 DEFAULT NULL
+    );
+    
+    -- Error logging function
+    FUNCTION log_error(
+        p_error_info IN VARCHAR2
+    ) RETURN NUMBER;
+END error_handler;
+/
+
+CREATE OR REPLACE PACKAGE BODY error_handler IS
+    PROCEDURE handle_error(
+        p_error_code IN NUMBER,
