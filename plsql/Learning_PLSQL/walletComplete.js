@@ -93,3 +93,22 @@ module.exports = WalletController;
 const express = require('express');
 const WalletController = require('../controllers/walletController');
 const router = express.Router();
+
+router.post('/create', WalletController.createWallet);
+router.get('/:walletId/balance', WalletController.getBalance);
+
+module.exports = router;
+
+// /backend/server.js
+const express = require('express');
+const cors = require('cors');
+const database = require('./config/database');
+const walletRoutes = require('./routes/walletRoutes');
+
+const app = express();
+app.use(cors());
+app.use(express.json());
+
+// Routes
+app.use('/api/wallets', walletRoutes);
+
