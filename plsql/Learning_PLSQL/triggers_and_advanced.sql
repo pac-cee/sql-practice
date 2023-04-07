@@ -150,3 +150,22 @@ SELECT
         PARTITION BY department_id 
         ORDER BY hire_date 
         ROWS BETWEEN 3 PRECEDING AND 3 FOLLOWING
+    ) as rolling_avg_salary
+FROM employees;
+
+/*
+Section 3: Advanced Exception Handling
+Purpose: Robust error management
+Benefits:
+- Graceful error handling
+- Detailed error logging
+- Better debugging
+*/
+
+-- 3.1 Custom Exception Handler
+-- --------------------------
+-- Purpose: Centralized error handling
+CREATE OR REPLACE PACKAGE error_handler IS
+    -- Custom exceptions
+    e_invalid_department EXCEPTION;
+    PRAGMA EXCEPTION_INIT(e_invalid_department, -20200);
