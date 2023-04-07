@@ -207,3 +207,22 @@ CREATE OR REPLACE PACKAGE BODY error_handler IS
             send_alert(v_error_id);
         END IF;
         
+        -- Raise to calling environment
+        RAISE_APPLICATION_ERROR(p_error_code, p_error_msg);
+    END handle_error;
+    
+    FUNCTION log_error(
+        p_error_info IN VARCHAR2
+    ) RETURN NUMBER IS
+        v_error_id NUMBER;
+        PRAGMA AUTONOMOUS_TRANSACTION;  -- Independent transaction
+    BEGIN
+        -- Insert error log
+        INSERT INTO error_logs (
+            error_date,
+            error_info,
+            user_id,
+            session_id
+        ) VALUES (
+            SYSTIMESTAMP,
+            p_error_info,
