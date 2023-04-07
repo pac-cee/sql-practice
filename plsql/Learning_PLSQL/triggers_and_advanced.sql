@@ -93,3 +93,22 @@ Benefits:
 -- Use Case: Organization charts, parts explosions
 CREATE OR REPLACE VIEW v_emp_hierarchy AS
 SELECT 
+    LEVEL as hierarchy_level,
+    LPAD(' ', 2 * (LEVEL-1)) || emp_name as org_chart,
+    emp_id,
+    manager_id,
+    salary,
+    CONNECT_BY_ROOT emp_name as top_manager,
+    SYS_CONNECT_BY_PATH(emp_name, '/') as emp_path
+FROM employees
+CONNECT BY PRIOR emp_id = manager_id
+START WITH manager_id IS NULL;
+
+-- 2.2 Materialized Views
+-- ---------------------
+-- Purpose: Pre-computed query results
+-- Benefits: 
+-- - Improved performance for complex queries
+-- - Data replication
+-- - Distributed databases
+CREATE MATERIALIZED VIEW mv_dept_summary
