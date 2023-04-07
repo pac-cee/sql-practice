@@ -17,3 +17,22 @@ async function initialize() {
     console.error('Error connecting to database:', err);
     throw err;
   }
+}
+
+module.exports = { initialize };
+
+// /backend/models/walletModel.js
+const oracledb = require('oracledb');
+
+class WalletModel {
+  static async createWallet(userId, walletName, currency) {
+    const connection = await oracledb.getConnection();
+    try {
+      const result = await connection.execute(
+        `BEGIN
+           wallet_mgmt.create_wallet(:user_id, :wallet_name, :currency, :wallet_id);
+         END;`,
+        {
+          user_id: userId,
+          wallet_name: walletName,
+          currency: currency,
