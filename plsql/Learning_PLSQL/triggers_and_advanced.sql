@@ -188,3 +188,22 @@ END error_handler;
 CREATE OR REPLACE PACKAGE BODY error_handler IS
     PROCEDURE handle_error(
         p_error_code IN NUMBER,
+        p_error_msg IN VARCHAR2,
+        p_procedure_name IN VARCHAR2,
+        p_additional_info IN VARCHAR2 DEFAULT NULL
+    ) IS
+        v_error_id NUMBER;
+    BEGIN
+        -- Log the error
+        v_error_id := log_error(
+            'Code: ' || p_error_code || CHR(10) ||
+            'Message: ' || p_error_msg || CHR(10) ||
+            'Procedure: ' || p_procedure_name || CHR(10) ||
+            'Additional Info: ' || NVL(p_additional_info, 'None')
+        );
+        
+        -- Send alert if critical error
+        IF ABS(p_error_code) > 20000 THEN
+            send_alert(v_error_id);
+        END IF;
+        
