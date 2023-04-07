@@ -131,3 +131,22 @@ GROUP BY d.department_id, d.department_name;
 -- Use Case: Business intelligence and reporting
 CREATE OR REPLACE VIEW v_emp_analytics AS
 SELECT 
+    department_id,
+    emp_name,
+    salary,
+    hire_date,
+    -- Statistical analysis
+    STDDEV(salary) OVER (PARTITION BY department_id) as dept_salary_stddev,
+    VARIANCE(salary) OVER (PARTITION BY department_id) as dept_salary_variance,
+    CORR(salary, MONTHS_BETWEEN(SYSDATE, hire_date)) 
+        OVER (PARTITION BY department_id) as salary_tenure_correlation,
+    
+    -- Relative statistics
+    PERCENT_RANK() OVER (PARTITION BY department_id ORDER BY salary) as salary_percentile,
+    CUME_DIST() OVER (PARTITION BY department_id ORDER BY salary) as salary_distribution,
+    
+    -- Moving calculations
+    AVG(salary) OVER (
+        PARTITION BY department_id 
+        ORDER BY hire_date 
+        ROWS BETWEEN 3 PRECEDING AND 3 FOLLOWING
