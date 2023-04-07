@@ -226,3 +226,12 @@ CREATE OR REPLACE PACKAGE BODY error_handler IS
         ) VALUES (
             SYSTIMESTAMP,
             p_error_info,
+            SYS_CONTEXT('USERENV', 'SESSION_USER'),
+            SYS_CONTEXT('USERENV', 'SID')
+        ) RETURNING error_id INTO v_error_id;
+        
+        COMMIT;
+        RETURN v_error_id;
+    END log_error;
+END error_handler;
+/
