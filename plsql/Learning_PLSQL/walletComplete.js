@@ -74,3 +74,22 @@ class WalletController {
     } catch (err) {
       res.status(500).json({ error: err.message });
     }
+  }
+
+  static async getBalance(req, res) {
+    try {
+      const { walletId } = req.params;
+      const balance = await WalletModel.getWalletBalance(walletId);
+      res.json({ balance });
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+  }
+}
+
+module.exports = WalletController;
+
+// /backend/routes/walletRoutes.js
+const express = require('express');
+const WalletController = require('../controllers/walletController');
+const router = express.Router();
