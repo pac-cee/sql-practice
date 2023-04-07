@@ -74,3 +74,22 @@ BEGIN
        TO_CHAR(SYSDATE, 'DY') IN ('SAT', 'SUN') THEN
         RAISE_APPLICATION_ERROR(-20100, 
             'Data modifications only allowed during business hours (Mon-Fri, 8 AM - 6 PM)');
+    END IF;
+END;
+/
+
+/*
+Section 2: Advanced SQL Features
+Purpose: Complex data analysis and manipulation
+Benefits:
+- Enhanced data analysis
+- Improved query performance
+- Complex data relationships
+*/
+
+-- 2.1 Hierarchical Queries
+-- -----------------------
+-- Purpose: Handle tree-structured data
+-- Use Case: Organization charts, parts explosions
+CREATE OR REPLACE VIEW v_emp_hierarchy AS
+SELECT 
