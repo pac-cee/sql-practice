@@ -112,3 +112,22 @@ START WITH manager_id IS NULL;
 -- - Data replication
 -- - Distributed databases
 CREATE MATERIALIZED VIEW mv_dept_summary
+    REFRESH ON COMMIT
+AS
+SELECT 
+    d.department_id,
+    d.department_name,
+    COUNT(*) as emp_count,
+    AVG(e.salary) as avg_salary,
+    MIN(e.hire_date) as earliest_hire,
+    MAX(e.hire_date) as latest_hire
+FROM departments d
+JOIN employees e ON d.department_id = e.department_id
+GROUP BY d.department_id, d.department_name;
+
+-- 2.3 Advanced Analytical Functions
+-- ------------------------------
+-- Purpose: Complex statistical analysis
+-- Use Case: Business intelligence and reporting
+CREATE OR REPLACE VIEW v_emp_analytics AS
+SELECT 
