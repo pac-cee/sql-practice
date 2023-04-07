@@ -55,3 +55,22 @@ class WalletModel {
       );
       return result.rows[0].BALANCE;
     } finally {
+      await connection.close();
+    }
+  }
+}
+
+module.exports = WalletModel;
+
+// /backend/controllers/walletController.js
+const WalletModel = require('../models/walletModel');
+
+class WalletController {
+  static async createWallet(req, res) {
+    try {
+      const { userId, walletName, currency } = req.body;
+      const walletId = await WalletModel.createWallet(userId, walletName, currency);
+      res.json({ success: true, walletId });
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
