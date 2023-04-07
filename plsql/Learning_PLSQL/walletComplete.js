@@ -36,3 +36,22 @@ class WalletModel {
           user_id: userId,
           wallet_name: walletName,
           currency: currency,
+          wallet_id: { dir: oracledb.BIND_OUT, type: oracledb.NUMBER }
+        }
+      );
+      await connection.commit();
+      return result.outBinds.wallet_id;
+    } finally {
+      await connection.close();
+    }
+  }
+
+  static async getWalletBalance(walletId) {
+    const connection = await oracledb.getConnection();
+    try {
+      const result = await connection.execute(
+        `SELECT wallet_mgmt.get_wallet_balance(:wallet_id) as balance FROM dual`,
+        { wallet_id: walletId }
+      );
+      return result.rows[0].BALANCE;
+    } finally {
