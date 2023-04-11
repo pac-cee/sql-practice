@@ -207,3 +207,22 @@ const TransactionList = ({ transactions }) => {
     </div>
   );
 };
+
+export default TransactionList;
+
+// /frontend/src/pages/Dashboard.js
+import React, { useState, useEffect } from 'react';
+import { walletService } from '../services/walletService';
+import WalletCard from '../components/WalletCard';
+import TransactionList from '../components/TransactionList';
+
+const Dashboard = () => {
+  const [wallets, setWallets] = useState([]);
+  const [transactions, setTransactions] = useState([]);
+
+  useEffect(() => {
+    // Load wallets and transactions
+    const loadDashboardData = async () => {
+      try {
+        // Implementation for loading data
+      } catch (error) {
