@@ -188,3 +188,22 @@ const TransactionList = ({ transactions }) => {
       <div className="space-y-2">
         {transactions.map(transaction => (
           <div key={transaction.id} className="p-3 border rounded">
+            <div className="flex justify-between">
+              <span>{transaction.description}</span>
+              <span className={transaction.type === 'INCOME' ? 'text-green-600' : 'text-red-600'}>
+                {transaction.type === 'INCOME' ? '+' : '-'}
+                {new Intl.NumberFormat('en-US', {
+                  style: 'currency',
+                  currency: 'USD'
+                }).format(transaction.amount)}
+              </span>
+            </div>
+            <div className="text-sm text-gray-500">
+              {new Date(transaction.date).toLocaleDateString()}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
