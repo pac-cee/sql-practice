@@ -112,3 +112,22 @@ app.use(express.json());
 // Routes
 app.use('/api/wallets', walletRoutes);
 
+// Initialize database and start server
+database.initialize()
+  .then(() => {
+    app.listen(3000, () => {
+      console.log('Server running on port 3000');
+    });
+  })
+  .catch(err => {
+    console.error('Failed to start server:', err);
+  });
+
+// Frontend Structure (React)
+
+// /frontend/src/services/api.js
+import axios from 'axios';
+
+const API_URL = 'http://localhost:3000/api';
+
+export const api = axios.create({
