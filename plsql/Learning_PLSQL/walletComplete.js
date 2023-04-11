@@ -169,3 +169,22 @@ const WalletCard = ({ wallet, balance }) => {
           {new Intl.NumberFormat('en-US', {
             style: 'currency',
             currency: wallet.currency
+          }).format(balance)}
+        </span>
+      </div>
+    </div>
+  );
+};
+
+export default WalletCard;
+
+// /frontend/src/components/TransactionList.js
+import React from 'react';
+
+const TransactionList = ({ transactions }) => {
+  return (
+    <div className="mt-4">
+      <h3 className="text-lg font-bold mb-2">Recent Transactions</h3>
+      <div className="space-y-2">
+        {transactions.map(transaction => (
+          <div key={transaction.id} className="p-3 border rounded">
