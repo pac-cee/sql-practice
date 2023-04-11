@@ -150,3 +150,22 @@ export const walletService = {
     return response.data;
   },
 
+  getBalance: async (walletId) => {
+    const response = await api.get(`/wallets/${walletId}/balance`);
+    return response.data;
+  }
+};
+
+// /frontend/src/components/WalletCard.js
+import React from 'react';
+
+const WalletCard = ({ wallet, balance }) => {
+  return (
+    <div className="p-4 border rounded-lg shadow-md">
+      <h3 className="text-xl font-bold">{wallet.name}</h3>
+      <div className="mt-2">
+        <span className="text-gray-600">Balance:</span>
+        <span className="ml-2 text-2xl font-bold">
+          {new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: wallet.currency
