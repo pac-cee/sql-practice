@@ -36,3 +36,22 @@ FROM employees;
 -- 5. Moving Average (3-day sales average)
 -- Oracle and PostgreSQL:
 SELECT 
+    sale_date,
+    sale_amount,
+    ROUND(AVG(sale_amount) OVER (
+        ORDER BY sale_date 
+        ROWS BETWEEN 2 PRECEDING AND CURRENT ROW
+    ), 2) as moving_avg
+FROM sales
+ORDER BY sale_date;
+
+-- MySQL version (if needed):
+SELECT 
+    sale_date,
+    sale_amount,
+    ROUND(AVG(sale_amount) OVER (
+        ORDER BY sale_date 
+        ROWS 2 PRECEDING
+    ), 2) as moving_avg
+FROM sales
+ORDER BY sale_date;
