@@ -55,3 +55,11 @@ SELECT
     ), 2) as moving_avg
 FROM sales
 ORDER BY sale_date;
+
+-- 6. Running Total
+SELECT 
+    sale_date,
+    sale_amount,
+    SUM(sale_amount) OVER (ORDER BY sale_date) as running_total
+FROM sales
+ORDER BY sale_date;
