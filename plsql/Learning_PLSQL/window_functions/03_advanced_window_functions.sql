@@ -55,3 +55,22 @@ SELECT
         PERCENT_RANK() OVER (PARTITION BY department ORDER BY salary),
         3
     ) as relative_rank
+FROM employees;
+
+-- 6. Moving calculations with different frame specifications
+SELECT 
+    sale_date,
+    emp_id,
+    sale_amount,
+    -- Previous 3 days average
+    ROUND(AVG(sale_amount) OVER (
+        ORDER BY sale_date 
+        ROWS BETWEEN 3 PRECEDING AND 1 PRECEDING
+    ), 2) as prev_3_day_avg,
+    -- Next 3 days average
+    ROUND(AVG(sale_amount) OVER (
+        ORDER BY sale_date 
+        ROWS BETWEEN 1 FOLLOWING AND 3 FOLLOWING
+    ), 2) as next_3_day_avg,
+    -- Running total within a 7-day window
+    SUM(sale_amount) OVER (
