@@ -36,3 +36,22 @@ SELECT
 FROM employees;
 
 -- 4. Cumulative Distribution
+SELECT 
+    first_name,
+    department,
+    salary,
+    ROUND(
+        CUME_DIST() OVER (PARTITION BY department ORDER BY salary),
+        3
+    ) as salary_percentile
+FROM employees;
+
+-- 5. Percent Rank
+SELECT 
+    first_name,
+    department,
+    salary,
+    ROUND(
+        PERCENT_RANK() OVER (PARTITION BY department ORDER BY salary),
+        3
+    ) as relative_rank
