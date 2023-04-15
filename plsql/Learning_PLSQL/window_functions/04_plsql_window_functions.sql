@@ -17,3 +17,22 @@ BEGIN
     INSERT INTO emp_rankings
     SELECT 
         emp_id,
+        first_name,
+        department,
+        salary,
+        RANK() OVER (PARTITION BY department ORDER BY salary DESC) as dept_rank,
+        RANK() OVER (ORDER BY salary DESC) as overall_rank
+    FROM employees;
+    
+    -- Print results
+    FOR r IN (SELECT * FROM emp_rankings ORDER BY department, dept_rank) LOOP
+        DBMS_OUTPUT.PUT_LINE(
+            'Employee: ' || r.first_name ||
+            ' | Department: ' || r.department ||
+            ' | Dept Rank: ' || r.dept_rank ||
+            ' | Overall Rank: ' || r.overall_rank
+        );
+    END LOOP;
+    
+    -- Clean up
+    EXECUTE IMMEDIATE 'DROP TABLE emp_rankings';
