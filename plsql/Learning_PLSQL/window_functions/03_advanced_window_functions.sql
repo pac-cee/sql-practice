@@ -74,3 +74,9 @@ SELECT
     ), 2) as next_3_day_avg,
     -- Running total within a 7-day window
     SUM(sale_amount) OVER (
+        ORDER BY sale_date 
+        RANGE BETWEEN INTERVAL '3' DAY PRECEDING AND 
+                     INTERVAL '3' DAY FOLLOWING
+    ) as week_window_total
+FROM sales
+ORDER BY sale_date;
