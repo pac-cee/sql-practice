@@ -93,3 +93,22 @@ BEGIN
     DBMS_OUTPUT.PUT_LINE('Department Rankings:');
     calculate_dept_rankings();
     
+    DBMS_OUTPUT.PUT_LINE(CHR(10) || 'Top 2 Performers in Each Department:');
+    identify_top_performers(2);
+END;
+/
+
+-- PostgreSQL version of moving average function
+/*
+CREATE OR REPLACE FUNCTION get_sales_moving_avg(p_days_window INTEGER)
+RETURNS TABLE (
+    sale_date DATE,
+    sale_amount NUMERIC,
+    moving_avg NUMERIC
+) AS $$
+BEGIN
+    RETURN QUERY
+    SELECT 
+        s.sale_date,
+        s.sale_amount,
+        ROUND(AVG(s.sale_amount) OVER (
