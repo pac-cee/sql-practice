@@ -74,3 +74,22 @@ BEGIN
                 salary,
                 ROW_NUMBER() OVER (PARTITION BY department ORDER BY salary DESC) as dept_rank
             FROM employees
+        )
+        WHERE dept_rank <= p_top_n
+        ORDER BY department, dept_rank
+    ) LOOP
+        DBMS_OUTPUT.PUT_LINE(
+            'Department: ' || r.department ||
+            ' | Employee: ' || r.first_name ||
+            ' | Salary: ' || r.salary ||
+            ' | Rank: ' || r.dept_rank
+        );
+    END LOOP;
+END;
+/
+
+-- Example usage:
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('Department Rankings:');
+    calculate_dept_rankings();
+    
