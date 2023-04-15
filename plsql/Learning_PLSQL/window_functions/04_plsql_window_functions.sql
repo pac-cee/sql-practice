@@ -55,3 +55,22 @@ BEGIN
             ), 2) as moving_avg
         FROM sales
         ORDER BY sale_date;
+    
+    RETURN v_result;
+END;
+/
+
+-- 3. Procedure to identify top performers in each department
+CREATE OR REPLACE PROCEDURE identify_top_performers(
+    p_top_n IN NUMBER
+) AS
+BEGIN
+    FOR r IN (
+        SELECT *
+        FROM (
+            SELECT 
+                first_name,
+                department,
+                salary,
+                ROW_NUMBER() OVER (PARTITION BY department ORDER BY salary DESC) as dept_rank
+            FROM employees
