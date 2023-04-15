@@ -36,3 +36,22 @@ BEGIN
     
     -- Clean up
     EXECUTE IMMEDIATE 'DROP TABLE emp_rankings';
+END;
+/
+
+-- 2. Function to calculate moving average of sales
+CREATE OR REPLACE FUNCTION get_sales_moving_avg(
+    p_days_window IN NUMBER
+) RETURN SYS_REFCURSOR AS
+    v_result SYS_REFCURSOR;
+BEGIN
+    OPEN v_result FOR
+        SELECT 
+            sale_date,
+            sale_amount,
+            ROUND(AVG(sale_amount) OVER (
+                ORDER BY sale_date 
+                ROWS BETWEEN p_days_window-1 PRECEDING AND CURRENT ROW
+            ), 2) as moving_avg
+        FROM sales
+        ORDER BY sale_date;
