@@ -17,3 +17,22 @@ SELECT
     ROW_NUMBER() OVER (ORDER BY salary DESC) as row_num,
     RANK() OVER (ORDER BY salary DESC) as rank_with_gaps,
     DENSE_RANK() OVER (ORDER BY salary DESC) as rank_no_gaps,
+    NTILE(4) OVER (ORDER BY salary DESC) as quartile
+FROM employees;
+
+/*
+SECTION 2: OFFSET FUNCTIONS
+- LAG(): Access data from previous rows
+- LEAD(): Access data from subsequent rows
+- FIRST_VALUE(): Get first value in window
+- LAST_VALUE(): Get last value in window
+- NTH_VALUE(): Get nth value in window
+*/
+
+-- 2.1 Complete offset function comparison
+SELECT 
+    first_name,
+    department,
+    salary,
+    hire_date,
+    LAG(salary) OVER (PARTITION BY department ORDER BY hire_date) as prev_salary,
