@@ -55,3 +55,22 @@ SELECT
 FROM employees;
 
 /*
+SECTION 3: STATISTICAL FUNCTIONS
+- PERCENT_RANK(): Relative rank (0-1)
+- CUME_DIST(): Cumulative distribution
+- RATIO_TO_REPORT(): Ratio of value to sum
+*/
+
+-- 3.1 Statistical analysis
+SELECT 
+    first_name,
+    department,
+    salary,
+    ROUND(PERCENT_RANK() OVER (PARTITION BY department ORDER BY salary), 3) as percent_rank,
+    ROUND(CUME_DIST() OVER (PARTITION BY department ORDER BY salary), 3) as cume_dist,
+    ROUND(
+        salary / SUM(salary) OVER (PARTITION BY department),
+        3
+    ) as ratio_to_dept_total
+FROM employees;
+
