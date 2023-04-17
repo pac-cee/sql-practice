@@ -112,3 +112,22 @@ BEGIN
         s.sale_date,
         s.sale_amount,
         ROUND(AVG(s.sale_amount) OVER (
+            ORDER BY s.sale_date 
+            ROWS BETWEEN (p_days_window-1) PRECEDING AND CURRENT ROW
+        )::NUMERIC, 2) as moving_avg
+    FROM sales s
+    ORDER BY s.sale_date;
+END;
+$$ LANGUAGE plpgsql;
+*/
+
+-- MySQL version of moving average (stored procedure)
+/*
+DELIMITER //
+CREATE PROCEDURE get_sales_moving_avg(IN p_days_window INT)
+BEGIN
+    SELECT 
+        sale_date,
+        sale_amount,
+        ROUND(AVG(sale_amount) OVER (
+            ORDER BY sale_date 
