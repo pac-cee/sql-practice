@@ -36,3 +36,22 @@ SELECT
     salary,
     hire_date,
     LAG(salary) OVER (PARTITION BY department ORDER BY hire_date) as prev_salary,
+    LEAD(salary) OVER (PARTITION BY department ORDER BY hire_date) as next_salary,
+    FIRST_VALUE(salary) OVER (
+        PARTITION BY department 
+        ORDER BY hire_date
+        ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+    ) as first_salary,
+    LAST_VALUE(salary) OVER (
+        PARTITION BY department 
+        ORDER BY hire_date
+        ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING
+    ) as last_salary,
+    NTH_VALUE(salary, 2) OVER (
+        PARTITION BY department 
+        ORDER BY salary DESC
+        ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING
+    ) as second_highest_salary
+FROM employees;
+
+/*
