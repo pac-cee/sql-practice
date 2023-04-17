@@ -131,3 +131,10 @@ BEGIN
         sale_amount,
         ROUND(AVG(sale_amount) OVER (
             ORDER BY sale_date 
+            ROWS p_days_window-1 PRECEDING
+        ), 2) as moving_avg
+    FROM sales
+    ORDER BY sale_date;
+END //
+DELIMITER ;
+*/
