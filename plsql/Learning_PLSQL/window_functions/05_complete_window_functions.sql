@@ -169,3 +169,22 @@ SELECT
     salary,
     ROUND(
         CUME_DIST() OVER (PARTITION BY department ORDER BY salary),
+        3
+    ) as percentile,
+    CASE 
+        WHEN CUME_DIST() OVER (PARTITION BY department ORDER BY salary) <= 0.25 THEN 'Bottom 25%'
+        WHEN CUME_DIST() OVER (PARTITION BY department ORDER BY salary) <= 0.50 THEN '25-50%'
+        WHEN CUME_DIST() OVER (PARTITION BY department ORDER BY salary) <= 0.75 THEN '50-75%'
+        ELSE 'Top 25%'
+    END as quartile_group
+FROM employees;
+
+/*
+SECTION 7: DATABASE-SPECIFIC VARIATIONS
+*/
+
+-- PostgreSQL specific features
+/*
+-- Exclude current row
+SELECT 
+    sale_date,
