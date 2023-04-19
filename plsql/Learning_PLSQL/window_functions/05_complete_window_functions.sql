@@ -131,3 +131,22 @@ FROM sales;
 SECTION 6: ADVANCED PATTERNS
 Common window function patterns and solutions
 */
+
+-- 6.1 Running totals and moving averages
+SELECT 
+    sale_date,
+    sale_amount,
+    SUM(sale_amount) OVER (ORDER BY sale_date) as cumulative_total,
+    ROUND(AVG(sale_amount) OVER (
+        ORDER BY sale_date 
+        ROWS BETWEEN 3 PRECEDING AND CURRENT ROW
+    ), 2) as moving_avg_4days,
+    sale_amount - LAG(sale_amount) OVER (ORDER BY sale_date) as day_over_day_change,
+    ROUND(
+        (sale_amount - LAG(sale_amount) OVER (ORDER BY sale_date)) / 
+        LAG(sale_amount) OVER (ORDER BY sale_date) * 100,
+        2
+    ) as pct_change
+FROM sales;
+
+-- 6.2 Top N per group
