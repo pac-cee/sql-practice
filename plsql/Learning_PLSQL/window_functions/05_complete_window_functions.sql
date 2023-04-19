@@ -74,3 +74,22 @@ SELECT
     ) as ratio_to_dept_total
 FROM employees;
 
+/*
+SECTION 4: AGGREGATE WINDOW FUNCTIONS
+Demonstrates all aggregate functions used as window functions
+*/
+
+-- 4.1 Comprehensive aggregates
+SELECT 
+    first_name,
+    department,
+    salary,
+    COUNT(*) OVER (PARTITION BY department) as dept_count,
+    SUM(salary) OVER (PARTITION BY department) as dept_total_salary,
+    ROUND(AVG(salary) OVER (PARTITION BY department), 2) as dept_avg_salary,
+    MIN(salary) OVER (PARTITION BY department) as dept_min_salary,
+    MAX(salary) OVER (PARTITION BY department) as dept_max_salary,
+    ROUND(STDDEV(salary) OVER (PARTITION BY department), 2) as dept_salary_stddev,
+    ROUND(VARIANCE(salary) OVER (PARTITION BY department), 2) as dept_salary_variance
+FROM employees;
+
