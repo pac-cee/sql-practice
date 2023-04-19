@@ -112,3 +112,22 @@ SELECT
     SUM(sale_amount) OVER (
         ORDER BY sale_date 
         RANGE BETWEEN INTERVAL '3' DAY PRECEDING AND CURRENT ROW
+    ) as running_total_range,
+    
+    -- Unbounded frames
+    SUM(sale_amount) OVER (
+        ORDER BY sale_date 
+        ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+    ) as running_total_all,
+    
+    -- Sliding frame
+    ROUND(AVG(sale_amount) OVER (
+        ORDER BY sale_date 
+        ROWS BETWEEN 1 PRECEDING AND 1 FOLLOWING
+    ), 2) as centered_avg
+FROM sales;
+
+/*
+SECTION 6: ADVANCED PATTERNS
+Common window function patterns and solutions
+*/
