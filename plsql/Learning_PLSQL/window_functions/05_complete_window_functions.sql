@@ -150,3 +150,22 @@ SELECT
 FROM sales;
 
 -- 6.2 Top N per group
+WITH RankedEmployees AS (
+    SELECT 
+        department,
+        first_name,
+        salary,
+        ROW_NUMBER() OVER (PARTITION BY department ORDER BY salary DESC) as salary_rank
+    FROM employees
+)
+SELECT *
+FROM RankedEmployees
+WHERE salary_rank <= 2;
+
+-- 6.3 Percentile calculations
+SELECT 
+    department,
+    first_name,
+    salary,
+    ROUND(
+        CUME_DIST() OVER (PARTITION BY department ORDER BY salary),
