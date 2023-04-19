@@ -93,3 +93,22 @@ SELECT
     ROUND(VARIANCE(salary) OVER (PARTITION BY department), 2) as dept_salary_variance
 FROM employees;
 
+/*
+SECTION 5: WINDOW FRAMES
+Demonstrates different window frame clauses
+*/
+
+-- 5.1 Frame types with sales data
+SELECT 
+    sale_date,
+    sale_amount,
+    -- Rows based frames
+    SUM(sale_amount) OVER (
+        ORDER BY sale_date 
+        ROWS BETWEEN 2 PRECEDING AND CURRENT ROW
+    ) as running_total_rows,
+    
+    -- Range based frames
+    SUM(sale_amount) OVER (
+        ORDER BY sale_date 
+        RANGE BETWEEN INTERVAL '3' DAY PRECEDING AND CURRENT ROW
