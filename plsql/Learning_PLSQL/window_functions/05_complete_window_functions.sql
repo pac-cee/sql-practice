@@ -188,3 +188,22 @@ SECTION 7: DATABASE-SPECIFIC VARIATIONS
 -- Exclude current row
 SELECT 
     sale_date,
+    sale_amount,
+    AVG(sale_amount) OVER (
+        ORDER BY sale_date 
+        ROWS BETWEEN 1 PRECEDING AND 1 FOLLOWING 
+        EXCLUDE CURRENT ROW
+    ) as avg_excluding_current
+FROM sales;
+
+-- Groups frame clause (PostgreSQL 13+)
+SELECT 
+    department,
+    salary,
+    AVG(salary) OVER (
+        ORDER BY salary
+        GROUPS BETWEEN 1 PRECEDING AND 1 FOLLOWING
+    ) as grouped_avg
+FROM employees;
+*/
+
