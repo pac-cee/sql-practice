@@ -207,3 +207,22 @@ SELECT
 FROM employees;
 */
 
+-- MySQL specific features
+/*
+-- MySQL 8.0+ window functions
+SELECT 
+    sale_date,
+    sale_amount,
+    -- MySQL's simpler frame clause syntax
+    AVG(sale_amount) OVER (
+        ORDER BY sale_date
+        ROWS 3 PRECEDING
+    ) as moving_avg
+FROM sales;
+*/
+
+-- Oracle specific features
+/*
+-- Oracle's analytic clause extensions
+SELECT 
+    department,
