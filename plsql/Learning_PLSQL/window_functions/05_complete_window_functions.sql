@@ -226,3 +226,27 @@ FROM sales;
 -- Oracle's analytic clause extensions
 SELECT 
     department,
+    first_name,
+    salary,
+    LISTAGG(first_name, ', ') WITHIN GROUP (ORDER BY salary DESC) 
+        OVER (PARTITION BY department) as dept_employees_list
+FROM employees;
+*/
+
+/*
+SECTION 8: COMMON USE CASES AND PATTERNS
+*/
+
+-- 8.1 Year-over-year comparison
+SELECT 
+    EXTRACT(YEAR FROM sale_date) as year,
+    SUM(sale_amount) as total_sales,
+    LAG(SUM(sale_amount)) OVER (ORDER BY EXTRACT(YEAR FROM sale_date)) as prev_year_sales,
+    ROUND(
+        (SUM(sale_amount) - LAG(SUM(sale_amount)) OVER (ORDER BY EXTRACT(YEAR FROM sale_date))) /
+        LAG(SUM(sale_amount)) OVER (ORDER BY EXTRACT(YEAR FROM sale_date)) * 100,
+        2
+    ) as yoy_growth_pct
+FROM sales
+GROUP BY EXTRACT(YEAR FROM sale_date)
+ORDER BY year;
