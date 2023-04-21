@@ -36,3 +36,22 @@ SELECT
     sale_date,
     emp_id,
     sale_amount,
+    -- Daily comparison
+    sale_amount - LAG(sale_amount) OVER (
+        PARTITION BY emp_id 
+        ORDER BY sale_date
+    ) as day_over_day_change,
+    -- Running total per employee
+    SUM(sale_amount) OVER (
+        PARTITION BY emp_id 
+        ORDER BY sale_date
+    ) as running_total,
+    -- 3-day moving average
+    ROUND(
+        AVG(sale_amount) OVER (
+            ORDER BY sale_date 
+            ROWS BETWEEN 2 PRECEDING AND CURRENT ROW
+        ),
+        2
+    ) as moving_avg
+FROM sales
