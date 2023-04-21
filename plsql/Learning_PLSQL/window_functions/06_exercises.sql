@@ -55,3 +55,22 @@ SELECT
         2
     ) as moving_avg
 FROM sales
+ORDER BY emp_id, sale_date;
+
+/*
+Exercise 3: Advanced Analytics
+Task: Complex window calculations
+*/
+
+-- 3.1 Employee salary bands and rankings
+WITH SalaryStats AS (
+    SELECT 
+        department,
+        AVG(salary) as avg_salary,
+        STDDEV(salary) as stddev_salary
+    FROM employees
+    GROUP BY department
+),
+EmployeeAnalysis AS (
+    SELECT 
+        e.department,
