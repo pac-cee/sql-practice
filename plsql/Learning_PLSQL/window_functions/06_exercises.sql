@@ -74,3 +74,22 @@ WITH SalaryStats AS (
 EmployeeAnalysis AS (
     SELECT 
         e.department,
+        e.first_name,
+        e.salary,
+        s.avg_salary,
+        s.stddev_salary,
+        CASE
+            WHEN e.salary > s.avg_salary + s.stddev_salary THEN 'Above Range'
+            WHEN e.salary < s.avg_salary - s.stddev_salary THEN 'Below Range'
+            ELSE 'Within Range'
+        END as salary_range,
+        NTILE(4) OVER (PARTITION BY e.department ORDER BY e.salary) as salary_quartile
+    FROM employees e
+    JOIN SalaryStats s ON e.department = s.department
+)
+SELECT 
+    department,
+    first_name,
+    salary,
+    ROUND(avg_salary, 2) as dept_avg,
+    ROUND(stddev_salary, 2) as dept_stddev,
