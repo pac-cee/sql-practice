@@ -112,3 +112,22 @@ WITH DailySales AS (
     FROM sales
     GROUP BY sale_date
 ),
+SalesAnalysis AS (
+    SELECT 
+        sale_date,
+        daily_total,
+        LAG(daily_total) OVER (ORDER BY sale_date) as prev_day,
+        LEAD(daily_total) OVER (ORDER BY sale_date) as next_day,
+        AVG(daily_total) OVER (
+            ORDER BY sale_date 
+            ROWS BETWEEN 3 PRECEDING AND 3 FOLLOWING
+        ) as weekly_avg,
+        MAX(daily_total) OVER (
+            ORDER BY sale_date 
+            ROWS BETWEEN 30 PRECEDING AND CURRENT ROW
+        ) as rolling_30day_high
+    FROM DailySales
+)
+SELECT 
+    sale_date,
+    daily_total,
