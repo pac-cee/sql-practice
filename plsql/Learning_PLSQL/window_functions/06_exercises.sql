@@ -93,3 +93,22 @@ SELECT
     salary,
     ROUND(avg_salary, 2) as dept_avg,
     ROUND(stddev_salary, 2) as dept_stddev,
+    salary_range,
+    salary_quartile,
+    COUNT(*) OVER (PARTITION BY department, salary_range) as count_in_range
+FROM EmployeeAnalysis
+ORDER BY department, salary DESC;
+
+/*
+Exercise 4: Time Series Analysis
+Task: Analyze sales patterns over time
+*/
+
+-- 4.1 Sales trends and patterns
+WITH DailySales AS (
+    SELECT 
+        sale_date,
+        SUM(sale_amount) as daily_total
+    FROM sales
+    GROUP BY sale_date
+),
