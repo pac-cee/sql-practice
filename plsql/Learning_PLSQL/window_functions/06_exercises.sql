@@ -131,3 +131,25 @@ SalesAnalysis AS (
 SELECT 
     sale_date,
     daily_total,
+    ROUND(
+        (daily_total - prev_day) / NULLIF(prev_day, 0) * 100,
+        2
+    ) as day_over_day_pct_change,
+    ROUND(weekly_avg, 2) as seven_day_avg,
+    CASE 
+        WHEN daily_total = rolling_30day_high THEN 'New 30-Day High'
+        ELSE 'Normal Day'
+    END as day_type
+FROM SalesAnalysis
+ORDER BY sale_date;
+
+/*
+Practice Questions:
+1. How would you identify employees who are paid more than 1.5 times their department's average?
+2. Calculate the running total of sales for each employee, but reset the total at the start of each month
+3. Find employees whose salary is higher than both their predecessor and successor in terms of hire date
+4. Create a report showing the highest paid employee in each department for each year
+5. Calculate the median salary for each department using window functions
+
+Solutions are in 07_exercise_solutions.sql
+*/
