@@ -55,3 +55,22 @@ SELECT
     department,
     salary,
     hire_date
+FROM SalaryComparison
+WHERE salary > COALESCE(prev_salary, 0)
+  AND salary > COALESCE(next_salary, 0);
+
+/*
+Solution 4: Highest paid employee per department per year
+This solution combines window functions with row filtering
+*/
+
+WITH RankedSalaries AS (
+    SELECT 
+        first_name,
+        department,
+        salary,
+        EXTRACT(YEAR FROM hire_date) as hire_year,
+        RANK() OVER (
+            PARTITION BY department, EXTRACT(YEAR FROM hire_date)
+            ORDER BY salary DESC
+        ) as salary_rank
