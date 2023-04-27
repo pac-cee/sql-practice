@@ -17,3 +17,22 @@ ORDER BY department, salary DESC;
 
 /*
 Solution 2: Monthly running totals
+This solution shows how to reset running totals periodically
+*/
+
+SELECT 
+    emp_id,
+    sale_date,
+    sale_amount,
+    EXTRACT(MONTH FROM sale_date) as month,
+    EXTRACT(YEAR FROM sale_date) as year,
+    SUM(sale_amount) OVER (
+        PARTITION BY emp_id, 
+                     EXTRACT(YEAR FROM sale_date),
+                     EXTRACT(MONTH FROM sale_date)
+        ORDER BY sale_date
+    ) as monthly_running_total
+FROM sales
+ORDER BY emp_id, sale_date;
+
+/*
