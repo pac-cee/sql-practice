@@ -150,3 +150,24 @@ SELECT
     ROUND(
         (e.salary - AVG(e.salary) OVER (PARTITION BY e.department)) /
         STDDEV(e.salary) OVER (PARTITION BY e.department),
+        2
+    ) as z_score,
+    
+    -- Salary growth analysis
+    ROUND(
+        (e.salary - FIRST_VALUE(e.salary) OVER (
+            PARTITION BY e.department 
+            ORDER BY e.hire_date
+            ROWS UNBOUNDED PRECEDING
+        )) / NULLIF(
+            FIRST_VALUE(e.salary) OVER (
+                PARTITION BY e.department 
+                ORDER BY e.hire_date
+                ROWS UNBOUNDED PRECEDING
+            ),
+            0
+        ) * 100,
+        2
+    ) as pct_growth_from_first
+FROM employees e
+ORDER BY e.department, e.salary DESC;
