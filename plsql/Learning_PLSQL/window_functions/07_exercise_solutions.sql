@@ -112,3 +112,22 @@ SELECT
         2
     ) as median_salary
 FROM SalaryRanks
+GROUP BY department
+ORDER BY department;
+
+/*
+Bonus Solution: Comprehensive Employee Analysis
+This solution combines multiple window functions for deep insights
+*/
+
+SELECT 
+    e.department,
+    e.first_name,
+    e.salary,
+    e.hire_date,
+    -- Ranking metrics
+    RANK() OVER (PARTITION BY e.department ORDER BY e.salary DESC) as salary_rank,
+    ROUND(
+        PERCENT_RANK() OVER (PARTITION BY e.department ORDER BY e.salary),
+        3
+    ) as salary_percentile,
