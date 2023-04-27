@@ -36,3 +36,22 @@ FROM sales
 ORDER BY emp_id, sale_date;
 
 /*
+Solution 3: Salary comparison with predecessor and successor
+This solution uses multiple window functions to compare values
+*/
+
+WITH SalaryComparison AS (
+    SELECT 
+        first_name,
+        department,
+        salary,
+        hire_date,
+        LAG(salary) OVER (PARTITION BY department ORDER BY hire_date) as prev_salary,
+        LEAD(salary) OVER (PARTITION BY department ORDER BY hire_date) as next_salary
+    FROM employees
+)
+SELECT 
+    first_name,
+    department,
+    salary,
+    hire_date
