@@ -74,3 +74,22 @@ WITH RankedSalaries AS (
             PARTITION BY department, EXTRACT(YEAR FROM hire_date)
             ORDER BY salary DESC
         ) as salary_rank
+    FROM employees
+)
+SELECT 
+    hire_year,
+    department,
+    first_name,
+    salary
+FROM RankedSalaries
+WHERE salary_rank = 1
+ORDER BY hire_year, department;
+
+/*
+Solution 5: Median salary calculation
+This solution shows how to calculate median using window functions
+*/
+
+WITH SalaryRanks AS (
+    SELECT 
+        department,
