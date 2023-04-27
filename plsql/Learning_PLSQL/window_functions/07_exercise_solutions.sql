@@ -93,3 +93,22 @@ This solution shows how to calculate median using window functions
 WITH SalaryRanks AS (
     SELECT 
         department,
+        salary,
+        ROW_NUMBER() OVER (PARTITION BY department ORDER BY salary) as row_num,
+        COUNT(*) OVER (PARTITION BY department) as dept_count
+    FROM employees
+)
+SELECT 
+    department,
+    ROUND(
+        AVG(
+            CASE 
+                WHEN dept_count % 2 = 0 
+                    AND row_num IN (dept_count/2, dept_count/2 + 1) THEN salary
+                WHEN dept_count % 2 = 1 
+                    AND row_num = (dept_count + 1)/2 THEN salary
+            END
+        ),
+        2
+    ) as median_salary
+FROM SalaryRanks
