@@ -131,3 +131,22 @@ SELECT
         PERCENT_RANK() OVER (PARTITION BY e.department ORDER BY e.salary),
         3
     ) as salary_percentile,
+    
+    -- Statistical calculations
+    ROUND(AVG(e.salary) OVER (PARTITION BY e.department), 2) as dept_avg,
+    ROUND(STDDEV(e.salary) OVER (PARTITION BY e.department), 2) as dept_stddev,
+    
+    -- Time-based analysis
+    ROUND(
+        AVG(e.salary) OVER (
+            PARTITION BY e.department 
+            ORDER BY e.hire_date 
+            ROWS BETWEEN 1 PRECEDING AND 1 FOLLOWING
+        ),
+        2
+    ) as local_salary_avg,
+    
+    -- Relative comparisons
+    ROUND(
+        (e.salary - AVG(e.salary) OVER (PARTITION BY e.department)) /
+        STDDEV(e.salary) OVER (PARTITION BY e.department),
