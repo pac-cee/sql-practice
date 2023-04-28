@@ -36,3 +36,22 @@ func runSQLScript(db *sql.DB, filePath string) {
 		if err != nil {
 			log.Fatalf("Error executing statement [%s]: %v", stmt, err)
 		} else {
+			fmt.Printf("Executed: %s\n", stmt)
+		}
+	}
+}
+
+func main() {
+	// Select DBMS and database as in the prior example (interactive menu).
+	// For demonstration, here we just connect to PostgreSQL using a hardcoded DB name.
+	pgdb := connectPostgres("postgres")
+	defer pgdb.Close()
+
+	// Optionally, run your script file.
+	// For example, let’s say your file is called "script.sql" in the project root.
+	sqlFilePath := "script.sql"
+	runSQLScript(pgdb, sqlFilePath)
+
+	// After running the SQL script, you can continue with your application logic.
+	fmt.Println("SQL script execution complete.")
+}
