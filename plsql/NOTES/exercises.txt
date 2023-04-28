@@ -55,3 +55,22 @@ Below is a comprehensive practice quiz along with several real-world project ide
    - **Explicit Cursors:** Declared by the developer for handling multiple rows. They allow you to control row-by-row processing with OPEN, FETCH, and CLOSE commands.
      - *Use Case:* When processing large result sets—for example, looping through all employee records and performing custom computations on each row.
 
+6. **Question:** List and explain at least three cursor attributes (e.g., %FOUND, %ROWCOUNT, %ISOPEN) and their usage.  
+   **Sample Answer:**  
+   - **%FOUND:** Returns TRUE if the last FETCH statement found a row; useful to check after a fetch.  
+   - **%NOTFOUND:** Returns TRUE if the last FETCH did not return a row, indicating that the end of the result set has been reached.  
+   - **%ROWCOUNT:** Provides the number of rows that have been processed (or affected) by the cursor.  
+   - **%ISOPEN:** For explicit cursors, returns TRUE if the cursor is open; it is always FALSE for implicit cursors.
+
+### 4. Advanced Bulk Processing
+
+7. **Question:** What is BULK COLLECT and how does it improve performance in PL/SQL?  
+   **Sample Answer:**  
+   - BULK COLLECT allows you to fetch multiple rows from a query into a collection (e.g., nested table, associative array) with a single context switch between SQL and PL/SQL. This minimizes the overhead incurred with row-by-row processing and significantly speeds up operations on large data sets.
+
+8. **Question:** Explain how the FORALL statement works and why it is used.  
+   **Sample Answer:**  
+   - FORALL is used for performing bulk DML operations. It reduces context switches by executing a DML statement (INSERT, UPDATE, DELETE) on an entire collection. When combined with BULK COLLECT and SAVE EXCEPTIONS, it offers efficient batch processing and error handling.
+
+### 5. Ref Cursors and Dynamic SQL
+
