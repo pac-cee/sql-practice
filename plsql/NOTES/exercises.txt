@@ -1,0 +1,19 @@
+Below is a comprehensive practice quiz along with several real-world project ideas that incorporate concepts from all the provided documents. These cover PL/SQL procedures and functions, control structures, error/exception handling, cursors (implicit, explicit, ref), as well as advanced bulk processing techniques. You can use these to reinforce your learning and explore how these concepts fit into practical applications.
+
+---
+
+## Practice Quiz
+
+### 1. Basic Concepts
+
+1. **Question:** What are the primary differences between a PL/SQL function and a PL/SQL procedure?  
+   **Sample Answer:**  
+   - **Function:** Must return a value using a RETURN clause; can be invoked from SQL statements (e.g., within SELECT queries); typically used for calculations or returning a computed value.  
+   - **Procedure:** Does not return a value by itself (though it can use OUT or IN OUT parameters to return data); is designed to perform actions (e.g., update records); typically called as a PL/SQL block and cannot be used directly in SQL.
+
+2. **Question:** Explain the purpose of exception handling in PL/SQL. Why is it important?  
+   **Sample Answer:**  
+   - Exception handling enables your PL/SQL program to deal with runtime errors gracefully. Instead of terminating abruptly, code in the EXCEPTION block will catch errors (e.g., NO_DATA_FOUND, ZERO_DIVIDE) and allow you to log them, rollback transactions, or display meaningful error messages. This is crucial for data integrity and ensuring that your application remains robust.
+
+### 2. Control Structures
+
