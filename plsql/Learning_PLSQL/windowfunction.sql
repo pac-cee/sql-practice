@@ -36,3 +36,22 @@ FROM employees;
 -- These functions access data from previous or subsequent rows
 
 SELECT 
+    emp_name,
+    department,
+    salary,
+    LAG(salary) OVER (PARTITION BY department ORDER BY hire_date) as previous_salary,
+    LEAD(salary) OVER (PARTITION BY department ORDER BY hire_date) as next_salary
+FROM employees;
+
+-- 3. FIRST_VALUE and LAST_VALUE
+-- Get the first and last values in a window
+
+SELECT 
+    emp_name,
+    department,
+    salary,
+    FIRST_VALUE(salary) OVER (PARTITION BY department ORDER BY hire_date) as first_salary,
+    LAST_VALUE(salary) OVER (
+        PARTITION BY department 
+        ORDER BY hire_date
+        RANGE BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING
