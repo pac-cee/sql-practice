@@ -93,3 +93,22 @@ Create a system for calculating employee salaries, bonuses, taxes, and generatin
 
 **Concepts Covered:**  
 - **Functions/Procedures:**  
+  Use functions to calculate monthly and annual salaries, bonus amounts, and tax deductions.
+- **Explicit Cursors:**  
+  Loop through employees in a department and compute payroll details individually.
+- **Exception Handling:**  
+  Handle errors such as missing salary data or invalid bonus calculations.
+- **Bulk Operations:**  
+  Use BULK COLLECT to fetch employee records and FORALL to apply bulk updates when issuing payroll adjustments.
+
+**Project Tasks:**  
+- Design a set of procedures:
+  1. `calculate_bonus(p_employee_id NUMBER)` – Computes bonus based on performance.
+  2. `update_payroll` – Loops through employees, calculates total pay (base salary + bonus – tax), and updates a payroll table.
+- Develop a ref cursor function that returns payroll details for a department, then display results in an application report.
+- Implement detailed exception handling to log errors (e.g., absent records).
+
+---
+
+### 2. Order Management and Inventory System
+
