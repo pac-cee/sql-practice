@@ -131,3 +131,18 @@ FROM employees;
    LAST_VALUE: Returns the last value in the window
 
 4. NTH_VALUE: Returns the nth value in the window
+
+5. NTILE: Divides rows into approximately equal groups
+
+6. Aggregate Functions with OVER:
+   - Shows how to use standard aggregate functions as window functions
+   - Calculates department-level statistics alongside individual rows
+
+7. Running Totals:
+   - Demonstrates cumulative sums
+   - Shows moving averages over 3-row windows
+
+8. Custom Window Frames:
+   - Shows how to define custom window frames
+   - Calculates average of current row plus one row before and after
+*/
