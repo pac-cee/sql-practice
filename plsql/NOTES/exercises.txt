@@ -36,3 +36,22 @@ Below is a comprehensive practice quiz along with several real-world project ide
        grade := 'F';
      END IF;
      DBMS_OUTPUT.PUT_LINE('Grade is ' || grade);
+   END;
+   /
+   ```
+
+4. **Question:** What is the difference between a simple loop, a WHILE loop, and a FOR loop in PL/SQL?  
+   **Sample Answer:**  
+   - A **simple loop** executes endlessly until an explicit EXIT condition is encountered.  
+   - A **WHILE loop** tests a condition before each iteration and executes as long as the condition remains true.  
+   - A **FOR loop** runs a predetermined number of times by automatically iterating over a specified range. The loop variable is implicitly managed.
+
+### 3. Cursors
+
+5. **Question:** Compare implicit and explicit cursors. Provide one example of when you would use each type.  
+   **Sample Answer:**  
+   - **Implicit Cursors:** Created automatically by Oracle when you execute a single-row query (e.g., SELECT INTO). They are simpler because you don’t manage them explicitly.  
+     - *Use Case:* When updating a single record or when using SELECT INTO in a block.  
+   - **Explicit Cursors:** Declared by the developer for handling multiple rows. They allow you to control row-by-row processing with OPEN, FETCH, and CLOSE commands.
+     - *Use Case:* When processing large result sets—for example, looping through all employee records and performing custom computations on each row.
+
