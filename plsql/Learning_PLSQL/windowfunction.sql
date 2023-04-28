@@ -55,3 +55,22 @@ SELECT
         PARTITION BY department 
         ORDER BY hire_date
         RANGE BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING
+    ) as last_salary
+FROM employees;
+
+-- 4. NTH_VALUE
+-- Get the nth value in a window
+
+SELECT 
+    emp_name,
+    department,
+    salary,
+    NTH_VALUE(salary, 2) OVER (
+        PARTITION BY department 
+        ORDER BY salary DESC
+        RANGE BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING
+    ) as second_highest_salary
+FROM employees;
+
+-- 5. NTILE
+-- Divide rows into a specified number of groups
