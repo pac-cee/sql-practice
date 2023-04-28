@@ -112,3 +112,22 @@ SELECT
     department,
     salary,
     ROUND(AVG(salary) OVER (
+        PARTITION BY department 
+        ORDER BY salary 
+        ROWS BETWEEN 1 PRECEDING AND 1 FOLLOWING
+    ), 2) as sliding_avg
+FROM employees;
+
+-- Comments explaining each section:
+/*
+1. ROW_NUMBER: Assigns unique numbers (1, 2, 3, ...) to rows within a partition
+   RANK: Assigns ranks with gaps for ties (1, 1, 3, ...)
+   DENSE_RANK: Assigns ranks without gaps for ties (1, 1, 2, ...)
+
+2. LAG: Accesses data from the previous row
+   LEAD: Accesses data from the next row
+
+3. FIRST_VALUE: Returns the first value in the window
+   LAST_VALUE: Returns the last value in the window
+
+4. NTH_VALUE: Returns the nth value in the window
