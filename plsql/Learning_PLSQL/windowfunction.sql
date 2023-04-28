@@ -74,3 +74,22 @@ FROM employees;
 
 -- 5. NTILE
 -- Divide rows into a specified number of groups
+
+SELECT 
+    emp_name,
+    salary,
+    NTILE(4) OVER (ORDER BY salary) as quartile
+FROM employees;
+
+-- 6. Aggregate Functions with OVER clause
+SELECT 
+    emp_name,
+    department,
+    salary,
+    AVG(salary) OVER (PARTITION BY department) as dept_avg_salary,
+    SUM(salary) OVER (PARTITION BY department) as dept_total_salary,
+    COUNT(*) OVER (PARTITION BY department) as dept_employee_count,
+    MAX(salary) OVER (PARTITION BY department) as dept_max_salary,
+    MIN(salary) OVER (PARTITION BY department) as dept_min_salary,
+    ROUND(salary / SUM(salary) OVER (PARTITION BY department) * 100, 2) as salary_percentage
+FROM employees;
