@@ -93,3 +93,22 @@ SELECT
     MIN(salary) OVER (PARTITION BY department) as dept_min_salary,
     ROUND(salary / SUM(salary) OVER (PARTITION BY department) * 100, 2) as salary_percentage
 FROM employees;
+
+-- 7. Running Totals and Moving Averages
+SELECT 
+    emp_name,
+    hire_date,
+    salary,
+    SUM(salary) OVER (ORDER BY hire_date) as running_total_salary,
+    ROUND(AVG(salary) OVER (
+        ORDER BY hire_date 
+        ROWS BETWEEN 2 PRECEDING AND CURRENT ROW
+    ), 2) as moving_avg_3months
+FROM employees;
+
+-- 8. Custom Window Frames
+SELECT 
+    emp_name,
+    department,
+    salary,
+    ROUND(AVG(salary) OVER (
