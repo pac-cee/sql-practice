@@ -74,3 +74,22 @@ Below is a comprehensive practice quiz along with several real-world project ide
 
 ### 5. Ref Cursors and Dynamic SQL
 
+9. **Question:** Describe what a REF Cursor is and give an example scenario where it is useful.  
+   **Sample Answer:**  
+   - A REF Cursor is a cursor variable that can be passed as a parameter and can point to different query result sets dynamically at runtime. It is useful for functions that return a result set to a client application, especially when the structure of the query might change. For example, returning search results based on user-defined filter criteria.
+
+10. **Question:** In your own words, explain the benefits of using dynamic SQL with the DBMS_SQL package.  
+    **Sample Answer:**  
+    - Dynamic SQL allows you to construct and execute SQL statements at runtime. Using the DBMS_SQL package gives you the flexibility to handle SQL statements whose structure is not known until runtime. This is especially useful for applications where the query may change based on user input or business logic. It also provides fine-grained control over SQL execution and robust error handling.
+
+---
+
+## Real-World Project Ideas
+
+### 1. Payroll Processing System
+
+**Objective:**  
+Create a system for calculating employee salaries, bonuses, taxes, and generating payroll reports.
+
+**Concepts Covered:**  
+- **Functions/Procedures:**  
