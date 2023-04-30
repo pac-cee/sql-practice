@@ -112,3 +112,22 @@ Exception handling is critical to gracefully manage runtime errors. Both functio
 ```sql
 EXCEPTION
     WHEN NO_DATA_FOUND THEN
+        DBMS_OUTPUT.PUT_LINE('No employee found with the given ID.');
+        RETURN 'Unknown';
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('Unexpected error: ' || SQLERRM);
+        RETURN 'Error';
+```
+
+This code checks for specific exceptions like `NO_DATA_FOUND` and then uses a generic `OTHERS` clause to handle any other errors. Always include exception handling to avoid unhandled exceptions that might disrupt the flow of your application.
+
+---
+
+## 4. Advanced Function Usage
+
+### 4.1. Nested Functions
+
+A function can contain another (local) function within its body. The nested function is only accessible within the outer function.
+
+**Example:**
+
