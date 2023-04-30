@@ -150,3 +150,20 @@ Develop a system for tracking employee performance reviews, calculating performa
 - **Bulk Operations:**  
   Use BULK COLLECT to gather performance data and FORALL to update multiple review records efficiently.
 - **Error Handling:**  
+  Include exception blocks to manage issues like missing data or invalid score computations.
+
+**Project Tasks:**  
+- Create a function `calculate_performance_score(p_employee_id NUMBER)` that returns a score based on various metrics.
+- Develop a procedure `update_performance_reviews` that processes all employees’ data, determines review grades, and updates a performance table.
+- Implement a report-generating function using a ref cursor that lists employees by department along with their review scores and comments.
+
+---
+
+## How to Use This Material
+
+- **Study the Quiz Questions:** Answer them on your own first, then review the sample answers to reinforce your understanding.
+- **Implement the Projects:** Pick one of the projects that interests you. Start by designing a simple version, then add complexity (such as error handling, bulk operations, and ref cursors).
+- **Test and Debug:** Make use of tools like DBMS_OUTPUT.PUT_LINE for debugging and verifying your code.
+- **Collaborate:** If you’re working in a team, divide the modules (salary computations, order processing, performance evaluations) among team members and integrate them into a complete system.
+
+This practice quiz and these project ideas should help solidify your PL/SQL skills and prepare you for real-world scenarios. Happy coding!
