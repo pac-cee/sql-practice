@@ -93,3 +93,22 @@ END;
 
 Here, the procedure updates an employee's salary. Notice that no value is returned with a RETURN statement, though you might output messages or use OUT parameters if needed.
 
+### 2.3. Key Differences Between Functions and Procedures
+
+| Feature            | Function                                    | Procedure                              |
+| ------------------ | ------------------------------------------- | -------------------------------------- |
+| **Return Value**   | Always returns a value (can be scalar, record, or table) | Does not return a value directly       |
+| **Usage in SQL**   | Can be invoked in SQL (SELECT, WHERE, etc.) | Cannot be directly used in SQL queries |
+| **Parameters**     | Typically uses only IN parameters            | Can use IN, OUT, or IN OUT parameters  |
+
+---
+
+## 3. Exception Handling in PL/SQL
+
+Exception handling is critical to gracefully manage runtime errors. Both functions and procedures contain an `EXCEPTION` block.
+
+**Example Inside a Function:**
+
+```sql
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
