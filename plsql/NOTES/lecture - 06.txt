@@ -74,3 +74,22 @@ This function checks for an invalid input (zero or negative radius) and uses exc
 Unlike functions, procedures do not return a value in the function sense but can return data through OUT parameters. The structure is similar:
 - **Declaration:** With `CREATE OR REPLACE PROCEDURE`
 - **Parameters:** Use IN, OUT, or IN OUT.
+- **Body:** Consists of the executable statements.
+
+**Example:**
+
+```sql
+CREATE OR REPLACE PROCEDURE update_salary (
+    p_emp_id     IN  employees.employee_id%TYPE,
+    p_new_salary IN  employees.salary%TYPE
+) IS
+BEGIN
+    UPDATE employees
+       SET salary = p_new_salary
+     WHERE employee_id = p_emp_id;
+END;
+/
+```
+
+Here, the procedure updates an employee's salary. Notice that no value is returned with a RETURN statement, though you might output messages or use OUT parameters if needed.
+
