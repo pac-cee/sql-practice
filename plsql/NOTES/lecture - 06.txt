@@ -188,3 +188,22 @@ EXCEPTION
     WHEN OTHERS THEN
         DBMS_OUTPUT.PUT_LINE('Error: ' || SQLERRM);
         RETURN NULL;
+END fibonacci_func;
+/
+```
+
+The Fibonacci function uses recursion to calculate the sequence, with proper checks for non-negative inputs.
+
+---
+
+## 5. Oracle SQL Built-In Functions
+
+Oracle provides a rich set of built-in functions that help manipulate different types of data:
+
+### 5.1. Numeric Functions
+- **ABS(x):** Returns the absolute value of x.
+- **ROUND(x, decimals):** Rounds a number to the specified decimal place.
+- **SQRT(x):** Returns the square root of a number.
+
+**Usage Example:**
+
