@@ -169,3 +169,22 @@ END factorial;
 
 **Fibonacci Example:**
 
+```sql
+CREATE OR REPLACE FUNCTION fibonacci_func(n IN NUMBER) RETURN NUMBER IS
+    f NUMBER;
+BEGIN
+    IF n < 0 THEN
+        RAISE_APPLICATION_ERROR(-20001, 'Input must be a non-negative integer');
+    ELSIF n = 0 THEN
+        f := 0;
+    ELSIF n = 1 THEN
+        f := 1;
+    ELSE
+        f := fibonacci_func(n - 1) + fibonacci_func(n - 2);
+    END IF;
+    RETURN f;
+
+EXCEPTION
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('Error: ' || SQLERRM);
+        RETURN NULL;
