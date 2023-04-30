@@ -131,3 +131,22 @@ Build a system to handle customer orders, update inventory, and manage order pro
   2. Uses a cursor to fetch items from an `order_items` table.
   3. Updates inventory for each item using bulk operations.
   4. Inserts order confirmation records.
+- Use ref cursors in functions returning pending orders.
+
+---
+
+### 3. Employee Performance Review System
+
+**Objective:**  
+Develop a system for tracking employee performance reviews, calculating performance scores, and generating annual review reports.
+
+**Concepts Covered:**  
+- **Functions and Procedures:**  
+  Write functions to compute performance scores (e.g., based on targets achieved, attendance records, etc.) and procedures to store results.
+- **Control Structures:**  
+  Apply IF-THEN-ELSIF logic to determine performance grades.
+- **Explicit Cursors:**  
+  Use explicit cursors to iterate through employee records from multiple departments, combining data from performance review and attendance tables.
+- **Bulk Operations:**  
+  Use BULK COLLECT to gather performance data and FORALL to update multiple review records efficiently.
+- **Error Handling:**  
