@@ -1,0 +1,19 @@
+Below is a comprehensive explanation of the material in the document. The lecture covers PL/SQL basics, advanced techniques, and practical coding challenges. I’ve organized the explanation into sections that not only review the syntax and concepts but also provide sample solutions for the assignments presented in the document.
+
+---
+
+## 1. Overview of PL/SQL
+
+PL/SQL (Procedural Language/SQL) is Oracle’s procedural extension to SQL. It allows you to write code that includes variables, control structures, exception handling, and nested blocks. Two of the core building blocks in PL/SQL are:
+
+- **Functions:** These subprograms always return a value and can be used in SQL statements (e.g., in the SELECT clause). They are ideal for computations.
+- **Procedures:** These subprograms perform actions (such as modifying data) and do not directly return a value; they often use OUT or IN OUT parameters to pass back data.
+
+The document reviews how functions and procedures are structured, explains the syntax, and demonstrates how to incorporate exception handling, nested functions, recursion, and more.
+
+---
+
+## 2. PL/SQL Functions and Procedures: Syntax and Concepts
+
+### 2.1. Basic Function Syntax
+
