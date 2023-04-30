@@ -131,3 +131,22 @@ A function can contain another (local) function within its body. The nested func
 
 **Example:**
 
+```sql
+CREATE OR REPLACE FUNCTION get_total_compensation(emp_id NUMBER) RETURN NUMBER IS
+    v_salary NUMBER;
+    -- Nested function to calculate allowance (20% of salary)
+    FUNCTION get_allowance(emp_salary NUMBER) RETURN NUMBER IS
+    BEGIN
+        RETURN emp_salary * 0.20;
+    END get_allowance;
+BEGIN
+    SELECT salary INTO v_salary
+      FROM employees
+     WHERE employee_id = emp_id;
+     
+    RETURN v_salary + get_allowance(v_salary);
+END get_total_compensation;
+/
+```
+
+### 4.2. Recursive Functions
