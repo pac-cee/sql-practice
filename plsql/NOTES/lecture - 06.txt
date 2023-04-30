@@ -36,3 +36,22 @@ BEGIN
       INTO v_name
       FROM employees
      WHERE employee_id = emp_id;
+    
+    RETURN v_name;  -- Returning the computed full name
+END;
+/
+```
+
+In this example, the function accepts an employee ID and returns the full name by concatenating the first and last name from the `employees` table.
+
+**Example with Exception Handling:**
+
+```sql
+CREATE OR REPLACE FUNCTION calculate_area(
+    radius IN NUMBER  -- Input parameter for radius
+) RETURN NUMBER IS
+    area NUMBER;
+BEGIN
+    IF radius <= 0 THEN
+        RAISE_APPLICATION_ERROR(-20001, 'Radius must be greater than zero');
+    END IF;
