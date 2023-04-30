@@ -207,3 +207,22 @@ Oracle provides a rich set of built-in functions that help manipulate different 
 
 **Usage Example:**
 
+```sql
+SELECT ABS(-5) AS absolute_value,
+       ROUND(45.678, 2) AS rounded_value,
+       SQRT(16) AS square_root
+FROM dual;
+```
+
+### 5.2. Character Functions
+- **UPPER(x):** Converts a string to uppercase.
+- **SUBSTR(x, start, length):** Extracts a substring.
+- **CONCAT(x, y):** Concatenates two strings.
+
+**Usage Example:**
+
+```sql
+SELECT UPPER('hello') AS upper_case,
+       SUBSTR('Oracle PL/SQL', 8, 6) AS substring,
+       CONCAT('Oracle', ' PL/SQL') AS full_text
+FROM dual;
