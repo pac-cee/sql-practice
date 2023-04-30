@@ -112,3 +112,22 @@ Create a system for calculating employee salaries, bonuses, taxes, and generatin
 
 ### 2. Order Management and Inventory System
 
+**Objective:**  
+Build a system to handle customer orders, update inventory, and manage order processing.
+
+**Concepts Covered:**  
+- **Control Structures:**  
+  Use conditional statements to validate order details (e.g., check if order quantity exceeds available stock).
+- **Cursors:**  
+  Use explicit cursors to process orders row-by-row for actions like updating inventory and inserting records into an order history table.
+- **Dynamic SQL:**  
+  Utilize DBMS_SQL for flexible query execution if order parameters are dynamic.
+- **Error Handling:**  
+  Implement exception blocks to catch issues such as insufficient inventory (using `RAISE_APPLICATION_ERROR`), duplicate order numbers, and runtime errors.
+
+**Project Tasks:**  
+- Create a procedure `process_order(p_order_id NUMBER)` that:
+  1. Validates the order details.
+  2. Uses a cursor to fetch items from an `order_items` table.
+  3. Updates inventory for each item using bulk operations.
+  4. Inserts order confirmation records.
