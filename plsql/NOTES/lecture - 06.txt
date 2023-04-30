@@ -245,3 +245,22 @@ FROM dual;
 ### 5.4. Conversion Functions
 - **TO_CHAR(x, format):** Converts a date or number to a string.
 - **TO_NUMBER(x):** Converts a string to a number.
+- **CAST(x AS datatype):** Converts an expression to a different datatype.
+
+**Usage Example:**
+
+```sql
+SELECT TO_CHAR(SYSDATE, 'DD-MON-YYYY') AS date_string,
+       TO_NUMBER('12345') AS number_value
+FROM dual;
+```
+
+### 5.5. Aggregate Functions
+- **SUM(column):** Returns the total sum of a numeric column.
+- **AVG(column):** Returns the average.
+- **COUNT(column):** Returns the count of rows.
+
+**Usage Example:**
+
+```sql
+SELECT COUNT(*), AVG(salary), SUM(salary)
