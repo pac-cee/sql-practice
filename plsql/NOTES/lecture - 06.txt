@@ -17,3 +17,22 @@ The document reviews how functions and procedures are structured, explains the s
 
 ### 2.1. Basic Function Syntax
 
+A PL/SQL function always returns a value. The basic structure includes:
+- **Declaration:** With `CREATE OR REPLACE FUNCTION`
+- **Parameters:** You can have parameters with their data types.
+- **Return Type:** Declared by the `RETURN` keyword.
+- **Body:** Contains the declarations (if any), executable statements, and exception handling.
+
+**Example without Exception Handling:**
+
+```sql
+CREATE OR REPLACE FUNCTION get_employee_name (
+    emp_id NUMBER  -- Input parameter
+) RETURN VARCHAR2   -- The function returns a string
+IS
+    v_name VARCHAR2(100);  -- Local variable declaration
+BEGIN
+    SELECT first_name || ' ' || last_name
+      INTO v_name
+      FROM employees
+     WHERE employee_id = emp_id;
