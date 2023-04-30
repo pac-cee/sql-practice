@@ -283,3 +283,22 @@ You need to use SQL window functions on a dataset (for example, employees or sal
 
 Below are sample queries for each part of the assignment. You can adapt these examples to your chosen domain (e.g., employees, products, sales).
 
+#### 6.1.1. Compare Values with Previous/Next Records using LAG() and LEAD()
+
+Assume we have a table called `employees` with columns `employee_id`, `department_id`, and `salary`.
+
+**Query Example:**
+
+```sql
+SELECT employee_id,
+       salary,
+       LAG(salary) OVER (ORDER BY employee_id) AS previous_salary,
+       CASE 
+           WHEN salary > LAG(salary) OVER (ORDER BY employee_id) THEN 'HIGHER'
+           WHEN salary < LAG(salary) OVER (ORDER BY employee_id) THEN 'LOWER'
+           ELSE 'EQUAL'
+       END AS comparison_with_previous,
+       LEAD(salary) OVER (ORDER BY employee_id) AS next_salary
+FROM employees;
+```
+
