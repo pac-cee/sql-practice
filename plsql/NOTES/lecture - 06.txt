@@ -264,3 +264,22 @@ FROM dual;
 
 ```sql
 SELECT COUNT(*), AVG(salary), SUM(salary)
+FROM employees;
+```
+
+### 5.6. Analytic Functions (Window Functions)
+Analytic functions perform calculations across a set of table rows that are somehow related to the current row.
+- **RANK() OVER (PARTITION BY ... ORDER BY ...):** Ranks rows within partitions.
+- **DENSE_RANK(), ROW_NUMBER(), LAG(), LEAD():** Other useful functions for comparing rows.
+
+---
+
+## 6. Assignment Solutions
+
+### 6.1. Assignment on SQL Window Functions
+
+**Objective:**  
+You need to use SQL window functions on a dataset (for example, employees or sales) and perform several tasks.
+
+Below are sample queries for each part of the assignment. You can adapt these examples to your chosen domain (e.g., employees, products, sales).
+
