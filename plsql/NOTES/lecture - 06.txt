@@ -150,3 +150,22 @@ END get_total_compensation;
 ```
 
 ### 4.2. Recursive Functions
+
+Recursive functions call themselves to solve problems that can be broken down into smaller subproblems.
+
+**Factorial Example:**
+
+```sql
+CREATE OR REPLACE FUNCTION factorial(n IN NUMBER) RETURN NUMBER IS
+BEGIN
+    IF n = 0 THEN
+        RETURN 1;  -- Base case: 0! = 1
+    ELSE
+        RETURN n * factorial(n - 1);  -- Recursive call
+    END IF;
+END factorial;
+/
+```
+
+**Fibonacci Example:**
+
