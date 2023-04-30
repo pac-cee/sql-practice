@@ -226,3 +226,22 @@ SELECT UPPER('hello') AS upper_case,
        SUBSTR('Oracle PL/SQL', 8, 6) AS substring,
        CONCAT('Oracle', ' PL/SQL') AS full_text
 FROM dual;
+```
+
+### 5.3. Date Functions
+- **SYSDATE:** Returns the current date and time.
+- **ADD_MONTHS(date, n):** Adds n months to a date.
+- **LAST_DAY(date):** Returns the last day of the month for the given date.
+
+**Usage Example:**
+
+```sql
+SELECT SYSDATE AS current_date,
+       ADD_MONTHS(SYSDATE, 3) AS future_date,
+       LAST_DAY(SYSDATE) AS last_day_of_month
+FROM dual;
+```
+
+### 5.4. Conversion Functions
+- **TO_CHAR(x, format):** Converts a date or number to a string.
+- **TO_NUMBER(x):** Converts a string to a number.
