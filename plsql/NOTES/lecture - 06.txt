@@ -302,3 +302,22 @@ SELECT employee_id,
 FROM employees;
 ```
 
+This query compares the salary of each employee with the previous record’s salary (sorted by `employee_id`).
+
+#### 6.1.2. Ranking Data within a Category
+
+**Using RANK() and DENSE_RANK():**
+
+```sql
+SELECT employee_id,
+       department_id,
+       salary,
+       RANK() OVER (PARTITION BY department_id ORDER BY salary DESC) AS rank_salary,
+       DENSE_RANK() OVER (PARTITION BY department_id ORDER BY salary DESC) AS dense_rank_salary
+FROM employees;
+```
+
+**Explanation:**  
+- **RANK()** will leave gaps in ranking when duplicate salaries exist.  
+- **DENSE_RANK()** will assign consecutive ranking numbers even when duplicates occur.
+
