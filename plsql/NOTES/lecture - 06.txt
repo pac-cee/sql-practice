@@ -359,3 +359,22 @@ WHERE rn <= 2;
 
 For each employee, calculate the maximum salary within their department and the overall maximum salary across all employees:
 
+```sql
+SELECT employee_id,
+       department_id,
+       salary,
+       MAX(salary) OVER (PARTITION BY department_id) AS max_dept_salary,
+       MAX(salary) OVER () AS overall_max_salary
+FROM employees;
+```
+
+Here, the `PARTITION BY` clause is used to compute both category-level and overall aggregate values.
+
+---
+
+### 6.2. Assignment on Adjusting Employee Salaries
+
+**Task Overview:**  
+Create a procedure named `adjust_employee_salary` that uses an IN parameter (`emp_id`), an IN OUT parameter (`salary`), and an OUT parameter (`new_salary`). It should:
+- Increase the salary by 10% if below $50,000.
+- Increase it by a fixed $5,000 if it is $50,000 or above.
