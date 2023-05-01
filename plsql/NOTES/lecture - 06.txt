@@ -416,3 +416,22 @@ BEGIN
     ELSE
         new_salary := salary + 5000;
     END IF;
+    
+    -- Enforce the salary cap
+    IF new_salary > 100000 THEN
+        new_salary := 100000;
+        DBMS_OUTPUT.PUT_LINE('Note: Adjusted salary capped at $100,000.');
+    END IF;
+    
+    -- Example of updating the employee record can be done here if desired.
+    -- UPDATE employees SET salary = new_salary WHERE employee_id = emp_id;
+    
+EXCEPTION
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('Unexpected error: ' || SQLERRM);
+        new_salary := -1;  -- Indicate failure
+END adjust_employee_salary;
+/
+```
+
+**Follow-up Explanations:**
