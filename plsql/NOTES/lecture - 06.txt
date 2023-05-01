@@ -340,3 +340,22 @@ WHERE rn <= 3;
 This query assigns a row number for each employee partitioned by department and selects the top three.
 
 #### 6.1.4. Finding the Earliest Records Based on a Date Column
+
+Assume a table `sales` with a `sale_date` column. Retrieve the first 2 sales transactions per region:
+
+```sql
+SELECT *
+FROM (
+  SELECT sale_id,
+         region,
+         sale_date,
+         ROW_NUMBER() OVER (PARTITION BY region ORDER BY sale_date ASC) AS rn
+  FROM sales
+)
+WHERE rn <= 2;
+```
+
+#### 6.1.5. Aggregation with Window Functions
+
+For each employee, calculate the maximum salary within their department and the overall maximum salary across all employees:
+
