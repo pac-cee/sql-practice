@@ -321,3 +321,22 @@ FROM employees;
 - **RANK()** will leave gaps in ranking when duplicate salaries exist.  
 - **DENSE_RANK()** will assign consecutive ranking numbers even when duplicates occur.
 
+#### 6.1.3. Fetching the Top 3 Records from Each Category
+
+For top 3 salaries per department, you can use the ROW_NUMBER() function:
+
+```sql
+SELECT *
+FROM (
+  SELECT employee_id,
+         department_id,
+         salary,
+         ROW_NUMBER() OVER (PARTITION BY department_id ORDER BY salary DESC) AS rn
+  FROM employees
+)
+WHERE rn <= 3;
+```
+
+This query assigns a row number for each employee partitioned by department and selects the top three.
+
+#### 6.1.4. Finding the Earliest Records Based on a Date Column
