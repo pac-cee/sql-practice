@@ -397,3 +397,22 @@ EXCEPTION
 END calculate_bonus;
 /
 ```
+
+#### Step 2: Create the Procedure to Adjust Salaries
+
+```sql
+CREATE OR REPLACE PROCEDURE adjust_employee_salary (
+    emp_id     IN  NUMBER,
+    salary     IN OUT NUMBER,
+    new_salary OUT NUMBER
+) IS
+    bonus NUMBER;
+BEGIN
+    -- Calculate bonus using the function
+    bonus := calculate_bonus(salary);
+    
+    IF salary < 50000 THEN
+        new_salary := salary + bonus;
+    ELSE
+        new_salary := salary + 5000;
+    END IF;
