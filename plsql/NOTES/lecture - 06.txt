@@ -473,3 +473,22 @@ BEGIN
 END;
 /
 ```
+
+This block sets an initial salary, calls the procedure, and prints out the adjusted salary.
+
+---
+
+## 7. Additional Examples: Pattern Printing Procedures
+
+The document also covers examples of using procedures to print shapes like triangles and pyramids.
+
+### 7.1. Triangle Pattern Procedure
+
+```sql
+CREATE OR REPLACE PROCEDURE print_triangle_pattern (n IN NUMBER, stars_count OUT NUMBER) IS
+BEGIN
+  stars_count := 0;  -- Initialize total stars count
+  FOR i IN 1..n LOOP
+    FOR j IN 1..i LOOP
+      DBMS_OUTPUT.PUT(' * ');
+      stars_count := stars_count + 1;
