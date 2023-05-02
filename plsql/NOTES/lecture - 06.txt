@@ -435,3 +435,22 @@ END adjust_employee_salary;
 ```
 
 **Follow-up Explanations:**
+
+- **What happens if the IN OUT parameter `salary` isn’t assigned a value?**  
+  Since IN OUT parameters must receive a value on entry (and are passed back upon exit), not assigning an initial value would cause an error or unexpected behavior. Always ensure the variable is properly initialized before calling the procedure.
+
+- **How do you enforce the salary cap?**  
+  The procedure checks if the `new_salary` exceeds $100,000 using a simple IF statement:
+  
+  ```sql
+  IF new_salary > 100000 THEN
+      new_salary := 100000;
+      DBMS_OUTPUT.PUT_LINE('Note: Adjusted salary capped at $100,000.');
+  END IF;
+  ```
+
+- **Calling the Bonus Function from within the Procedure:**  
+  In the procedure, the line:
+  
+  ```sql
+  bonus := calculate_bonus(salary);
