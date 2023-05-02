@@ -492,3 +492,22 @@ BEGIN
     FOR j IN 1..i LOOP
       DBMS_OUTPUT.PUT(' * ');
       stars_count := stars_count + 1;
+    END LOOP;
+    DBMS_OUTPUT.PUT_LINE('');  -- New line after each row
+  END LOOP;
+  DBMS_OUTPUT.PUT_LINE('Total stars printed: ' || stars_count);
+END print_triangle_pattern;
+/
+```
+
+Test the procedure:
+
+```sql
+DECLARE
+    total_stars NUMBER;
+BEGIN
+    print_triangle_pattern(5, total_stars);
+    DBMS_OUTPUT.PUT_LINE('Total stars printed: ' || total_stars);
+END;
+/
+```
