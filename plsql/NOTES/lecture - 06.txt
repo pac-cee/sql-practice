@@ -454,3 +454,22 @@ END adjust_employee_salary;
   
   ```sql
   bonus := calculate_bonus(salary);
+  ```
+  
+  shows the direct invocation of `calculate_bonus` to compute 10% of the input salary.
+
+#### Testing the Procedure
+
+You can test the procedure with an anonymous block:
+
+```sql
+DECLARE
+    v_salary     NUMBER := 48000;  -- Input salary
+    v_new_salary NUMBER;
+BEGIN
+    adjust_employee_salary(emp_id => 101, salary => v_salary, new_salary => v_new_salary);
+    DBMS_OUTPUT.PUT_LINE('Original Salary: ' || v_salary);
+    DBMS_OUTPUT.PUT_LINE('Adjusted Salary: ' || v_new_salary);
+END;
+/
+```
