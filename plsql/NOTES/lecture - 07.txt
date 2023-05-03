@@ -36,3 +36,22 @@ Control structures in PL/SQL let you direct the flow of your program execution. 
     END IF;
     ```
 
+  - *IF-THEN-ELSIF-ELSE:*
+    ```sql
+    IF condition1 THEN
+       -- block for condition1
+    ELSIF condition2 THEN
+       -- block for condition2
+    ELSE
+       -- block if none match
+    END IF;
+    ```
+    
+  **Example (grading a score):**
+    ```sql
+    DECLARE
+       score NUMBER := 75;
+       grade CHAR(1);
+    BEGIN
+       IF score >= 90 THEN
+          grade := 'A';
