@@ -530,3 +530,22 @@ BEGIN
          DBMS_OUTPUT.PUT('*');
       END LOOP;
       DBMS_OUTPUT.NEW_LINE;
+   END LOOP;
+EXCEPTION
+   WHEN VALUE_ERROR THEN
+      DBMS_OUTPUT.PUT_LINE('Error: Invalid value encountered.');
+   WHEN OTHERS THEN
+      DBMS_OUTPUT.PUT_LINE('Unexpected error: ' || SQLERRM);
+END print_pyramid_pattern;
+/
+```
+
+Test the pyramid procedure:
+
+```sql
+BEGIN
+   print_pyramid_pattern(5);
+END;
+/
+```
+
