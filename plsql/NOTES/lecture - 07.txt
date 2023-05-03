@@ -17,3 +17,22 @@ Control structures in PL/SQL let you direct the flow of your program execution. 
 
 - **IF-THEN / IF-THEN-ELSE / IF-THEN-ELSIF**  
   These statements evaluate conditions and execute different code blocks based on whether a condition is true or false.
+
+  **Syntax Examples:**
+
+  - *IF-THEN:*
+    ```sql
+    IF condition THEN
+       -- statements if condition is true
+    END IF;
+    ```
+
+  - *IF-THEN-ELSE:*
+    ```sql
+    IF condition THEN
+       -- statements if condition is true
+    ELSE
+       -- statements if condition is false
+    END IF;
+    ```
+
