@@ -1,0 +1,19 @@
+Below is a comprehensive explanation of Lecture 07 on “Control Structures and Error Handling in PL/SQL” along with complete solutions for the assignments included in the lecture. This explanation is divided into two major parts:
+
+1. **Detailed Overview of Key Concepts**  
+2. **Assignment Solutions**
+
+All explanations and code samples reflect the material in the lecture (citeturn1file0).
+
+---
+
+## 1. Detailed Overview of Key Concepts
+
+### 1.1. Control Structures in PL/SQL
+
+Control structures in PL/SQL let you direct the flow of your program execution. They fall into these main categories:
+
+#### A. **Conditional Statements**
+
+- **IF-THEN / IF-THEN-ELSE / IF-THEN-ELSIF**  
+  These statements evaluate conditions and execute different code blocks based on whether a condition is true or false.
