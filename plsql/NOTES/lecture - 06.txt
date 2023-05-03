@@ -549,3 +549,17 @@ END;
 /
 ```
 
+---
+
+## 8. Conclusion
+
+The document covers a wide range of topics in PL/SQL, including:
+- The differences between functions and procedures.
+- Detailed syntax for creating PL/SQL subprograms.
+- Advanced topics such as nested and recursive functions.
+- Utilization of built-in Oracle SQL functions to manipulate and analyze data.
+- Hands-on assignments including working with SQL window functions and a task to adjust employee salaries with business rules.
+
+Each section not only teaches you the syntax but also provides practical examples and complete solutions that you can use as a template for your own projects. By mastering these concepts, you’ll be well prepared to write modular, reusable, and robust PL/SQL code that can be executed efficiently on Oracle databases.
+
+Feel free to adapt the sample code and queries according to your specific database schemas and assignment requirements.
