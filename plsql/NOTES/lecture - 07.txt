@@ -74,3 +74,22 @@ Control structures in PL/SQL let you direct the flow of your program execution. 
   
   - *Simple CASE* (compares an expression to constant values):
     ```sql
+    CASE expression
+       WHEN value1 THEN
+          -- statements
+       WHEN value2 THEN
+          -- statements
+       ELSE
+          -- default statements
+    END CASE;
+    ```
+
+  - *Search CASE* (each WHEN clause contains its own condition):
+    ```sql
+    CASE
+       WHEN condition1 THEN
+          -- statements
+       WHEN condition2 THEN
+          -- statements
+       ELSE
+          -- default statements
