@@ -55,3 +55,22 @@ Control structures in PL/SQL let you direct the flow of your program execution. 
     BEGIN
        IF score >= 90 THEN
           grade := 'A';
+       ELSIF score >= 80 THEN
+          grade := 'B';
+       ELSIF score >= 70 THEN
+          grade := 'C';
+       ELSIF score >= 60 THEN
+          grade := 'D';
+       ELSE
+          grade := 'F';
+       END IF;
+       DBMS_OUTPUT.PUT_LINE('Grade: ' || grade);
+    END;
+    /
+    ```
+
+- **CASE Statements**  
+  CASE statements are an alternative to multiple IF-ELSIF conditions when testing one expression against several possible values. They come in two forms:
+  
+  - *Simple CASE* (compares an expression to constant values):
+    ```sql
