@@ -568,3 +568,22 @@ EXCEPTION
 END usp_CalculateShippingFee;
 /
 ```
+
+#### **Assignment 5: usp_TaxCalculator**
+
+**Task:** Create a procedure using nested IF-THEN (or IF-ELSIF) to compute tax based on income:
+- Income > 100,000: 30% tax,
+- Income between 50,000 and 100,000: 20%,
+- Income below 50,000: 10%.
+
+**Solution:**
+```sql
+CREATE OR REPLACE PROCEDURE usp_TaxCalculator (
+   p_income IN NUMBER
+) IS
+   v_tax NUMBER;
+BEGIN
+   IF p_income > 100000 THEN
+      v_tax := p_income * 0.30;
+   ELSIF p_income BETWEEN 50000 AND 100000 THEN
+      v_tax := p_income * 0.20;
