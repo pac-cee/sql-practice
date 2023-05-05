@@ -321,3 +321,22 @@ BEGIN
    IF v_stock < p_quantity THEN
       RAISE_APPLICATION_ERROR(-20002, 'Insufficient stock for this order.');
    ELSE
+      DBMS_OUTPUT.PUT_LINE('Order validated successfully.');
+      -- Further order processing can be added here.
+   END IF;
+EXCEPTION
+   WHEN NO_DATA_FOUND THEN
+      DBMS_OUTPUT.PUT_LINE('Product not found.');
+   WHEN OTHERS THEN
+      DBMS_OUTPUT.PUT_LINE('Error during order validation: ' || SQLERRM);
+END usp_OrderValidation;
+/
+```
+
+#### **Assignment 4: usp_InputValidation**
+
+**Task:** Create a procedure to validate input data for an employee (e.g., age, salary, name). Raise errors for invalid data and handle exceptions.
+
+**Solution:**
+```sql
+CREATE OR REPLACE PROCEDURE usp_InputValidation (
