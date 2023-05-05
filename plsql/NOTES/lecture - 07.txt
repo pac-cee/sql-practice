@@ -397,3 +397,22 @@ END usp_CalculateBonus;
 
 **Solution:**
 ```sql
+CREATE OR REPLACE PROCEDURE usp_AddTwoNumbers (
+   p_num1 IN VARCHAR2,
+   p_num2 IN VARCHAR2
+) IS
+   v_sum NUMBER;
+BEGIN
+   -- Attempt conversion. If p_num1 or p_num2 are non-numeric, TO_NUMBER will raise an exception.
+   v_sum := TO_NUMBER(p_num1) + TO_NUMBER(p_num2);
+   DBMS_OUTPUT.PUT_LINE('The sum is: ' || v_sum);
+EXCEPTION
+   WHEN INVALID_NUMBER THEN
+      DBMS_OUTPUT.PUT_LINE('Invalid number format provided.');
+   WHEN OTHERS THEN
+      DBMS_OUTPUT.PUT_LINE('Error adding numbers: ' || SQLERRM);
+END usp_AddTwoNumbers;
+/
+```
+
+#### **Assignment 7: usp_FindSingleEmployee**
