@@ -454,3 +454,22 @@ CREATE OR REPLACE PROCEDURE usp_PlaceOrder (
    p_product_id IN NUMBER,
    p_quantity   IN NUMBER
 ) IS
+BEGIN
+   IF p_quantity > 100 THEN
+      RAISE_APPLICATION_ERROR(-20007, 'Order quantity exceeds limit (100).');
+   END IF;
+   
+   -- Assume order processing logic here...
+   DBMS_OUTPUT.PUT_LINE('Order ' || p_order_id || ' placed for product ' || p_product_id || ' with quantity ' || p_quantity);
+EXCEPTION
+   WHEN OTHERS THEN
+      DBMS_OUTPUT.PUT_LINE('Error placing order: ' || SQLERRM);
+END usp_PlaceOrder;
+/
+```
+
+---
+
+### 2.2. Control Structure Assignments
+
+#### **Assignment 1: usp_CalculateDiscount**
