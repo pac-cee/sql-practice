@@ -530,3 +530,22 @@ END usp_DisplayNumbers;
 CREATE OR REPLACE PROCEDURE usp_Countdown (
    p_start IN NUMBER
 ) IS
+   v_counter NUMBER := p_start;
+BEGIN
+   WHILE v_counter >= 1 LOOP
+      DBMS_OUTPUT.PUT_LINE('Countdown: ' || v_counter);
+      v_counter := v_counter - 1;
+   END LOOP;
+END usp_Countdown;
+/
+```
+
+#### **Assignment 4: usp_CalculateShippingFee**
+
+**Task:** Create a procedure that calculates shipping fees based on package weight:
+- Less than 1kg: $5,
+- Between 1kg and 5kg: $10,
+- Above 5kg: $20.
+
+**Solution:**
+```sql
