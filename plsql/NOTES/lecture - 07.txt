@@ -378,3 +378,22 @@ BEGIN
    IF v_salary IS NULL THEN
       RAISE_APPLICATION_ERROR(-20006, 'Salary is NULL. Cannot calculate bonus.');
    ELSE
+      -- Example bonus: 10% of salary
+      v_bonus := v_salary * 0.10;
+      DBMS_OUTPUT.PUT_LINE('Bonus for employee ' || p_employee_id || ' is: ' || v_bonus);
+   END IF;
+EXCEPTION
+   WHEN NO_DATA_FOUND THEN
+      DBMS_OUTPUT.PUT_LINE('Employee not found.');
+   WHEN OTHERS THEN
+      DBMS_OUTPUT.PUT_LINE('Error calculating bonus: ' || SQLERRM);
+END usp_CalculateBonus;
+/
+```
+
+#### **Assignment 6: usp_AddTwoNumbers**
+
+**Task:** Create a procedure that accepts two parameters, adds them, and handles errors such as passing non-numeric data (INVALID_NUMBER).
+
+**Solution:**
+```sql
