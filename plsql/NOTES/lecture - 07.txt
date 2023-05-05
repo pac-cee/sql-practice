@@ -150,3 +150,22 @@ Loops let you repeat a block of code:
   
 - **FOR Loop:**  
   Iterates automatically over a given range (or in reverse order when specified).
+  ```sql
+  BEGIN
+     FOR i IN 1..5 LOOP
+        DBMS_OUTPUT.PUT_LINE('Iteration ' || i);
+     END LOOP;
+  END;
+  /
+  ```
+  
+  **Reversed Order:**
+  ```sql
+  BEGIN
+     FOR i IN REVERSE 1..5 LOOP
+        DBMS_OUTPUT.PUT_LINE('Iteration ' || i);
+     END LOOP;
+  END;
+  /
+  ```
+
