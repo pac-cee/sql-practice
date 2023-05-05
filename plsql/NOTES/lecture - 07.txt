@@ -549,3 +549,22 @@ END usp_Countdown;
 
 **Solution:**
 ```sql
+CREATE OR REPLACE PROCEDURE usp_CalculateShippingFee (
+   p_weight IN NUMBER
+) IS
+   v_shipping_fee NUMBER;
+BEGIN
+   IF p_weight < 1 THEN
+      v_shipping_fee := 5;
+   ELSIF p_weight BETWEEN 1 AND 5 THEN
+      v_shipping_fee := 10;
+   ELSE
+      v_shipping_fee := 20;
+   END IF;
+   DBMS_OUTPUT.PUT_LINE('Shipping fee for weight ' || p_weight || 'kg is: $' || v_shipping_fee);
+EXCEPTION
+   WHEN OTHERS THEN
+      DBMS_OUTPUT.PUT_LINE('Error calculating shipping fee: ' || SQLERRM);
+END usp_CalculateShippingFee;
+/
+```
