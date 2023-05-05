@@ -473,3 +473,22 @@ END usp_PlaceOrder;
 ### 2.2. Control Structure Assignments
 
 #### **Assignment 1: usp_CalculateDiscount**
+
+**Task:** Create a procedure that accepts an order amount and applies:
+- 10% discount if amount > 5000,
+- 5% discount if between 3000 and 5000,
+- No discount otherwise.
+Print the final amount.
+
+**Solution:**
+```sql
+CREATE OR REPLACE PROCEDURE usp_CalculateDiscount (
+   p_order_amount IN NUMBER
+) IS
+   v_discounted_amount NUMBER;
+BEGIN
+   IF p_order_amount > 5000 THEN
+      v_discounted_amount := p_order_amount * 0.90;  -- 10% discount
+   ELSIF p_order_amount BETWEEN 3000 AND 5000 THEN
+      v_discounted_amount := p_order_amount * 0.95;  -- 5% discount
+   ELSE
