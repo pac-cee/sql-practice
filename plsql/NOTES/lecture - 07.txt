@@ -283,3 +283,22 @@ BEGIN
    SELECT balance INTO v_balance FROM accounts WHERE account_id = p_account_id;
    
    BEGIN
+      IF v_balance < p_payment THEN
+         RAISE_APPLICATION_ERROR(-20001, 'Insufficient funds.');
+      END IF;
+      -- Process payment (deduct amount)
+      UPDATE accounts SET balance = v_balance - p_payment WHERE account_id = p_account_id;
+      DBMS_OUTPUT.PUT_LINE('Payment processed successfully.');
+   EXCEPTION
+      WHEN OTHERS THEN
+         DBMS_OUTPUT.PUT_LINE('Payment processing error: ' || SQLERRM);
+         -- Optionally, you could rollback or take corrective measures here
+   END;
+EXCEPTION
+   WHEN NO_DATA_FOUND THEN
+      DBMS_OUTPUT.PUT_LINE('Account not found.');
+   WHEN OTHERS THEN
+      DBMS_OUTPUT.PUT_LINE('Unexpected error: ' || SQLERRM);
+END usp_ProcessPayment;
+/
+```
