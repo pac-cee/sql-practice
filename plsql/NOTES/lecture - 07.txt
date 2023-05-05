@@ -302,3 +302,22 @@ EXCEPTION
 END usp_ProcessPayment;
 /
 ```
+
+#### **Assignment 3: usp_OrderValidation**
+
+**Task:** Write a procedure that validates an order by checking available stock. If stock is insufficient, raise a custom error.
+
+**Solution:**
+```sql
+CREATE OR REPLACE PROCEDURE usp_OrderValidation (
+   p_order_id   IN NUMBER,
+   p_product_id IN NUMBER,
+   p_quantity   IN NUMBER
+) IS
+   v_stock NUMBER;
+BEGIN
+   SELECT stock INTO v_stock FROM products WHERE product_id = p_product_id;
+   
+   IF v_stock < p_quantity THEN
+      RAISE_APPLICATION_ERROR(-20002, 'Insufficient stock for this order.');
+   ELSE
