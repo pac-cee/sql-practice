@@ -511,3 +511,22 @@ END usp_CalculateDiscount;
 ```sql
 CREATE OR REPLACE PROCEDURE usp_DisplayNumbers IS
    v_num NUMBER := 1;
+BEGIN
+   LOOP
+      DBMS_OUTPUT.PUT_LINE('Number: ' || v_num);
+      v_num := v_num + 1;
+      EXIT WHEN v_num > 10;
+   END LOOP;
+END usp_DisplayNumbers;
+/
+```
+
+#### **Assignment 3: usp_Countdown**
+
+**Task:** Write a procedure that accepts a number and prints a countdown from that number to 1 using a WHILE loop.
+
+**Solution:**
+```sql
+CREATE OR REPLACE PROCEDURE usp_Countdown (
+   p_start IN NUMBER
+) IS
