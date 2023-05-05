@@ -226,3 +226,22 @@ END;
   ```sql
   IF some_condition THEN
      RAISE_APPLICATION_ERROR(-20001, 'Custom error message');
+  END IF;
+  ```
+
+---
+
+## 2. Assignment Solutions
+
+The lecture provides several assignments covering both error handling and control structures. Below are detailed solutions for each.
+
+> **Note:** These examples are written as stand-alone procedures or anonymous blocks. You may need to adapt them to your database schema.
+
+---
+
+### 2.1. Error Handling Assignments
+
+#### **Assignment 1: usp_TransferFunds**
+
+**Task:** Create a procedure that transfers funds between accounts. In case of errors during the transfer, rollback the transaction and output an error message.
+
