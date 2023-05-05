@@ -131,3 +131,22 @@ Loops let you repeat a block of code:
         EXIT WHEN i > 5;
      END LOOP;
   END;
+  /
+  ```
+  
+- **WHILE Loop:**  
+  Evaluates a condition before each iteration.
+  ```sql
+  DECLARE
+     i NUMBER := 1;
+  BEGIN
+     WHILE i <= 5 LOOP
+        DBMS_OUTPUT.PUT_LINE('Iteration ' || i);
+        i := i + 1;
+     END LOOP;
+  END;
+  /
+  ```
+  
+- **FOR Loop:**  
+  Iterates automatically over a given range (or in reverse order when specified).
