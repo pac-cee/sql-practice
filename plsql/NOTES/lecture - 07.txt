@@ -112,3 +112,22 @@ Control structures in PL/SQL let you direct the flow of your program execution. 
        END CASE;
        DBMS_OUTPUT.PUT_LINE('Message: ' || message);
     END;
+    /
+    ```
+
+#### B. **Iterative (Loop) Statements**
+
+Loops let you repeat a block of code:
+
+- **Simple LOOP:**  
+  Repeats until a manual `EXIT` statement is executed.
+  ```sql
+  DECLARE
+     i NUMBER := 1;
+  BEGIN
+     LOOP
+        DBMS_OUTPUT.PUT_LINE('Iteration ' || i);
+        i := i + 1;
+        EXIT WHEN i > 5;
+     END LOOP;
+  END;
