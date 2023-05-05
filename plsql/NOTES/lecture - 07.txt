@@ -188,3 +188,22 @@ Loops let you repeat a block of code:
   END;
   /
   ```
+
+#### C. **Sequential Control**
+
+In addition to the above, PL/SQL also provides the ability to control the sequence using labels and the `GOTO` statement (used sparingly).
+
+---
+
+### 1.2. Error and Exception Handling
+
+Error handling in PL/SQL is accomplished using the `EXCEPTION` block within a PL/SQL block or stored subprogram. This section catches and handles runtime errors. 
+
+#### Exception Types
+
+- **Predefined Exceptions:** Automatically raised by Oracle (e.g., `NO_DATA_FOUND`, `ZERO_DIVIDE`, `TOO_MANY_ROWS`).
+- **User-Defined Exceptions:** Custom exceptions declared by the programmer and raised using the `RAISE` or `RAISE_APPLICATION_ERROR` statements.
+
+#### Exception Handling Syntax
+
+```sql
