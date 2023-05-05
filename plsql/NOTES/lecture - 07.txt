@@ -359,3 +359,22 @@ EXCEPTION
       DBMS_OUTPUT.PUT_LINE('Input validation error: ' || SQLERRM);
 END usp_InputValidation;
 /
+```
+
+#### **Assignment 5: usp_CalculateBonus**
+
+**Task:** Write a procedure that accepts an employee ID, calculates the bonus, and handles NULL values in salary (raising an error if salary is null).
+
+**Solution:**
+```sql
+CREATE OR REPLACE PROCEDURE usp_CalculateBonus (
+   p_employee_id IN NUMBER
+) IS
+   v_salary NUMBER;
+   v_bonus  NUMBER;
+BEGIN
+   SELECT salary INTO v_salary FROM employees WHERE employee_id = p_employee_id;
+   
+   IF v_salary IS NULL THEN
+      RAISE_APPLICATION_ERROR(-20006, 'Salary is NULL. Cannot calculate bonus.');
+   ELSE
