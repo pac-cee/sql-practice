@@ -340,3 +340,22 @@ END usp_OrderValidation;
 **Solution:**
 ```sql
 CREATE OR REPLACE PROCEDURE usp_InputValidation (
+   p_employee_name IN VARCHAR2,
+   p_age           IN NUMBER,
+   p_salary        IN NUMBER
+) IS
+BEGIN
+   IF p_employee_name IS NULL OR TRIM(p_employee_name) = '' THEN
+      RAISE_APPLICATION_ERROR(-20003, 'Employee name is required.');
+   ELSIF p_age < 18 OR p_age > 65 THEN
+      RAISE_APPLICATION_ERROR(-20004, 'Employee age must be between 18 and 65.');
+   ELSIF p_salary < 0 THEN
+      RAISE_APPLICATION_ERROR(-20005, 'Salary must be a positive value.');
+   ELSE
+      DBMS_OUTPUT.PUT_LINE('Input validated: ' || p_employee_name || ', Age: ' || p_age || ', Salary: ' || p_salary);
+   END IF;
+EXCEPTION
+   WHEN OTHERS THEN
+      DBMS_OUTPUT.PUT_LINE('Input validation error: ' || SQLERRM);
+END usp_InputValidation;
+/
