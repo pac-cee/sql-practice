@@ -245,3 +245,22 @@ The lecture provides several assignments covering both error handling and contro
 
 **Task:** Create a procedure that transfers funds between accounts. In case of errors during the transfer, rollback the transaction and output an error message.
 
+**Solution:**
+```sql
+CREATE OR REPLACE PROCEDURE usp_TransferFunds (
+   p_from_account IN NUMBER,
+   p_to_account   IN NUMBER,
+   p_amount       IN NUMBER
+) IS
+BEGIN
+   -- Start the transaction
+   UPDATE accounts SET balance = balance - p_amount WHERE account_id = p_from_account;
+   UPDATE accounts SET balance = balance + p_amount WHERE account_id = p_to_account;
+   
+   COMMIT;
+   DBMS_OUTPUT.PUT_LINE('Transfer successful.');
+EXCEPTION
+   WHEN OTHERS THEN
+      ROLLBACK;
+      DBMS_OUTPUT.PUT_LINE('Error during fund transfer: ' || SQLERRM);
+END usp_TransferFunds;
