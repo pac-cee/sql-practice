@@ -207,3 +207,22 @@ Error handling in PL/SQL is accomplished using the `EXCEPTION` block within a PL
 #### Exception Handling Syntax
 
 ```sql
+BEGIN
+   -- main code that may raise an error
+EXCEPTION
+   WHEN NO_DATA_FOUND THEN
+      DBMS_OUTPUT.PUT_LINE('No data found.');
+   WHEN OTHERS THEN
+      DBMS_OUTPUT.PUT_LINE('Error: ' || SQLERRM);
+END;
+/
+```
+
+- **WHEN OTHERS Clause:** A catch-all for any exceptions not specifically handled. It is best practice to log errors and not simply silence them.
+
+#### Raising Exceptions
+
+- **RAISE_APPLICATION_ERROR:** Used to generate a custom error message.
+  ```sql
+  IF some_condition THEN
+     RAISE_APPLICATION_ERROR(-20001, 'Custom error message');
