@@ -188,3 +188,22 @@ END;
 
 #### 📝 Use case:
 - Fetch all employees and give them a 10% raise using `BULK COLLECT` and `FORALL`.
+
+#### ✅ Solution:
+```sql
+DECLARE
+  TYPE emp_table IS TABLE OF employees%ROWTYPE;
+  emp_data emp_table;
+
+  TYPE num_table IS TABLE OF NUMBER;
+  updated_ids num_table;
+BEGIN
+  SELECT * BULK COLLECT INTO emp_data FROM employees;
+
+  FORALL i IN emp_data.FIRST .. emp_data.LAST
+    UPDATE employees
+    SET salary = salary * 1.10
+    WHERE employee_id = emp_data(i).employee_id
+    RETURNING employee_id BULK COLLECT INTO updated_ids;
+
+  DBMS_OUTPUT.PUT_LINE('Updated ' || updated_ids.COUNT || ' employees.');
