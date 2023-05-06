@@ -245,3 +245,22 @@ DECLARE
   v_annual NUMBER;
 BEGIN
   v_cursor := get_annual_salary(3);
+  LOOP
+    FETCH v_cursor INTO v_name, v_salary, v_annual;
+    EXIT WHEN v_cursor%NOTFOUND;
+    DBMS_OUTPUT.PUT_LINE(v_name || ' earns ' || v_salary || '/month and ' || v_annual || '/year');
+  END LOOP;
+  CLOSE v_cursor;
+END;
+```
+
+---
+
+### ✅ **Assignment: Use `BULK COLLECT + SQL%BULK_EXCEPTIONS`**
+
+#### 📝 Use case:
+- Insert many employees, handle and display errors without stopping the operation.
+
+#### ✅ Solution:
+```sql
+DECLARE
