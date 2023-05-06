@@ -36,3 +36,22 @@ BEGIN
     DBMS_OUTPUT.PUT_LINE('Employees deleted: ' || SQL%ROWCOUNT);
   ELSE
     DBMS_OUTPUT.PUT_LINE('No employees found for deletion.');
+  END IF;
+END;
+```
+
+---
+
+### ⚙️ EXPLICIT CURSORS
+
+#### ✅ When used:
+- When a `SELECT` statement returns **multiple rows**.
+- You want to process each row **individually**.
+
+#### ✅ Lifecycle:
+1. **DECLARE** the cursor
+2. **OPEN** the cursor
+3. **FETCH** rows from the cursor into variables
+4. **CLOSE** the cursor
+
+#### ✅ Example:
