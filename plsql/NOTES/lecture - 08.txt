@@ -17,3 +17,22 @@ There are two major types:
 ### ⚙️ IMPLICIT CURSORS
 
 #### ✅ When used:
+- For simple, single-row DML statements (INSERT, UPDATE, DELETE, SELECT INTO).
+- Oracle automatically manages them.
+
+#### ✅ Common attributes:
+| Attribute        | Description |
+|------------------|-------------|
+| `SQL%FOUND`      | TRUE if one or more rows were affected/fetched. |
+| `SQL%NOTFOUND`   | TRUE if no rows were affected/fetched. |
+| `SQL%ROWCOUNT`   | Returns the number of rows affected. |
+| `SQL%ISOPEN`     | Always FALSE for implicit cursors. |
+
+#### ✅ Example:
+```sql
+BEGIN
+  DELETE FROM employees WHERE department_id = 10;
+  IF SQL%FOUND THEN
+    DBMS_OUTPUT.PUT_LINE('Employees deleted: ' || SQL%ROWCOUNT);
+  ELSE
+    DBMS_OUTPUT.PUT_LINE('No employees found for deletion.');
