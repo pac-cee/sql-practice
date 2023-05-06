@@ -150,3 +150,22 @@ END;
 - Calculate:
   - Total salary
   - Average salary
+  - Number of employees above a salary threshold
+
+#### ✅ Solution:
+```sql
+CREATE OR REPLACE PROCEDURE get_salary_statistics(
+  p_dept_id NUMBER,
+  p_start_date DATE,
+  p_end_date DATE,
+  p_threshold NUMBER
+) IS
+  v_total NUMBER;
+  v_avg   NUMBER;
+  v_count NUMBER;
+BEGIN
+  SELECT NVL(SUM(salary), 0) INTO v_total
+  FROM employees
+  WHERE department_id = p_dept_id AND hire_date BETWEEN p_start_date AND p_end_date;
+
+  SELECT NVL(AVG(salary), 0) INTO v_avg
