@@ -112,3 +112,22 @@ END;
 - Use `SELECT INTO` with proper handling for:
   - One row
   - No rows
+  - Too many rows
+
+#### ✅ Solution:
+```sql
+DECLARE
+  v_allowance_id      ALLOWANCES.ALLOWANCE_ID%TYPE;
+  v_allowance_amount  ALLOWANCES.ALLOWANCE_AMOUNT%TYPE;
+  v_effective_date    ALLOWANCES.EFFECTIVE_DATE%TYPE;
+  v_role_id           EMPLOYEES.ROLE_ID%TYPE;
+BEGIN
+  SELECT role_id INTO v_role_id FROM employees WHERE department_id = 2 AND ROWNUM = 1;
+
+  SELECT allowance_id, allowance_amount, effective_date
+  INTO v_allowance_id, v_allowance_amount, v_effective_date
+  FROM allowances
+  WHERE role_id = v_role_id;
+
+  DBMS_OUTPUT.PUT_LINE('Allowance ID: ' || v_allowance_id);
+  DBMS_OUTPUT.PUT_LINE('Amount: ' || v_allowance_amount);
