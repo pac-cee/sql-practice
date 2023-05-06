@@ -606,3 +606,19 @@ The lecture covers the following topics in depth:
 
 - **Control Structures:**  
   - Conditional statements (IF, CASE) for decision making.
+  - Loop structures (LOOP, FOR, WHILE) for iteration and repetition.
+  - The importance of labels and the use of GOTO (sparingly).
+
+- **Error Handling:**  
+  - The use of predefined and user-defined exceptions.
+  - How to catch exceptions with WHEN OTHERS.
+  - Best practices in logging error messages using SQLERRM and SQLCODE.
+  - Raising custom errors with RAISE_APPLICATION_ERROR.
+
+Each assignment solution provided above demonstrates a real-world scenario where these control structures and error handling techniques are applied, such as transferring funds, processing orders, validating inputs, computing discounts and taxes, and more.
+
+By mastering these examples and practicing with these procedures, you will be able to build robust PL/SQL applications that handle both program flow and error conditions gracefully. Feel free to test these procedures in your environment and modify them according to your database schema and business rules.
+
+---
+
+This comprehensive explanation and the full set of assignment solutions should give you a solid foundation in PL/SQL control structures and error handling, as described in the lecture (citeturn1file0).
