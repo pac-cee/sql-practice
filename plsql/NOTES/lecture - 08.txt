@@ -226,3 +226,22 @@ RETURN SYS_REFCURSOR IS
   emp_cursor SYS_REFCURSOR;
 BEGIN
   OPEN emp_cursor FOR
+    SELECT first_name || ' ' || last_name AS full_name,
+           salary,
+           salary * 12 AS annual_salary
+    FROM employees
+    WHERE department_id = p_dept_id;
+
+  RETURN emp_cursor;
+END;
+```
+
+#### ✅ Anonymous Block:
+```sql
+DECLARE
+  v_cursor SYS_REFCURSOR;
+  v_name VARCHAR2(100);
+  v_salary NUMBER;
+  v_annual NUMBER;
+BEGIN
+  v_cursor := get_annual_salary(3);
