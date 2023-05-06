@@ -587,3 +587,22 @@ BEGIN
       v_tax := p_income * 0.30;
    ELSIF p_income BETWEEN 50000 AND 100000 THEN
       v_tax := p_income * 0.20;
+   ELSE
+      v_tax := p_income * 0.10;
+   END IF;
+   DBMS_OUTPUT.PUT_LINE('For an income of ' || p_income || ', the calculated tax is: ' || v_tax);
+EXCEPTION
+   WHEN OTHERS THEN
+      DBMS_OUTPUT.PUT_LINE('Error calculating tax: ' || SQLERRM);
+END usp_TaxCalculator;
+/
+```
+
+---
+
+## Final Remarks
+
+The lecture covers the following topics in depth:
+
+- **Control Structures:**  
+  - Conditional statements (IF, CASE) for decision making.
