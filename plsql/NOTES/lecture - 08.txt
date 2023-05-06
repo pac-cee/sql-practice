@@ -93,3 +93,22 @@ END LOOP;
 
 ```sql
 FUNCTION get_employees RETURN SYS_REFCURSOR IS
+  emp_cursor SYS_REFCURSOR;
+BEGIN
+  OPEN emp_cursor FOR SELECT * FROM employees;
+  RETURN emp_cursor;
+END;
+```
+
+---
+
+## 📌 PART 2: ASSIGNMENTS & SOLUTIONS
+
+---
+
+### ✅ **Assignment: Retrieve Allowance Details (Implicit Cursor)**
+
+#### 📝 Requirement:
+- Use `SELECT INTO` with proper handling for:
+  - One row
+  - No rows
