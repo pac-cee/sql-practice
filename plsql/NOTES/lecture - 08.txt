@@ -1,0 +1,19 @@
+Here’s a **detailed explanation** of Lecture 08 — *PL/SQL Cursors: Implicit & Explicit*, followed by **complete assignment solutions** and examples. This lecture is fundamental for understanding how Oracle PL/SQL processes query results one row at a time.
+
+---
+
+## 🔍 PART 1: DETAILED EXPLANATION — CURSORS IN PL/SQL
+
+### 🚀 What is a Cursor?
+
+A **cursor** is a pointer to the **context area** created by Oracle to process SQL statements. It allows **row-by-row** handling of results returned by SQL queries.
+
+There are two major types:
+- **Implicit Cursor** – Automatically created by Oracle when you run a SQL statement (e.g., `INSERT`, `UPDATE`, `DELETE`, `SELECT INTO`).
+- **Explicit Cursor** – Manually declared by developers for processing multi-row query results.
+
+---
+
+### ⚙️ IMPLICIT CURSORS
+
+#### ✅ When used:
