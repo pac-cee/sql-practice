@@ -169,3 +169,22 @@ BEGIN
   WHERE department_id = p_dept_id AND hire_date BETWEEN p_start_date AND p_end_date;
 
   SELECT NVL(AVG(salary), 0) INTO v_avg
+  FROM employees
+  WHERE department_id = p_dept_id AND hire_date BETWEEN p_start_date AND p_end_date;
+
+  SELECT COUNT(*) INTO v_count
+  FROM employees
+  WHERE department_id = p_dept_id AND salary > p_threshold;
+
+  DBMS_OUTPUT.PUT_LINE('Total Salary: ' || v_total);
+  DBMS_OUTPUT.PUT_LINE('Average Salary: ' || v_avg);
+  DBMS_OUTPUT.PUT_LINE('Employees Above Threshold: ' || v_count);
+END;
+```
+
+---
+
+### ✅ **Assignment: BULK COLLECT + FORALL**
+
+#### 📝 Use case:
+- Fetch all employees and give them a 10% raise using `BULK COLLECT` and `FORALL`.
