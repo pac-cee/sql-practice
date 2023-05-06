@@ -74,3 +74,22 @@ END;
 ---
 
 ### 🔁 CURSOR FOR LOOPS
+
+A **cursor FOR loop** simplifies the process:
+- Automatically opens, fetches, and closes the cursor.
+
+```sql
+FOR emp_rec IN (SELECT emp_id, emp_name FROM employees) LOOP
+  DBMS_OUTPUT.PUT_LINE('ID: ' || emp_rec.emp_id || ', Name: ' || emp_rec.emp_name);
+END LOOP;
+```
+
+---
+
+### 💡 REF CURSORS
+
+- Used for **dynamic SQL** or **procedures/functions** that return query results.
+- More flexible; query can be determined at runtime.
+
+```sql
+FUNCTION get_employees RETURN SYS_REFCURSOR IS
