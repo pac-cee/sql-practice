@@ -207,3 +207,22 @@ BEGIN
     RETURNING employee_id BULK COLLECT INTO updated_ids;
 
   DBMS_OUTPUT.PUT_LINE('Updated ' || updated_ids.COUNT || ' employees.');
+END;
+```
+
+---
+
+### ✅ **Assignment: Return Annual Salary as Cursor (Function)**
+
+#### 📝 Return for each employee:
+- Full name
+- Monthly salary
+- Annual salary
+
+#### ✅ Function:
+```sql
+CREATE OR REPLACE FUNCTION get_annual_salary(p_dept_id NUMBER)
+RETURN SYS_REFCURSOR IS
+  emp_cursor SYS_REFCURSOR;
+BEGIN
+  OPEN emp_cursor FOR
