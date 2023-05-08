@@ -55,3 +55,22 @@ Exercise 2: Package for Department Statistics
 Create a package that manages department statistics with multiple functions and procedures.
 */
 CREATE OR REPLACE PACKAGE dept_stats AS
+    -- Get department average salary
+    FUNCTION get_dept_avg_salary(p_dept_id NUMBER) RETURN NUMBER;
+    
+    -- Get department headcount
+    FUNCTION get_dept_headcount(p_dept_id NUMBER) RETURN NUMBER;
+    
+    -- Get department performance summary
+    PROCEDURE get_dept_performance_summary(
+        p_dept_id IN NUMBER,
+        p_avg_rating OUT NUMBER,
+        p_top_performers OUT NUMBER,
+        p_needs_improvement OUT NUMBER
+    );
+    
+    -- Generate department report
+    PROCEDURE generate_dept_report(p_dept_id IN NUMBER);
+END dept_stats;
+/
+
