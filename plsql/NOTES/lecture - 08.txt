@@ -283,3 +283,14 @@ END;
 ```
 
 ---
+
+## ✅ SUMMARY
+
+This lecture explains:
+- ✅ When and why to use **implicit** vs **explicit** cursors.
+- ✅ How to loop through rows with **explicit cursors** and `FOR` loops.
+- ✅ How to process data in bulk using `BULK COLLECT`, `FORALL`, and `SQL%BULK_EXCEPTIONS`.
+- ✅ How to use **ref cursors** to return result sets from functions.
+- ✅ Best practices for **resource management**, **error handling**, and **performance tuning**.
+
+If you'd like, I can also generate a **practice quiz** or provide some **real-world mini projects** using cursors, bulk processing, and error handling. Just say the word!
