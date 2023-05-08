@@ -36,3 +36,22 @@ BEGIN
         -- Update salary
         UPDATE employees
         SET salary = salary * (1 + v_raise_percentage/100)
+        WHERE CURRENT OF emp_cursor;
+        
+    END LOOP;
+    COMMIT;
+EXCEPTION
+    WHEN e_invalid_salary THEN
+        ROLLBACK;
+        RAISE_APPLICATION_ERROR(-20101, 'Salary exceeds maximum limit');
+    WHEN OTHERS THEN
+        ROLLBACK;
+        RAISE_APPLICATION_ERROR(-20102, 'Error: ' || SQLERRM);
+END process_service_based_raises;
+/
+
+/*
+Exercise 2: Package for Department Statistics
+Create a package that manages department statistics with multiple functions and procedures.
+*/
+CREATE OR REPLACE PACKAGE dept_stats AS
