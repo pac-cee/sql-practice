@@ -264,3 +264,22 @@ END;
 #### ✅ Solution:
 ```sql
 DECLARE
+  TYPE emp_ids IS TABLE OF NUMBER;
+  ids emp_ids := emp_ids(101, 102, 103, 104);  -- 101, 103 might already exist
+  errors NUMBER;
+BEGIN
+  FORALL i IN ids.FIRST .. ids.LAST SAVE EXCEPTIONS
+    INSERT INTO employees (employee_id, salary) VALUES (ids(i), 5000);
+
+EXCEPTION
+  WHEN OTHERS THEN
+    errors := SQL%BULK_EXCEPTIONS.COUNT;
+    DBMS_OUTPUT.PUT_LINE('Number of errors: ' || errors);
+    FOR i IN 1 .. errors LOOP
+      DBMS_OUTPUT.PUT_LINE('Error at index ' || SQL%BULK_EXCEPTIONS(i).ERROR_INDEX ||
+                           ' Code: ' || SQL%BULK_EXCEPTIONS(i).ERROR_CODE);
+    END LOOP;
+END;
+```
+
+---
