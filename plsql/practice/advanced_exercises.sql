@@ -321,3 +321,22 @@ BEGIN
                 p_new_dept_id => v_target_dept_id
             );
         END LOOP;
+    END LOOP;
+    
+    COMMIT;
+EXCEPTION
+    WHEN OTHERS THEN
+        ROLLBACK;
+        RAISE_APPLICATION_ERROR(-20103, 'Error rebalancing departments: ' || SQLERRM);
+END rebalance_departments;
+/
+
+-- Test script for all exercises
+CREATE OR REPLACE PROCEDURE test_advanced_features AS
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('Testing Service-Based Raises...');
+    process_service_based_raises;
+    
+    DBMS_OUTPUT.PUT_LINE('Testing Department Statistics...');
+    FOR dept IN (SELECT department_id FROM departments) LOOP
+        dept_stats.generate_dept_report(dept.department_id);
