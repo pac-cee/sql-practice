@@ -207,3 +207,22 @@ CREATE TABLE employee_audit_trail (
     old_dept_id     NUMBER,
     new_dept_id     NUMBER,
     old_job_title   VARCHAR2(50),
+    new_job_title   VARCHAR2(50),
+    changed_by      VARCHAR2(30)
+);
+
+-- Create sequence for audit trail
+CREATE SEQUENCE audit_seq
+    START WITH 1
+    INCREMENT BY 1
+    NOCACHE
+    NOCYCLE;
+
+-- Create trigger for employee changes
+CREATE OR REPLACE TRIGGER trg_employee_audit
+AFTER INSERT OR UPDATE OR DELETE ON employees
+FOR EACH ROW
+BEGIN
+    IF INSERTING THEN
+        INSERT INTO employee_audit_trail (
+            audit_id, employee_id, action_type,
