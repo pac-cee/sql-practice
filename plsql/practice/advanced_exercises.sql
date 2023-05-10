@@ -245,3 +245,22 @@ BEGIN
             :OLD.salary, :NEW.salary,
             :OLD.department_id, :NEW.department_id,
             :OLD.job_title, :NEW.job_title,
+            USER
+        );
+    ELSIF DELETING THEN
+        INSERT INTO employee_audit_trail (
+            audit_id, employee_id, action_type,
+            old_salary, old_dept_id, old_job_title,
+            changed_by
+        ) VALUES (
+            audit_seq.NEXTVAL, :OLD.employee_id, 'DELETE',
+            :OLD.salary, :OLD.department_id, :OLD.job_title,
+            USER
+        );
+    END IF;
+END;
+/
+
+/*
+Exercise 4: Complex Cursor Operations
+Create a procedure that rebalances department workload using cursors.
