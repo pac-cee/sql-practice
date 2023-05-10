@@ -302,3 +302,22 @@ BEGIN
     FOR over_dept IN overstaffed_dept_cur LOOP
         -- Find understaffed department
         SELECT department_id
+        INTO v_target_dept_id
+        FROM (
+            SELECT department_id
+            FROM departments d
+            WHERE department_id IN (
+                SELECT department_id
+                FROM understaffed_dept_cur
+            )
+            ORDER BY DBMS_RANDOM.VALUE
+        )
+        WHERE ROWNUM = 1;
+        
+        -- Transfer newest employee
+        FOR emp IN transfer_emp_cur(over_dept.department_id) LOOP
+            emp_mgmt.transfer_employee(
+                p_employee_id => emp.employee_id,
+                p_new_dept_id => v_target_dept_id
+            );
+        END LOOP;
