@@ -226,3 +226,22 @@ BEGIN
     IF INSERTING THEN
         INSERT INTO employee_audit_trail (
             audit_id, employee_id, action_type,
+            new_salary, new_dept_id, new_job_title,
+            changed_by
+        ) VALUES (
+            audit_seq.NEXTVAL, :NEW.employee_id, 'INSERT',
+            :NEW.salary, :NEW.department_id, :NEW.job_title,
+            USER
+        );
+    ELSIF UPDATING THEN
+        INSERT INTO employee_audit_trail (
+            audit_id, employee_id, action_type,
+            old_salary, new_salary,
+            old_dept_id, new_dept_id,
+            old_job_title, new_job_title,
+            changed_by
+        ) VALUES (
+            audit_seq.NEXTVAL, :OLD.employee_id, 'UPDATE',
+            :OLD.salary, :NEW.salary,
+            :OLD.department_id, :NEW.department_id,
+            :OLD.job_title, :NEW.job_title,
