@@ -188,3 +188,22 @@ CREATE OR REPLACE PACKAGE BODY dept_stats AS
         DBMS_OUTPUT.PUT_LINE('Average Performance Rating: ' || ROUND(v_avg_rating, 2));
         DBMS_OUTPUT.PUT_LINE('Top Performers: ' || v_top_performers);
         DBMS_OUTPUT.PUT_LINE('Needs Improvement: ' || v_needs_improvement);
+    END generate_dept_report;
+END dept_stats;
+/
+
+/*
+Exercise 3: Triggers for Audit Trail
+Create triggers to maintain audit trail for employee data changes.
+*/
+-- Create audit trail table
+CREATE TABLE employee_audit_trail (
+    audit_id        NUMBER PRIMARY KEY,
+    employee_id     NUMBER,
+    action_type     VARCHAR2(10),
+    action_date     DATE DEFAULT SYSDATE,
+    old_salary      NUMBER,
+    new_salary      NUMBER,
+    old_dept_id     NUMBER,
+    new_dept_id     NUMBER,
+    old_job_title   VARCHAR2(50),
