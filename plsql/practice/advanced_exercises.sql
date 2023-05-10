@@ -93,3 +93,22 @@ CREATE OR REPLACE PACKAGE BODY dept_stats AS
     -- Get department headcount
     FUNCTION get_dept_headcount(p_dept_id NUMBER) RETURN NUMBER IS
         v_count NUMBER;
+    BEGIN
+        SELECT COUNT(*)
+        INTO v_count
+        FROM employees
+        WHERE department_id = p_dept_id;
+        
+        RETURN v_count;
+    END get_dept_headcount;
+    
+    -- Get department performance summary
+    PROCEDURE get_dept_performance_summary(
+        p_dept_id IN NUMBER,
+        p_avg_rating OUT NUMBER,
+        p_top_performers OUT NUMBER,
+        p_needs_improvement OUT NUMBER
+    ) IS
+    BEGIN
+        -- Get average rating (A=4, B=3, C=2, D=1)
+        SELECT AVG(CASE rating
