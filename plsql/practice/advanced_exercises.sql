@@ -283,3 +283,22 @@ CREATE OR REPLACE PROCEDURE rebalance_departments AS
         GROUP BY d.department_id, d.department_name
         HAVING COUNT(*) < 5
         FOR UPDATE;
+        
+    -- Cursor for employees to transfer
+    CURSOR transfer_emp_cur(p_dept_id NUMBER) IS
+        SELECT employee_id, job_title
+        FROM employees
+        WHERE department_id = p_dept_id
+        AND hire_date = (
+            SELECT MAX(hire_date)
+            FROM employees
+            WHERE department_id = p_dept_id
+        )
+        FOR UPDATE;
+        
+    v_target_dept_id NUMBER;
+BEGIN
+    -- Process overstaffed departments
+    FOR over_dept IN overstaffed_dept_cur LOOP
+        -- Find understaffed department
+        SELECT department_id
