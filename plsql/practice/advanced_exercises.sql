@@ -264,3 +264,22 @@ END;
 /*
 Exercise 4: Complex Cursor Operations
 Create a procedure that rebalances department workload using cursors.
+*/
+CREATE OR REPLACE PROCEDURE rebalance_departments AS
+    -- Cursor for departments with too many employees
+    CURSOR overstaffed_dept_cur IS
+        SELECT d.department_id, d.department_name, COUNT(*) as emp_count
+        FROM departments d
+        JOIN employees e ON d.department_id = e.department_id
+        GROUP BY d.department_id, d.department_name
+        HAVING COUNT(*) > 10
+        FOR UPDATE;
+    
+    -- Cursor for departments with few employees
+    CURSOR understaffed_dept_cur IS
+        SELECT d.department_id, d.department_name, COUNT(*) as emp_count
+        FROM departments d
+        JOIN employees e ON d.department_id = e.department_id
+        GROUP BY d.department_id, d.department_name
+        HAVING COUNT(*) < 5
+        FOR UPDATE;
