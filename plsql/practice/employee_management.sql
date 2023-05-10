@@ -17,3 +17,22 @@ CREATE OR REPLACE PACKAGE emp_mgmt AS
         p_employee_id      IN NUMBER,
         p_new_salary      IN NUMBER,
         p_reason          IN VARCHAR2,
+        p_old_salary      OUT NUMBER
+    );
+    
+    -- Transfer employee to new department
+    PROCEDURE transfer_employee(
+        p_employee_id   IN NUMBER,
+        p_new_dept_id   IN NUMBER,
+        p_new_job_title IN VARCHAR2 DEFAULT NULL
+    );
+    
+    -- Add performance rating
+    PROCEDURE add_performance_rating(
+        p_employee_id IN NUMBER,
+        p_rating      IN CHAR,
+        p_comments    IN VARCHAR2
+    );
+    
+    -- Calculate bonus based on performance
+    FUNCTION calculate_bonus(
