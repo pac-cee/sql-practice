@@ -112,3 +112,22 @@ CREATE OR REPLACE PACKAGE BODY dept_stats AS
     BEGIN
         -- Get average rating (A=4, B=3, C=2, D=1)
         SELECT AVG(CASE rating
+                    WHEN 'A' THEN 4
+                    WHEN 'B' THEN 3
+                    WHEN 'C' THEN 2
+                    WHEN 'D' THEN 1
+                END)
+        INTO p_avg_rating
+        FROM employees e
+        JOIN performance_ratings pr ON e.employee_id = pr.employee_id
+        WHERE e.department_id = p_dept_id
+        AND pr.rating_date = (
+            SELECT MAX(rating_date)
+            FROM performance_ratings
+            WHERE employee_id = e.employee_id
+        );
+        
+        -- Get count of top performers (A rating)
+        SELECT COUNT(*)
+        INTO p_top_performers
+        FROM employees e
