@@ -340,3 +340,15 @@ BEGIN
     DBMS_OUTPUT.PUT_LINE('Testing Department Statistics...');
     FOR dept IN (SELECT department_id FROM departments) LOOP
         dept_stats.generate_dept_report(dept.department_id);
+        DBMS_OUTPUT.PUT_LINE('----------------------------------------');
+    END LOOP;
+    
+    DBMS_OUTPUT.PUT_LINE('Testing Department Rebalancing...');
+    rebalance_departments;
+    
+    DBMS_OUTPUT.PUT_LINE('All tests completed successfully!');
+EXCEPTION
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('Error during testing: ' || SQLERRM);
+END test_advanced_features;
+/ 
