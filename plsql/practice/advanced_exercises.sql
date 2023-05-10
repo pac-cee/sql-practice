@@ -74,3 +74,22 @@ CREATE OR REPLACE PACKAGE dept_stats AS
 END dept_stats;
 /
 
+CREATE OR REPLACE PACKAGE BODY dept_stats AS
+    -- Get department average salary
+    FUNCTION get_dept_avg_salary(p_dept_id NUMBER) RETURN NUMBER IS
+        v_avg_salary NUMBER;
+    BEGIN
+        SELECT AVG(salary)
+        INTO v_avg_salary
+        FROM employees
+        WHERE department_id = p_dept_id;
+        
+        RETURN v_avg_salary;
+    EXCEPTION
+        WHEN NO_DATA_FOUND THEN
+            RETURN 0;
+    END get_dept_avg_salary;
+    
+    -- Get department headcount
+    FUNCTION get_dept_headcount(p_dept_id NUMBER) RETURN NUMBER IS
+        v_count NUMBER;
