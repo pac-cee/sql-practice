@@ -131,3 +131,22 @@ CREATE OR REPLACE PACKAGE BODY dept_stats AS
         SELECT COUNT(*)
         INTO p_top_performers
         FROM employees e
+        JOIN performance_ratings pr ON e.employee_id = pr.employee_id
+        WHERE e.department_id = p_dept_id
+        AND pr.rating = 'A'
+        AND pr.rating_date = (
+            SELECT MAX(rating_date)
+            FROM performance_ratings
+            WHERE employee_id = e.employee_id
+        );
+        
+        -- Get count of employees needing improvement (C or D rating)
+        SELECT COUNT(*)
+        INTO p_needs_improvement
+        FROM employees e
+        JOIN performance_ratings pr ON e.employee_id = pr.employee_id
+        WHERE e.department_id = p_dept_id
+        AND pr.rating IN ('C', 'D')
+        AND pr.rating_date = (
+            SELECT MAX(rating_date)
+            FROM performance_ratings
