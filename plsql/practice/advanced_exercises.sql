@@ -169,3 +169,22 @@ CREATE OR REPLACE PACKAGE BODY dept_stats AS
         FROM departments
         WHERE department_id = p_dept_id;
         
+        -- Get statistics
+        v_avg_salary := get_dept_avg_salary(p_dept_id);
+        v_headcount := get_dept_headcount(p_dept_id);
+        
+        get_dept_performance_summary(
+            p_dept_id => p_dept_id,
+            p_avg_rating => v_avg_rating,
+            p_top_performers => v_top_performers,
+            p_needs_improvement => v_needs_improvement
+        );
+        
+        -- Print report
+        DBMS_OUTPUT.PUT_LINE('Department Report: ' || v_dept_name);
+        DBMS_OUTPUT.PUT_LINE('----------------------------------------');
+        DBMS_OUTPUT.PUT_LINE('Total Employees: ' || v_headcount);
+        DBMS_OUTPUT.PUT_LINE('Average Salary: $' || ROUND(v_avg_salary, 2));
+        DBMS_OUTPUT.PUT_LINE('Average Performance Rating: ' || ROUND(v_avg_rating, 2));
+        DBMS_OUTPUT.PUT_LINE('Top Performers: ' || v_top_performers);
+        DBMS_OUTPUT.PUT_LINE('Needs Improvement: ' || v_needs_improvement);
