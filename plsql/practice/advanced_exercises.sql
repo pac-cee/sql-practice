@@ -150,3 +150,22 @@ CREATE OR REPLACE PACKAGE BODY dept_stats AS
         AND pr.rating_date = (
             SELECT MAX(rating_date)
             FROM performance_ratings
+            WHERE employee_id = e.employee_id
+        );
+    END get_dept_performance_summary;
+    
+    -- Generate department report
+    PROCEDURE generate_dept_report(p_dept_id IN NUMBER) IS
+        v_dept_name departments.department_name%TYPE;
+        v_avg_salary NUMBER;
+        v_headcount NUMBER;
+        v_avg_rating NUMBER;
+        v_top_performers NUMBER;
+        v_needs_improvement NUMBER;
+    BEGIN
+        -- Get department name
+        SELECT department_name
+        INTO v_dept_name
+        FROM departments
+        WHERE department_id = p_dept_id;
+        
