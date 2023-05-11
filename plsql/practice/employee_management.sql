@@ -55,3 +55,22 @@ CREATE OR REPLACE PACKAGE BODY emp_mgmt AS
     -- Add a new employee
     PROCEDURE add_employee(
         p_first_name    IN VARCHAR2,
+        p_last_name     IN VARCHAR2,
+        p_email         IN VARCHAR2,
+        p_department_id IN NUMBER,
+        p_job_title     IN VARCHAR2,
+        p_salary        IN NUMBER,
+        p_manager_id    IN NUMBER,
+        p_employee_id   OUT NUMBER
+    ) IS
+    BEGIN
+        -- Get new employee ID from sequence
+        SELECT emp_id_seq.NEXTVAL INTO p_employee_id FROM DUAL;
+        
+        -- Insert new employee
+        INSERT INTO employees (
+            employee_id, first_name, last_name, email,
+            department_id, job_title, salary, manager_id
+        ) VALUES (
+            p_employee_id, p_first_name, p_last_name, p_email,
+            p_department_id, p_job_title, p_salary, p_manager_id
