@@ -93,3 +93,22 @@ CREATE OR REPLACE PACKAGE BODY emp_mgmt AS
         v_history_id NUMBER;
     BEGIN
         -- Get current salary
+        SELECT salary INTO p_old_salary
+        FROM employees
+        WHERE employee_id = p_employee_id;
+        
+        -- Update salary
+        UPDATE employees
+        SET salary = p_new_salary
+        WHERE employee_id = p_employee_id;
+        
+        -- Record in salary history
+        SELECT NVL(MAX(history_id), 0) + 1 INTO v_history_id
+        FROM salary_history;
+        
+        INSERT INTO salary_history (
+            history_id, employee_id, old_salary, new_salary, reason
+        ) VALUES (
+            v_history_id, p_employee_id, p_old_salary, p_new_salary, p_reason
+        );
+        
