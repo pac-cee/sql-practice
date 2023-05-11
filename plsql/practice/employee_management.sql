@@ -74,3 +74,22 @@ CREATE OR REPLACE PACKAGE BODY emp_mgmt AS
         ) VALUES (
             p_employee_id, p_first_name, p_last_name, p_email,
             p_department_id, p_job_title, p_salary, p_manager_id
+        );
+        
+        COMMIT;
+    EXCEPTION
+        WHEN OTHERS THEN
+            ROLLBACK;
+            RAISE_APPLICATION_ERROR(-20001, 'Error adding employee: ' || SQLERRM);
+    END add_employee;
+    
+    -- Update employee salary
+    PROCEDURE update_salary(
+        p_employee_id   IN NUMBER,
+        p_new_salary   IN NUMBER,
+        p_reason       IN VARCHAR2,
+        p_old_salary   OUT NUMBER
+    ) IS
+        v_history_id NUMBER;
+    BEGIN
+        -- Get current salary
