@@ -112,3 +112,22 @@ CREATE OR REPLACE PACKAGE BODY emp_mgmt AS
             v_history_id, p_employee_id, p_old_salary, p_new_salary, p_reason
         );
         
+        COMMIT;
+    EXCEPTION
+        WHEN NO_DATA_FOUND THEN
+            ROLLBACK;
+            RAISE_APPLICATION_ERROR(-20002, 'Employee not found');
+        WHEN OTHERS THEN
+            ROLLBACK;
+            RAISE_APPLICATION_ERROR(-20003, 'Error updating salary: ' || SQLERRM);
+    END update_salary;
+    
+    -- Transfer employee
+    PROCEDURE transfer_employee(
+        p_employee_id   IN NUMBER,
+        p_new_dept_id   IN NUMBER,
+        p_new_job_title IN VARCHAR2 DEFAULT NULL
+    ) IS
+        v_old_dept_id NUMBER;
+    BEGIN
+        -- Get current department
