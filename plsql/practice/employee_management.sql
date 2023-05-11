@@ -131,3 +131,22 @@ CREATE OR REPLACE PACKAGE BODY emp_mgmt AS
         v_old_dept_id NUMBER;
     BEGIN
         -- Get current department
+        SELECT department_id INTO v_old_dept_id
+        FROM employees
+        WHERE employee_id = p_employee_id;
+        
+        -- Update employee
+        UPDATE employees
+        SET department_id = p_new_dept_id,
+            job_title = NVL(p_new_job_title, job_title)
+        WHERE employee_id = p_employee_id;
+        
+        COMMIT;
+    EXCEPTION
+        WHEN NO_DATA_FOUND THEN
+            ROLLBACK;
+            RAISE_APPLICATION_ERROR(-20004, 'Employee not found');
+        WHEN OTHERS THEN
+            ROLLBACK;
+            RAISE_APPLICATION_ERROR(-20005, 'Error transferring employee: ' || SQLERRM);
+    END transfer_employee;
