@@ -36,3 +36,22 @@ CREATE OR REPLACE PACKAGE emp_mgmt AS
     
     -- Calculate bonus based on performance
     FUNCTION calculate_bonus(
+        p_employee_id IN NUMBER
+    ) RETURN NUMBER;
+    
+    -- Get employee details
+    PROCEDURE get_employee_details(
+        p_employee_id IN NUMBER,
+        p_name        OUT VARCHAR2,
+        p_department  OUT VARCHAR2,
+        p_salary      OUT NUMBER,
+        p_rating      OUT CHAR
+    );
+END emp_mgmt;
+/
+
+-- Package body
+CREATE OR REPLACE PACKAGE BODY emp_mgmt AS
+    -- Add a new employee
+    PROCEDURE add_employee(
+        p_first_name    IN VARCHAR2,
