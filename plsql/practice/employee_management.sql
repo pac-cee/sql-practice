@@ -188,3 +188,22 @@ CREATE OR REPLACE PACKAGE BODY emp_mgmt AS
         -- Get employee salary and latest rating
         SELECT e.salary, pr.rating
         INTO v_salary, v_rating
+        FROM employees e
+        LEFT JOIN (
+            SELECT employee_id, rating
+            FROM performance_ratings
+            WHERE (employee_id, rating_date) IN (
+                SELECT employee_id, MAX(rating_date)
+                FROM performance_ratings
+                GROUP BY employee_id
+            )
+        ) pr ON e.employee_id = pr.employee_id
+        WHERE e.employee_id = p_employee_id;
+        
+        -- Calculate bonus percentage based on rating
+        v_bonus_percent := CASE v_rating
+            WHEN 'A' THEN 20
+            WHEN 'B' THEN 15
+            WHEN 'C' THEN 10
+            WHEN 'D' THEN 5
+            ELSE 0
