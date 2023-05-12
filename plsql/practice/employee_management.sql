@@ -169,3 +169,22 @@ CREATE OR REPLACE PACKAGE BODY emp_mgmt AS
         ) VALUES (
             v_rating_id, p_employee_id, p_rating, p_comments
         );
+        
+        COMMIT;
+    EXCEPTION
+        WHEN OTHERS THEN
+            ROLLBACK;
+            RAISE_APPLICATION_ERROR(-20006, 'Error adding performance rating: ' || SQLERRM);
+    END add_performance_rating;
+    
+    -- Calculate bonus
+    FUNCTION calculate_bonus(
+        p_employee_id IN NUMBER
+    ) RETURN NUMBER IS
+        v_salary NUMBER;
+        v_rating CHAR;
+        v_bonus_percent NUMBER;
+    BEGIN
+        -- Get employee salary and latest rating
+        SELECT e.salary, pr.rating
+        INTO v_salary, v_rating
