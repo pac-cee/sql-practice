@@ -207,3 +207,22 @@ CREATE OR REPLACE PACKAGE BODY emp_mgmt AS
             WHEN 'C' THEN 10
             WHEN 'D' THEN 5
             ELSE 0
+        END;
+        
+        RETURN (v_salary * v_bonus_percent / 100);
+    EXCEPTION
+        WHEN NO_DATA_FOUND THEN
+            RETURN 0;
+    END calculate_bonus;
+    
+    -- Get employee details
+    PROCEDURE get_employee_details(
+        p_employee_id IN NUMBER,
+        p_name        OUT VARCHAR2,
+        p_department  OUT VARCHAR2,
+        p_salary      OUT NUMBER,
+        p_rating      OUT CHAR
+    ) IS
+    BEGIN
+        SELECT 
+            e.first_name || ' ' || e.last_name,
