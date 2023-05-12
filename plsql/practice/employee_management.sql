@@ -150,3 +150,22 @@ CREATE OR REPLACE PACKAGE BODY emp_mgmt AS
             ROLLBACK;
             RAISE_APPLICATION_ERROR(-20005, 'Error transferring employee: ' || SQLERRM);
     END transfer_employee;
+    
+    -- Add performance rating
+    PROCEDURE add_performance_rating(
+        p_employee_id IN NUMBER,
+        p_rating      IN CHAR,
+        p_comments    IN VARCHAR2
+    ) IS
+        v_rating_id NUMBER;
+    BEGIN
+        -- Get new rating ID
+        SELECT NVL(MAX(rating_id), 0) + 1 INTO v_rating_id
+        FROM performance_ratings;
+        
+        -- Insert rating
+        INSERT INTO performance_ratings (
+            rating_id, employee_id, rating, comments
+        ) VALUES (
+            v_rating_id, p_employee_id, p_rating, p_comments
+        );
