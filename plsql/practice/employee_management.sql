@@ -226,3 +226,22 @@ CREATE OR REPLACE PACKAGE BODY emp_mgmt AS
     BEGIN
         SELECT 
             e.first_name || ' ' || e.last_name,
+            d.department_name,
+            e.salary,
+            pr.rating
+        INTO 
+            p_name,
+            p_department,
+            p_salary,
+            p_rating
+        FROM employees e
+        JOIN departments d ON e.department_id = d.department_id
+        LEFT JOIN (
+            SELECT employee_id, rating
+            FROM performance_ratings
+            WHERE (employee_id, rating_date) IN (
+                SELECT employee_id, MAX(rating_date)
+                FROM performance_ratings
+                GROUP BY employee_id
+            )
+        ) pr ON e.employee_id = pr.employee_id
