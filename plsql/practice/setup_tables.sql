@@ -36,3 +36,23 @@ CREATE TABLE performance_ratings (
 );
 
 -- Create salary_history table
+CREATE TABLE salary_history (
+    history_id     NUMBER PRIMARY KEY,
+    employee_id    NUMBER REFERENCES employees(employee_id),
+    change_date    DATE DEFAULT SYSDATE,
+    old_salary     NUMBER(10,2),
+    new_salary     NUMBER(10,2),
+    reason         VARCHAR2(200)
+);
+
+-- Insert some sample departments
+INSERT INTO departments (department_id, department_name, location)
+VALUES (10, 'IT', 'New York');
+
+INSERT INTO departments (department_id, department_name, location)
+VALUES (20, 'HR', 'Chicago');
+
+INSERT INTO departments (department_id, department_name, location)
+VALUES (30, 'Finance', 'Boston');
+
+COMMIT; 
