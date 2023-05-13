@@ -17,3 +17,22 @@ BEGIN
         p_first_name => 'John',
         p_last_name => 'Doe',
         p_email => 'john.doe@example.com',
+        p_department_id => 10,
+        p_job_title => 'Software Engineer',
+        p_salary => 75000,
+        p_manager_id => NULL,
+        p_employee_id => v_emp_id
+    );
+    DBMS_OUTPUT.PUT_LINE('Added employee with ID: ' || v_emp_id);
+    
+    -- Test 2: Add performance rating
+    DBMS_OUTPUT.PUT_LINE('Test 2: Adding performance rating');
+    emp_mgmt.add_performance_rating(
+        p_employee_id => v_emp_id,
+        p_rating => 'A',
+        p_comments => 'Excellent performance in first quarter'
+    );
+    DBMS_OUTPUT.PUT_LINE('Added performance rating');
+    
+    -- Test 3: Update salary
+    DBMS_OUTPUT.PUT_LINE('Test 3: Updating salary');
