@@ -245,3 +245,11 @@ CREATE OR REPLACE PACKAGE BODY emp_mgmt AS
                 GROUP BY employee_id
             )
         ) pr ON e.employee_id = pr.employee_id
+        WHERE e.employee_id = p_employee_id;
+    EXCEPTION
+        WHEN NO_DATA_FOUND THEN
+            RAISE_APPLICATION_ERROR(-20007, 'Employee not found');
+    END get_employee_details;
+    
+END emp_mgmt;
+/ 
