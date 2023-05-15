@@ -17,3 +17,22 @@ This guide is designed to help you not only ace your quiz but also become profic
 
 ---
 
+## 1. Windows Functions (Analytic Functions)
+
+### What Are Windows Functions?
+Windows (analytic) functions allow you to perform calculations across rows that are related to the current row, without collapsing the result set like GROUP BY. They are powerful for analytics, reporting, and complex data analysis.
+
+### Syntax
+```sql
+function_name([arguments]) OVER (
+    [PARTITION BY expr_list]
+    [ORDER BY expr_list]
+    [ROWS | RANGE window_frame]
+)
+```
+
+- **PARTITION BY**: Divides the result set into partitions to which the function is applied.
+- **ORDER BY**: Defines the logical order of rows within each partition.
+- **ROWS | RANGE**: Specifies the window frame (e.g., current row, preceding/following rows).
+
+### Common Analytic Functions
