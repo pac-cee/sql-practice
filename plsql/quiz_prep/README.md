@@ -188,3 +188,22 @@ END;
 3. Create a cursor that takes a parameter for department and prints all employee names in that department.
 
 ---
+
+## 3. Functions (User-Defined)
+
+### What Are PL/SQL Functions?
+A function is a named PL/SQL block that performs a task and returns a single value. Functions can be called from SQL, PL/SQL, or other functions/procedures.
+
+### Syntax
+```sql
+CREATE OR REPLACE FUNCTION function_name (
+    [parameter1 datatype [, parameter2 datatype ...]]
+) RETURN datatype IS
+    -- variable declarations
+BEGIN
+    -- function logic
+    RETURN value;
+END function_name;
+```
+
+- **IN parameters**: Default, pass values in.
