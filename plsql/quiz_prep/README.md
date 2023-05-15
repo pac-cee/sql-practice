@@ -207,3 +207,22 @@ END function_name;
 ```
 
 - **IN parameters**: Default, pass values in.
+- **OUT/IN OUT**: Only for PL/SQL, not SQL-callable functions.
+
+### Example: Simple Function
+```sql
+CREATE OR REPLACE FUNCTION get_bonus (salary NUMBER)
+RETURN NUMBER IS
+BEGIN
+    RETURN salary * 0.10;
+END;
+```
+
+### Example: Function with Validation
+```sql
+CREATE OR REPLACE FUNCTION safe_divide(a NUMBER, b NUMBER)
+RETURN NUMBER IS
+BEGIN
+    IF b = 0 THEN
+        RETURN NULL;
+    ELSE
