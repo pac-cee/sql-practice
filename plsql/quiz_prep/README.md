@@ -226,3 +226,22 @@ BEGIN
     IF b = 0 THEN
         RETURN NULL;
     ELSE
+        RETURN a / b;
+    END IF;
+END;
+```
+
+### Calling Functions
+- From SQL: `SELECT get_bonus(salary) FROM employees;`
+- From PL/SQL: `v_bonus := get_bonus(v_salary);`
+
+### Real-World Uses
+- Business calculations (tax, commission, discount)
+- Data validation
+- String or date manipulation
+
+### Best Practices
+- Keep functions single-purpose and side-effect free.
+- Avoid DML (INSERT/UPDATE/DELETE) in SQL-callable functions.
+- Always handle NULLs and edge cases.
+- Document input/output and exceptions.
