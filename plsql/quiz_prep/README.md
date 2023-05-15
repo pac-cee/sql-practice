@@ -169,3 +169,22 @@ You can pass parameters to cursors for dynamic queries:
 CURSOR emp_cur (dept_id NUMBER) IS
   SELECT * FROM employees WHERE department_id = dept_id;
 ```
+
+### Advanced Example: Parameterized Cursor
+```sql
+DECLARE
+  CURSOR emp_cur (dept_id NUMBER) IS
+    SELECT employee_id, salary FROM employees WHERE department_id = dept_id;
+BEGIN
+  FOR rec IN emp_cur(10) LOOP
+    DBMS_OUTPUT.PUT_LINE('ID: ' || rec.employee_id || ' Salary: ' || rec.salary);
+  END LOOP;
+END;
+```
+
+### Practice Exercises
+1. Write a cursor to loop through all employees and give a 5% bonus to those with a salary below the company average.
+2. Use a cursor to copy selected data from one table to another, applying a transformation (e.g., uppercase names).
+3. Create a cursor that takes a parameter for department and prints all employee names in that department.
+
+---
