@@ -74,3 +74,22 @@ FROM employees;
 
 ### Advanced Tip
 You can combine multiple window functions in one SELECT for powerful analytics!
+
+### Advanced Examples
+
+**Moving Average Calculation**
+```sql
+SELECT 
+  employee_id, 
+  hire_date, 
+  salary,
+  AVG(salary) OVER (ORDER BY hire_date ROWS BETWEEN 2 PRECEDING AND CURRENT ROW) AS moving_avg_salary
+FROM employees;
+```
+*Calculates the average salary for the current and previous two hires.*
+
+**Difference Between Current and Previous Row**
+```sql
+SELECT 
+  employee_id, 
+  salary,
