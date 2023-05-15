@@ -55,3 +55,22 @@ WHERE dept_salary_rank <= 3;
 SELECT employee_id, salary,
        SUM(salary) OVER (ORDER BY hire_date) AS running_total
 FROM employees;
+```
+
+### Best Practices
+- Use window functions for analytics, not for transactional logic.
+- Use PARTITION BY to avoid mixing unrelated groups.
+- Always specify ORDER BY for predictable results.
+- Use window frames for moving averages or cumulative sums.
+
+### Common Pitfalls
+- Using window functions in WHERE clause (not allowed; use in SELECT or ORDER BY).
+- Not understanding default window frame (can lead to unexpected results).
+- Performance: Large partitions can be slow; index your ORDER BY columns.
+
+### Troubleshooting
+- If results look strange, check your PARTITION BY and ORDER BY logic.
+- Use explicit window frames for clarity.
+
+### Advanced Tip
+You can combine multiple window functions in one SELECT for powerful analytics!
