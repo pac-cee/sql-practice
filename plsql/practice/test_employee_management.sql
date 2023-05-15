@@ -55,3 +55,27 @@ BEGIN
     
     -- Test 5: Calculate bonus
     DBMS_OUTPUT.PUT_LINE('Test 5: Calculating bonus');
+    v_bonus := emp_mgmt.calculate_bonus(v_emp_id);
+    DBMS_OUTPUT.PUT_LINE('Calculated bonus: $' || v_bonus);
+    
+    -- Test 6: Get employee details
+    DBMS_OUTPUT.PUT_LINE('Test 6: Getting employee details');
+    emp_mgmt.get_employee_details(
+        p_employee_id => v_emp_id,
+        p_name => v_name,
+        p_department => v_department,
+        p_salary => v_salary,
+        p_rating => v_rating
+    );
+    DBMS_OUTPUT.PUT_LINE('Employee Details:');
+    DBMS_OUTPUT.PUT_LINE('Name: ' || v_name);
+    DBMS_OUTPUT.PUT_LINE('Department: ' || v_department);
+    DBMS_OUTPUT.PUT_LINE('Salary: $' || v_salary);
+    DBMS_OUTPUT.PUT_LINE('Rating: ' || v_rating);
+
+EXCEPTION
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('Error: ' || SQLERRM);
+        ROLLBACK;
+END;
+/ 
