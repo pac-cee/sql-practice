@@ -245,3 +245,22 @@ END;
 - Avoid DML (INSERT/UPDATE/DELETE) in SQL-callable functions.
 - Always handle NULLs and edge cases.
 - Document input/output and exceptions.
+
+### Common Pitfalls
+- Missing or incorrect RETURN statement.
+- Using DML in functions called from SQL (causes runtime errors).
+- Not handling exceptions (use EXCEPTION block if needed).
+
+### Troubleshooting
+- If a function fails in SQL, check for DML or unhandled exceptions.
+- Use `%TYPE` and `%ROWTYPE` for variable declarations to match table columns.
+
+### Advanced Tip
+Functions can be overloaded (same name, different parameters) in packages.
+
+### Advanced Example: Function with Exception Handling
+```sql
+CREATE OR REPLACE FUNCTION get_commission(sales NUMBER)
+RETURN NUMBER IS
+  commission NUMBER;
+BEGIN
