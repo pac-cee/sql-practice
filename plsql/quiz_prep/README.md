@@ -150,3 +150,22 @@ END;
 ### Real-World Uses
 - Batch processing (e.g., updating many rows with complex logic)
 - Row-by-row validation or transformation
+- Generating reports
+
+### Best Practices
+- Prefer set-based operations when possible (faster and more efficient).
+- Always close explicit cursors to avoid memory leaks.
+- Use `%FOUND`, `%NOTFOUND`, `%ROWCOUNT`, `%ISOPEN` for cursor status.
+- Use cursor FOR LOOP for simpler code and automatic management.
+
+### Common Pitfalls
+- Not closing cursors (memory/resource leaks).
+- Fetching after the last row (raises NO_DATA_FOUND).
+- Using cursors for simple logic that could be done with a single SQL statement.
+
+### Advanced Tip
+You can pass parameters to cursors for dynamic queries:
+```sql
+CURSOR emp_cur (dept_id NUMBER) IS
+  SELECT * FROM employees WHERE department_id = dept_id;
+```
