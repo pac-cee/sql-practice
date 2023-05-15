@@ -36,3 +36,22 @@ function_name([arguments]) OVER (
 - **ROWS | RANGE**: Specifies the window frame (e.g., current row, preceding/following rows).
 
 ### Common Analytic Functions
+- `ROW_NUMBER()`: Assigns a unique number to each row.
+- `RANK()`, `DENSE_RANK()`: Ranking rows based on a value.
+- `SUM()`, `AVG()`, `COUNT()`: Aggregates over a window.
+- `LEAD()`, `LAG()`: Access data from subsequent or previous rows.
+
+### Real-World Example
+**Find the top 3 earners in each department:**
+```sql
+SELECT department_id, employee_id, salary,
+       RANK() OVER (PARTITION BY department_id ORDER BY salary DESC) AS dept_salary_rank
+FROM employees
+WHERE dept_salary_rank <= 3;
+```
+
+**Calculate running totals:**
+```sql
+SELECT employee_id, salary,
+       SUM(salary) OVER (ORDER BY hire_date) AS running_total
+FROM employees;
