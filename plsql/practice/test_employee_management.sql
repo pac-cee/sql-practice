@@ -36,3 +36,22 @@ BEGIN
     
     -- Test 3: Update salary
     DBMS_OUTPUT.PUT_LINE('Test 3: Updating salary');
+    emp_mgmt.update_salary(
+        p_employee_id => v_emp_id,
+        p_new_salary => 80000,
+        p_reason => 'Performance based increase',
+        p_old_salary => v_old_salary
+    );
+    DBMS_OUTPUT.PUT_LINE('Updated salary from ' || v_old_salary || ' to 80000');
+    
+    -- Test 4: Transfer employee
+    DBMS_OUTPUT.PUT_LINE('Test 4: Transferring employee');
+    emp_mgmt.transfer_employee(
+        p_employee_id => v_emp_id,
+        p_new_dept_id => 20,
+        p_new_job_title => 'Senior Software Engineer'
+    );
+    DBMS_OUTPUT.PUT_LINE('Transferred employee to new department');
+    
+    -- Test 5: Calculate bonus
+    DBMS_OUTPUT.PUT_LINE('Test 5: Calculating bonus');
