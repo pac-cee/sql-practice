@@ -131,3 +131,22 @@ BEGIN
   OPEN emp_cur;
   LOOP
     FETCH emp_cur INTO emp_id, emp_sal;
+    EXIT WHEN emp_cur%NOTFOUND;
+    DBMS_OUTPUT.PUT_LINE('ID: ' || emp_id || ' Salary: ' || emp_sal);
+  END LOOP;
+  CLOSE emp_cur;
+END;
+```
+
+### Example: Cursor FOR LOOP
+```sql
+BEGIN
+  FOR rec IN (SELECT employee_id, salary FROM employees) LOOP
+    DBMS_OUTPUT.PUT_LINE('ID: ' || rec.employee_id || ' Salary: ' || rec.salary);
+  END LOOP;
+END;
+```
+
+### Real-World Uses
+- Batch processing (e.g., updating many rows with complex logic)
+- Row-by-row validation or transformation
