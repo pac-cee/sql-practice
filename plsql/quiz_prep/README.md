@@ -112,3 +112,22 @@ A cursor is a pointer to the context area in memory where a SQL statement’s re
 
 ### Types of Cursors
 - **Implicit Cursor**: Automatically created by Oracle for single SQL statements (e.g., SELECT INTO, DML).
+- **Explicit Cursor**: Declared and controlled by the programmer for multi-row queries.
+- **Cursor FOR LOOP**: Simplifies explicit cursor usage by handling open/fetch/close automatically.
+
+### Explicit Cursor Lifecycle
+1. **Declare**: Define the cursor and its query.
+2. **Open**: Execute the query and populate the result set.
+3. **Fetch**: Retrieve rows one at a time.
+4. **Close**: Release resources.
+
+### Example: Explicit Cursor
+```sql
+DECLARE
+  CURSOR emp_cur IS SELECT employee_id, salary FROM employees;
+  emp_id employees.employee_id%TYPE;
+  emp_sal employees.salary%TYPE;
+BEGIN
+  OPEN emp_cur;
+  LOOP
+    FETCH emp_cur INTO emp_id, emp_sal;
