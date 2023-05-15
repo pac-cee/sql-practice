@@ -93,3 +93,22 @@ FROM employees;
 SELECT 
   employee_id, 
   salary,
+  salary - LAG(salary, 1, 0) OVER (ORDER BY salary) AS diff_from_prev
+FROM employees;
+```
+*Shows the difference in salary from the previous row.*
+
+### Practice Exercises
+1. Write a query to assign a unique row number to each employee within their department, ordered by salary descending.
+2. Calculate the cumulative sum of salaries for all employees, ordered by hire date.
+3. For each employee, display their salary and the average salary of their department (using a window function).
+
+---
+
+## 2. Cursors
+
+### What Are Cursors?
+A cursor is a pointer to the context area in memory where a SQL statement’s result set is stored. Cursors allow you to process query results row by row, which is useful for complex logic that can’t be handled by set-based SQL alone.
+
+### Types of Cursors
+- **Implicit Cursor**: Automatically created by Oracle for single SQL statements (e.g., SELECT INTO, DML).
