@@ -340,3 +340,22 @@ END;
 - Document trigger purpose and behavior.
 
 ### Common Pitfalls
+- Mutating table error (trigger modifies the table it’s triggered on).
+- Unintended recursion (trigger fires itself repeatedly).
+- Performance issues if triggers do too much work.
+
+### Troubleshooting
+- Use `RAISE_APPLICATION_ERROR` for custom errors.
+- Use `:NEW` and `:OLD` to access new/old row values.
+- Test triggers thoroughly—unexpected side effects can be hard to debug.
+
+### Advanced Tip
+Use compound triggers for complex scenarios (introduced in Oracle 11g+).
+
+### Advanced Example: Compound Trigger (Oracle 11g+)
+```sql
+CREATE OR REPLACE TRIGGER audit_changes
+FOR UPDATE ON employees
+COMPOUND TRIGGER
+  BEFORE STATEMENT IS
+  BEGIN
