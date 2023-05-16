@@ -302,3 +302,22 @@ DECLARE
     -- variable declarations
 BEGIN
     -- trigger logic
+END trigger_name;
+```
+
+### Example: Audit Trigger
+```sql
+CREATE OR REPLACE TRIGGER audit_salary
+AFTER UPDATE OF salary ON employees
+FOR EACH ROW
+BEGIN
+    INSERT INTO salary_audit(emp_id, old_salary, new_salary)
+    VALUES (:OLD.employee_id, :OLD.salary, :NEW.salary);
+END;
+```
+
+### Example: Enforce Business Rule
+```sql
+CREATE OR REPLACE TRIGGER prevent_negative_salary
+BEFORE UPDATE OF salary ON employees
+FOR EACH ROW
