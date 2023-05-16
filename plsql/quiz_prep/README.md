@@ -359,3 +359,22 @@ FOR UPDATE ON employees
 COMPOUND TRIGGER
   BEFORE STATEMENT IS
   BEGIN
+    DBMS_OUTPUT.PUT_LINE('Update started');
+  END BEFORE STATEMENT;
+  AFTER EACH ROW IS
+  BEGIN
+    INSERT INTO audit_log VALUES (:OLD.employee_id, :NEW.salary, SYSDATE);
+  END AFTER EACH ROW;
+END audit_changes;
+```
+
+### Practice Exercises
+1. Write a trigger to prevent deletion of employees who are department managers.
+2. Create a trigger to automatically update a “last_modified” timestamp column on row updates.
+3. Write a trigger to log any salary changes to an audit table.
+
+---
+
+## 5. Packages
+
+### What Are Packages?
