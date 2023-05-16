@@ -264,3 +264,22 @@ CREATE OR REPLACE FUNCTION get_commission(sales NUMBER)
 RETURN NUMBER IS
   commission NUMBER;
 BEGIN
+  IF sales < 0 THEN
+    RAISE_APPLICATION_ERROR(-20002, 'Sales cannot be negative');
+  END IF;
+  commission := sales * 0.05;
+  RETURN commission;
+EXCEPTION
+  WHEN OTHERS THEN
+    RETURN 0;
+END;
+```
+
+### Practice Exercises
+1. Write a function that returns the number of days between two dates.
+2. Create a function to validate an email address format (return 1 for valid, 0 for invalid).
+3. Write a function that, given an employee ID, returns their manager’s name.
+
+---
+
+## 4. Triggers
