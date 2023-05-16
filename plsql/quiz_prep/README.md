@@ -283,3 +283,22 @@ END;
 ---
 
 ## 4. Triggers
+
+### What Are Triggers?
+A trigger is a stored PL/SQL block that automatically executes in response to specific events on a table or view, such as INSERT, UPDATE, or DELETE. Triggers are used for auditing, enforcing business rules, and maintaining data integrity.
+
+### Types of Triggers
+- **Row-level**: Fires once for each row affected (`FOR EACH ROW`).
+- **Statement-level**: Fires once per SQL statement.
+- **BEFORE/AFTER**: Specifies whether the trigger fires before or after the event.
+
+### Syntax
+```sql
+CREATE OR REPLACE TRIGGER trigger_name
+    {BEFORE | AFTER | INSTEAD OF} {INSERT | UPDATE | DELETE}
+    ON table_name
+    [FOR EACH ROW]
+DECLARE
+    -- variable declarations
+BEGIN
+    -- trigger logic
