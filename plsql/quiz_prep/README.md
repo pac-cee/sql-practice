@@ -378,3 +378,22 @@ END audit_changes;
 ## 5. Packages
 
 ### What Are Packages?
+A package is a schema object that groups logically related PL/SQL types, variables, constants, exceptions, procedures, and functions. Packages promote modularity, reusability, and encapsulation.
+
+### Structure
+- **Package Specification**: Declares public types, variables, constants, exceptions, procedures, and functions.
+- **Package Body**: Implements the procedures and functions declared in the spec. Can also have private items.
+
+### Syntax
+```sql
+-- Specification
+CREATE OR REPLACE PACKAGE pkg_name IS
+    PROCEDURE proc1;
+    FUNCTION func1 RETURN NUMBER;
+    -- Public variables/constants
+END pkg_name;
+/
+-- Body
+CREATE OR REPLACE PACKAGE BODY pkg_name IS
+    PROCEDURE proc1 IS BEGIN NULL; END;
+    FUNCTION func1 RETURN NUMBER IS BEGIN RETURN 1; END;
