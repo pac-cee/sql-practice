@@ -321,3 +321,22 @@ END;
 CREATE OR REPLACE TRIGGER prevent_negative_salary
 BEFORE UPDATE OF salary ON employees
 FOR EACH ROW
+BEGIN
+    IF :NEW.salary < 0 THEN
+        RAISE_APPLICATION_ERROR(-20001, 'Salary cannot be negative');
+    END IF;
+END;
+```
+
+### Real-World Uses
+- Auditing changes (who changed what and when)
+- Enforcing business rules (e.g., salary cannot decrease)
+- Maintaining derived or summary data
+
+### Best Practices
+- Keep triggers simple and efficient (avoid slow queries).
+- Avoid using triggers for complex business logic.
+- Never use COMMIT or ROLLBACK in triggers (causes errors).
+- Document trigger purpose and behavior.
+
+### Common Pitfalls
