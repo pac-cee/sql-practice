@@ -416,3 +416,22 @@ CREATE OR REPLACE PACKAGE BODY math_utils IS
     END;
     FUNCTION factorial(n NUMBER) RETURN NUMBER IS
         result NUMBER := 1;
+    BEGIN
+        FOR i IN 1..n LOOP
+            result := result * i;
+        END LOOP;
+        RETURN result;
+    END;
+END math_utils;
+/
+```
+
+### Real-World Uses
+- Grouping related business logic
+- Sharing global variables/constants across sessions
+- Encapsulating utility functions
+
+### Best Practices
+- Use packages to organize code for maintainability.
+- Only expose what’s necessary in the specification.
+- Use package variables for session-level state (with caution).
