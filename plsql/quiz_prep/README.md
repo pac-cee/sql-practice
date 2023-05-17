@@ -435,3 +435,22 @@ END math_utils;
 - Use packages to organize code for maintainability.
 - Only expose what’s necessary in the specification.
 - Use package variables for session-level state (with caution).
+- Document all public procedures/functions.
+
+### Common Pitfalls
+- Spec and body mismatch (missing or extra procedures/functions).
+- Forgetting to end statements with semicolons.
+- Overusing package variables (can lead to unexpected state).
+
+### Troubleshooting
+- If a procedure/function is not visible, check if it’s declared in the spec.
+- Use `DBMS_OUTPUT.PUT_LINE` for debugging inside package bodies.
+
+### Advanced Tip
+Packages support overloading (same name, different parameters) and can have initialization sections (run once per session).
+
+### Advanced Example: Package with Initialization and Overloading
+```sql
+CREATE OR REPLACE PACKAGE session_pkg IS
+  session_start DATE;
+  PROCEDURE log_event(event VARCHAR2);
