@@ -454,3 +454,22 @@ Packages support overloading (same name, different parameters) and can have init
 CREATE OR REPLACE PACKAGE session_pkg IS
   session_start DATE;
   PROCEDURE log_event(event VARCHAR2);
+  FUNCTION get_session_duration RETURN NUMBER;
+  FUNCTION calc_area(radius NUMBER) RETURN NUMBER;
+  FUNCTION calc_area(length NUMBER, width NUMBER) RETURN NUMBER;
+END session_pkg;
+/
+CREATE OR REPLACE PACKAGE BODY session_pkg IS
+  PROCEDURE log_event(event VARCHAR2) IS
+  BEGIN
+    DBMS_OUTPUT.PUT_LINE('Event: ' || event);
+  END;
+  FUNCTION get_session_duration RETURN NUMBER IS
+  BEGIN
+    RETURN SYSDATE - session_start;
+  END;
+  FUNCTION calc_area(radius NUMBER) RETURN NUMBER IS
+  BEGIN
+    RETURN 3.14159 * radius * radius;
+  END;
+  FUNCTION calc_area(length NUMBER, width NUMBER) RETURN NUMBER IS
