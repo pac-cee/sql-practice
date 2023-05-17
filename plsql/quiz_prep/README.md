@@ -492,3 +492,27 @@ CREATE OR REPLACE PACKAGE BODY session_pkg IS
 ## Quick Reference Table
 
 | Topic           | Key Syntax/Concepts                           | Common Pitfalls               |
+|-----------------|-----------------------------------------------|-------------------------------|
+| Windows Funcs   | `OVER (PARTITION BY ... ORDER BY ...)`        | Missing OVER, wrong clause    |
+| Cursors         | DECLARE, OPEN, FETCH, CLOSE                   | Not closing, fetch after end  |
+| Functions       | RETURN, parameters, DML in SQL-callable funcs | Missing RETURN, DML in SQL    |
+| Triggers        | BEFORE/AFTER, :NEW/:OLD, no commit/rollback   | Mutating table, transaction   |
+| Packages        | Spec & Body, session vars, modularity         | Spec/body mismatch, semicolon |
+
+---
+
+## Real-World Tips for Mastery
+
+- **Practice regularly**: Build your own sample tables, triggers, functions, and packages.
+- **Read Oracle documentation**: It’s thorough and full of examples.
+- **Debug with DBMS_OUTPUT**: Print variable values to trace execution.
+- **Keep code modular**: Use packages and functions to organize logic.
+- **Handle exceptions**: Always anticipate and handle possible errors.
+- **Optimize for performance**: Use set-based logic when possible, and index columns used in analytic functions.
+- **Document everything**: Comments help you and your team understand and maintain code.
+
+**Keep exploring!** PL/SQL is a powerful language—mastering it opens doors to advanced database applications and performance tuning.
+
+---
+
+**Tip:** Use this guide as a reference for both exams and real-world projects. Good luck, and keep learning!
