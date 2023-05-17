@@ -397,3 +397,22 @@ END pkg_name;
 CREATE OR REPLACE PACKAGE BODY pkg_name IS
     PROCEDURE proc1 IS BEGIN NULL; END;
     FUNCTION func1 RETURN NUMBER IS BEGIN RETURN 1; END;
+    -- Private procedures/functions
+END pkg_name;
+/
+```
+
+### Example: Utility Package
+```sql
+CREATE OR REPLACE PACKAGE math_utils IS
+    FUNCTION add(a NUMBER, b NUMBER) RETURN NUMBER;
+    FUNCTION factorial(n NUMBER) RETURN NUMBER;
+END math_utils;
+/
+CREATE OR REPLACE PACKAGE BODY math_utils IS
+    FUNCTION add(a NUMBER, b NUMBER) RETURN NUMBER IS
+    BEGIN
+        RETURN a + b;
+    END;
+    FUNCTION factorial(n NUMBER) RETURN NUMBER IS
+        result NUMBER := 1;
