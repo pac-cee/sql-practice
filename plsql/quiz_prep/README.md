@@ -473,3 +473,22 @@ CREATE OR REPLACE PACKAGE BODY session_pkg IS
     RETURN 3.14159 * radius * radius;
   END;
   FUNCTION calc_area(length NUMBER, width NUMBER) RETURN NUMBER IS
+  BEGIN
+    RETURN length * width;
+  END;
+  BEGIN
+    session_start := SYSDATE; -- Initialization
+  END session_pkg;
+/
+```
+
+### Practice Exercises
+1. Create a package for employee utilities: functions for getting full name, years of service, and a procedure to promote an employee.
+2. Write a package that manages application-level error logging.
+3. Implement a package with overloaded functions for different types of calculations.
+
+---
+
+## Quick Reference Table
+
+| Topic           | Key Syntax/Concepts                           | Common Pitfalls               |
