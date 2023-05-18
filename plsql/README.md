@@ -74,3 +74,27 @@ Contains comprehensive lecture materials covering:
 - SQL*Plus or Oracle SQL Developer
 - Basic understanding of SQL
 
+## Additional Resources
+
+- Lecture slides and PDFs in the `NOTES/` directory
+- Practice exercises and solutions
+- Capstone project guidelines and requirements
+
+## Project Structure
+
+The repository includes several key SQL files:
+- `windowfunction.sql`: Examples of SQL window functions
+- `customer.sql`: Customer management operations
+- `advanced.sql`: Advanced PL/SQL concepts
+- Various practice and assignment solutions
+
+## Getting Started
+
+1. Review the module description in `NOTES/MODULE DESCRIPTION FORM 3.docx`
+2. Follow the lecture materials in sequential order
+3. Complete exercises after each lecture
+4. Utilize the practice scripts in the `practice/` directory
+5. Refer to assignment solutions for guidance
+
+This repository serves as a complete learning resource for PL/SQL development, from basic concepts to advanced implementations, with practical examples and real-world applications.
+
