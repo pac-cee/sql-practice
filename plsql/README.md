@@ -36,3 +36,22 @@ Contains comprehensive lecture materials covering:
 - Advanced exercises
 - Employee management system examples
 - Test cases and setup scripts
+
+### 6. Assignments
+- Individual assignments and solutions
+- Capstone project materials
+- Practice exercises
+
+## Key Features
+
+1. **Window Functions**: 
+   - Comprehensive examples of SQL window functions
+   - Ranking, aggregation, and analytical functions
+   - Sample data and practical use cases
+
+2. **Database Management**:
+   - User and customer management scripts
+   - Container management guidelines
+   - Wallet application examples
+
+3. **Practical Examples**:
