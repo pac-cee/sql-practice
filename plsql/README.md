@@ -17,3 +17,22 @@ This repository contains comprehensive materials, examples, and exercises for le
 - Basic to advanced PL/SQL concepts
 - Practical examples and test scripts
 - Database connection scripts
+- Window functions examples
+- Wallet management examples
+- Customer and user management scripts
+
+### 4. Notes and Lectures (`NOTES/`)
+Contains comprehensive lecture materials covering:
+- Introduction to PL/SQL
+- SQL Query Execution
+- Stored Procedures
+- Collections and Records
+- Cursors (Implicit & Explicit)
+- Advanced PL/SQL Concepts
+- Exam preparation materials
+- Capstone project documentation
+
+### 5. Practice Section (`practice/`)
+- Advanced exercises
+- Employee management system examples
+- Test cases and setup scripts
