@@ -55,3 +55,22 @@ Contains comprehensive lecture materials covering:
    - Wallet application examples
 
 3. **Practical Examples**:
+   - Employee management system
+   - Customer database operations
+   - Advanced PL/SQL implementations
+
+## Learning Path
+
+1. Start with the fundamentals in `01_fundamentals/`
+2. Progress through the lectures in `NOTES/`
+3. Practice with examples in `Learning_PLSQL/`
+4. Complete assignments and exercises
+5. Move to advanced topics in `02_advanced/`
+6. Work on the capstone project
+
+## Prerequisites
+
+- Oracle Database (recommended version specified in lectures)
+- SQL*Plus or Oracle SQL Developer
+- Basic understanding of SQL
+
