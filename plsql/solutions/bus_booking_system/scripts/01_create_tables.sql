@@ -17,3 +17,22 @@ CREATE TABLE bus_terminals (
     location VARCHAR2(100) NOT NULL,
     operating_hours VARCHAR2(50) NOT NULL,
     contact_info VARCHAR2(100) NOT NULL
+);
+
+-- Buses table
+CREATE TABLE buses (
+    bus_id NUMBER PRIMARY KEY,
+    terminal_id NUMBER,
+    seating_capacity NUMBER NOT NULL,
+    service_route VARCHAR2(100) NOT NULL,
+    bus_type VARCHAR2(50) NOT NULL,
+    CONSTRAINT fk_terminal FOREIGN KEY (terminal_id) REFERENCES bus_terminals(terminal_id)
+);
+
+-- Routes table
+CREATE TABLE routes (
+    route_id NUMBER PRIMARY KEY,
+    origin VARCHAR2(100) NOT NULL,
+    destination VARCHAR2(100) NOT NULL,
+    base_fare NUMBER(10,2) NOT NULL
+);
