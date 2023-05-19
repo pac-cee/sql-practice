@@ -55,3 +55,22 @@ BEGIN
         RAISE_APPLICATION_ERROR(-20001, 'Not all tables were created properly.');
     END IF;
     
+    -- Verify packages
+    SELECT COUNT(*) INTO v_count FROM user_objects 
+    WHERE object_type = 'PACKAGE' 
+    AND object_name IN ('BOOKING_MGMT', 'SCHEDULE_MGMT', 'USER_MGMT', 'BOOKING_UTILS');
+    
+    IF v_count = 4 THEN
+        DBMS_OUTPUT.PUT_LINE('Packages created successfully.');
+    ELSE
+        RAISE_APPLICATION_ERROR(-20002, 'Not all packages were created properly.');
+    END IF;
+    
+    -- Verify views
+    SELECT COUNT(*) INTO v_count FROM user_views
+    WHERE view_name IN ('DAILY_BOOKING_SUMMARY', 'BUS_PERFORMANCE_METRICS');
+    
+    IF v_count = 2 THEN
+        DBMS_OUTPUT.PUT_LINE('Views created successfully.');
+    ELSE
+        RAISE_APPLICATION_ERROR(-20003, 'Not all views were created properly.');
