@@ -74,3 +74,17 @@ BEGIN
         DBMS_OUTPUT.PUT_LINE('Views created successfully.');
     ELSE
         RAISE_APPLICATION_ERROR(-20003, 'Not all views were created properly.');
+    END IF;
+    
+    -- Verify sample data
+    SELECT COUNT(*) INTO v_count FROM users;
+    IF v_count > 0 THEN
+        DBMS_OUTPUT.PUT_LINE('Sample data loaded successfully.');
+    ELSE
+        RAISE_APPLICATION_ERROR(-20004, 'Sample data was not loaded properly.');
+    END IF;
+    
+    DBMS_OUTPUT.PUT_LINE('Installation verification complete.');
+    DBMS_OUTPUT.PUT_LINE('The Smart Bus Booking System is ready to use.');
+END;
+/
