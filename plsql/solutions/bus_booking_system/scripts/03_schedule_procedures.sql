@@ -55,3 +55,22 @@ CREATE OR REPLACE PACKAGE BODY schedule_mgmt AS
         ) VALUES (
             p_route_id,
             p_origin,
+            p_destination,
+            p_base_fare
+        );
+
+        COMMIT;
+    EXCEPTION
+        WHEN OTHERS THEN
+            ROLLBACK;
+            RAISE;
+    END add_route;
+
+    -- Implementation of create_schedule
+    PROCEDURE create_schedule(
+        p_route_id IN NUMBER,
+        p_bus_id IN NUMBER,
+        p_departure_time IN TIMESTAMP,
+        p_arrival_time IN TIMESTAMP,
+        p_frequency IN VARCHAR2,
+        p_schedule_id OUT NUMBER
