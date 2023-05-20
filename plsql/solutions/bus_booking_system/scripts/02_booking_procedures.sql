@@ -93,3 +93,22 @@ CREATE OR REPLACE PACKAGE BODY booking_mgmt AS
     BEGIN
         UPDATE bookings
         SET payment_status = 'CANCELLED'
+        WHERE booking_id = p_booking_id
+        AND payment_status != 'CANCELLED';
+
+        IF SQL%ROWCOUNT = 0 THEN
+            RAISE_APPLICATION_ERROR(-20002, 'Booking not found or already cancelled');
+        END IF;
+
+        COMMIT;
+    EXCEPTION
+        WHEN OTHERS THEN
+            ROLLBACK;
+            RAISE;
+    END cancel_booking;
+
+    -- Implementation of update_payment_status
+    PROCEDURE update_payment_status(
+        p_booking_id IN NUMBER,
+        p_status IN VARCHAR2
+    ) IS
