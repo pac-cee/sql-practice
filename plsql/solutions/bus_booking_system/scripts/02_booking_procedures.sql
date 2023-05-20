@@ -74,3 +74,22 @@ CREATE OR REPLACE PACKAGE BODY booking_mgmt AS
             p_booking_id,
             p_user_id,
             p_schedule_id,
+            p_seat_number,
+            SYSTIMESTAMP,
+            'PENDING'
+        );
+
+        COMMIT;
+    EXCEPTION
+        WHEN OTHERS THEN
+            ROLLBACK;
+            RAISE;
+    END create_booking;
+
+    -- Implementation of cancel_booking
+    PROCEDURE cancel_booking(
+        p_booking_id IN NUMBER
+    ) IS
+    BEGIN
+        UPDATE bookings
+        SET payment_status = 'CANCELLED'
