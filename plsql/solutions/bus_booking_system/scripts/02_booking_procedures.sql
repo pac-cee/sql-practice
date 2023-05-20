@@ -112,3 +112,20 @@ CREATE OR REPLACE PACKAGE BODY booking_mgmt AS
         p_booking_id IN NUMBER,
         p_status IN VARCHAR2
     ) IS
+    BEGIN
+        UPDATE bookings
+        SET payment_status = p_status
+        WHERE booking_id = p_booking_id;
+
+        IF SQL%ROWCOUNT = 0 THEN
+            RAISE_APPLICATION_ERROR(-20003, 'Booking not found');
+        END IF;
+
+        COMMIT;
+    EXCEPTION
+        WHEN OTHERS THEN
+            ROLLBACK;
+            RAISE;
+    END update_payment_status;
+END booking_mgmt;
+/
