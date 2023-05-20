@@ -36,3 +36,22 @@ CREATE TABLE routes (
     destination VARCHAR2(100) NOT NULL,
     base_fare NUMBER(10,2) NOT NULL
 );
+
+-- Schedules table
+CREATE TABLE schedules (
+    schedule_id NUMBER PRIMARY KEY,
+    route_id NUMBER,
+    bus_id NUMBER,
+    departure_time TIMESTAMP NOT NULL,
+    arrival_time TIMESTAMP NOT NULL,
+    frequency VARCHAR2(20) NOT NULL,
+    CONSTRAINT fk_route FOREIGN KEY (route_id) REFERENCES routes(route_id),
+    CONSTRAINT fk_bus FOREIGN KEY (bus_id) REFERENCES buses(bus_id)
+);
+
+-- Bookings table
+CREATE TABLE bookings (
+    booking_id NUMBER PRIMARY KEY,
+    user_id NUMBER,
+    schedule_id NUMBER,
+    seat_number NUMBER NOT NULL,
