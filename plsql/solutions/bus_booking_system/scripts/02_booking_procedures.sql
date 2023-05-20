@@ -17,3 +17,22 @@ CREATE OR REPLACE PACKAGE booking_mgmt AS
     );
 
     -- Cancel booking
+    PROCEDURE cancel_booking(
+        p_booking_id IN NUMBER
+    );
+
+    -- Update payment status
+    PROCEDURE update_payment_status(
+        p_booking_id IN NUMBER,
+        p_status IN VARCHAR2
+    );
+END booking_mgmt;
+/
+
+CREATE OR REPLACE PACKAGE BODY booking_mgmt AS
+    -- Implementation of check_seat_availability
+    FUNCTION check_seat_availability(
+        p_schedule_id IN NUMBER,
+        p_seat_number IN NUMBER
+    ) RETURN BOOLEAN IS
+        v_count NUMBER;
