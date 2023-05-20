@@ -36,3 +36,22 @@ CREATE OR REPLACE PACKAGE schedule_mgmt AS
 END schedule_mgmt;
 /
 
+CREATE OR REPLACE PACKAGE BODY schedule_mgmt AS
+    -- Implementation of add_route
+    PROCEDURE add_route(
+        p_origin IN VARCHAR2,
+        p_destination IN VARCHAR2,
+        p_base_fare IN NUMBER,
+        p_route_id OUT NUMBER
+    ) IS
+    BEGIN
+        SELECT route_seq.NEXTVAL INTO p_route_id FROM DUAL;
+        
+        INSERT INTO routes (
+            route_id,
+            origin,
+            destination,
+            base_fare
+        ) VALUES (
+            p_route_id,
+            p_origin,
