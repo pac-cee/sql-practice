@@ -36,3 +36,22 @@ CREATE OR REPLACE PACKAGE BODY booking_mgmt AS
         p_seat_number IN NUMBER
     ) RETURN BOOLEAN IS
         v_count NUMBER;
+    BEGIN
+        SELECT COUNT(*)
+        INTO v_count
+        FROM bookings
+        WHERE schedule_id = p_schedule_id
+        AND seat_number = p_seat_number
+        AND payment_status != 'CANCELLED';
+
+        RETURN v_count = 0;
+    END check_seat_availability;
+
+    -- Implementation of create_booking
+    PROCEDURE create_booking(
+        p_user_id IN NUMBER,
+        p_schedule_id IN NUMBER,
+        p_seat_number IN NUMBER,
+        p_booking_id OUT NUMBER
+    ) IS
+    BEGIN
