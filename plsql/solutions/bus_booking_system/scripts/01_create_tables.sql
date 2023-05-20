@@ -55,3 +55,17 @@ CREATE TABLE bookings (
     user_id NUMBER,
     schedule_id NUMBER,
     seat_number NUMBER NOT NULL,
+    booking_date TIMESTAMP DEFAULT SYSTIMESTAMP,
+    payment_status VARCHAR2(20) DEFAULT 'PENDING',
+    CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users(user_id),
+    CONSTRAINT fk_schedule FOREIGN KEY (schedule_id) REFERENCES schedules(schedule_id),
+    CONSTRAINT ck_payment_status CHECK (payment_status IN ('PENDING', 'PAID', 'CANCELLED'))
+);
+
+-- Create sequences for primary keys
+CREATE SEQUENCE user_seq START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE terminal_seq START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE bus_seq START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE route_seq START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE schedule_seq START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE booking_seq START WITH 1 INCREMENT BY 1;
