@@ -55,3 +55,22 @@ CREATE OR REPLACE PACKAGE BODY booking_mgmt AS
         p_booking_id OUT NUMBER
     ) IS
     BEGIN
+        -- Check if seat is available
+        IF NOT check_seat_availability(p_schedule_id, p_seat_number) THEN
+            RAISE_APPLICATION_ERROR(-20001, 'Seat is already booked');
+        END IF;
+
+        -- Create new booking
+        SELECT booking_seq.NEXTVAL INTO p_booking_id FROM DUAL;
+        
+        INSERT INTO bookings (
+            booking_id,
+            user_id,
+            schedule_id,
+            seat_number,
+            booking_date,
+            payment_status
+        ) VALUES (
+            p_booking_id,
+            p_user_id,
+            p_schedule_id,
