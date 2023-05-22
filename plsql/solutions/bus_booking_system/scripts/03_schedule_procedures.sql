@@ -93,3 +93,22 @@ CREATE OR REPLACE PACKAGE BODY schedule_mgmt AS
             p_arrival_time,
             p_frequency
         );
+
+        COMMIT;
+    EXCEPTION
+        WHEN OTHERS THEN
+            ROLLBACK;
+            RAISE;
+    END create_schedule;
+
+    -- Implementation of get_available_schedules
+    FUNCTION get_available_schedules(
+        p_origin IN VARCHAR2,
+        p_destination IN VARCHAR2,
+        p_travel_date IN DATE
+    ) RETURN SYS_REFCURSOR IS
+        v_result_set SYS_REFCURSOR;
+    BEGIN
+        OPEN v_result_set FOR
+            SELECT s.schedule_id,
+                   r.origin,
