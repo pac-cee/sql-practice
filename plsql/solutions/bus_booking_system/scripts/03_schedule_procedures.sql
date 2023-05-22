@@ -74,3 +74,22 @@ CREATE OR REPLACE PACKAGE BODY schedule_mgmt AS
         p_arrival_time IN TIMESTAMP,
         p_frequency IN VARCHAR2,
         p_schedule_id OUT NUMBER
+    ) IS
+    BEGIN
+        SELECT schedule_seq.NEXTVAL INTO p_schedule_id FROM DUAL;
+        
+        INSERT INTO schedules (
+            schedule_id,
+            route_id,
+            bus_id,
+            departure_time,
+            arrival_time,
+            frequency
+        ) VALUES (
+            p_schedule_id,
+            p_route_id,
+            p_bus_id,
+            p_departure_time,
+            p_arrival_time,
+            p_frequency
+        );
