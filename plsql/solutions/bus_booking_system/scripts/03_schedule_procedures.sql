@@ -131,3 +131,22 @@ CREATE OR REPLACE PACKAGE BODY schedule_mgmt AS
             ORDER BY s.departure_time;
 
         RETURN v_result_set;
+    END get_available_schedules;
+
+    -- Implementation of update_schedule_times
+    PROCEDURE update_schedule_times(
+        p_schedule_id IN NUMBER,
+        p_new_departure IN TIMESTAMP,
+        p_new_arrival IN TIMESTAMP
+    ) IS
+    BEGIN
+        UPDATE schedules
+        SET departure_time = p_new_departure,
+            arrival_time = p_new_arrival
+        WHERE schedule_id = p_schedule_id;
+
+        IF SQL%ROWCOUNT = 0 THEN
+            RAISE_APPLICATION_ERROR(-20004, 'Schedule not found');
+        END IF;
+
+        COMMIT;
