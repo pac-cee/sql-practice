@@ -112,3 +112,22 @@ CREATE OR REPLACE PACKAGE BODY schedule_mgmt AS
         OPEN v_result_set FOR
             SELECT s.schedule_id,
                    r.origin,
+                   r.destination,
+                   s.departure_time,
+                   s.arrival_time,
+                   b.bus_type,
+                   b.seating_capacity,
+                   r.base_fare,
+                   (SELECT COUNT(*) 
+                    FROM bookings bk 
+                    WHERE bk.schedule_id = s.schedule_id 
+                    AND bk.payment_status != 'CANCELLED') as booked_seats
+            FROM schedules s
+            JOIN routes r ON s.route_id = r.route_id
+            JOIN buses b ON s.bus_id = b.bus_id
+            WHERE r.origin = p_origin
+            AND r.destination = p_destination
+            AND TRUNC(s.departure_time) = p_travel_date
+            ORDER BY s.departure_time;
+
+        RETURN v_result_set;
