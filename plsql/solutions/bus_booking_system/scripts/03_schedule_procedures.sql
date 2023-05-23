@@ -150,3 +150,10 @@ CREATE OR REPLACE PACKAGE BODY schedule_mgmt AS
         END IF;
 
         COMMIT;
+    EXCEPTION
+        WHEN OTHERS THEN
+            ROLLBACK;
+            RAISE;
+    END update_schedule_times;
+END schedule_mgmt;
+/
