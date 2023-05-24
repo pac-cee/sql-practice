@@ -36,3 +36,22 @@ CREATE OR REPLACE PACKAGE BODY user_mgmt AS
     PROCEDURE register_user(
         p_first_name IN VARCHAR2,
         p_last_name IN VARCHAR2,
+        p_email IN VARCHAR2,
+        p_phone_number IN VARCHAR2,
+        p_user_id OUT NUMBER
+    ) IS
+    BEGIN
+        -- Check if email already exists
+        SELECT COUNT(*)
+        INTO v_count
+        FROM users
+        WHERE email = p_email;
+
+        IF v_count > 0 THEN
+            RAISE_APPLICATION_ERROR(-20005, 'Email already registered');
+        END IF;
+
+        -- Create new user
+        SELECT user_seq.NEXTVAL INTO p_user_id FROM DUAL;
+        
+        INSERT INTO users (
