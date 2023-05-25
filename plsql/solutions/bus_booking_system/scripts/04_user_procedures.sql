@@ -112,3 +112,22 @@ CREATE OR REPLACE PACKAGE BODY user_mgmt AS
             SELECT b.booking_id,
                    r.origin,
                    r.destination,
+                   s.departure_time,
+                   s.arrival_time,
+                   b.seat_number,
+                   b.payment_status,
+                   r.base_fare
+            FROM bookings b
+            JOIN schedules s ON b.schedule_id = s.schedule_id
+            JOIN routes r ON s.route_id = r.route_id
+            WHERE b.user_id = p_user_id
+            ORDER BY s.departure_time DESC;
+
+        RETURN v_result_set;
+    END get_user_bookings;
+
+    -- Implementation of delete_user
+    PROCEDURE delete_user(
+        p_user_id IN NUMBER
+    ) IS
+        v_booking_count NUMBER;
