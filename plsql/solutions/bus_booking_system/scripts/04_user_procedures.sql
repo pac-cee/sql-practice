@@ -131,3 +131,22 @@ CREATE OR REPLACE PACKAGE BODY user_mgmt AS
         p_user_id IN NUMBER
     ) IS
         v_booking_count NUMBER;
+    BEGIN
+        -- Check for active bookings
+        SELECT COUNT(*)
+        INTO v_booking_count
+        FROM bookings
+        WHERE user_id = p_user_id
+        AND payment_status = 'PAID'
+        AND schedule_id IN (
+            SELECT schedule_id 
+            FROM schedules 
+            WHERE departure_time > SYSTIMESTAMP
+        );
+
+        IF v_booking_count > 0 THEN
+            RAISE_APPLICATION_ERROR(-20007, 'Cannot delete user with active bookings');
+        END IF;
+
+        -- Delete user
+        DELETE FROM users
