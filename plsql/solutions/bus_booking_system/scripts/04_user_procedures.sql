@@ -55,3 +55,22 @@ CREATE OR REPLACE PACKAGE BODY user_mgmt AS
         SELECT user_seq.NEXTVAL INTO p_user_id FROM DUAL;
         
         INSERT INTO users (
+            user_id,
+            first_name,
+            last_name,
+            email,
+            phone_number,
+            created_date
+        ) VALUES (
+            p_user_id,
+            p_first_name,
+            p_last_name,
+            p_email,
+            p_phone_number,
+            SYSDATE
+        );
+
+        COMMIT;
+    EXCEPTION
+        WHEN OTHERS THEN
+            ROLLBACK;
