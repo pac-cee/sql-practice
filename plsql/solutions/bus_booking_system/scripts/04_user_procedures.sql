@@ -93,3 +93,22 @@ CREATE OR REPLACE PACKAGE BODY user_mgmt AS
 
         IF SQL%ROWCOUNT = 0 THEN
             RAISE_APPLICATION_ERROR(-20006, 'User not found');
+        END IF;
+
+        COMMIT;
+    EXCEPTION
+        WHEN OTHERS THEN
+            ROLLBACK;
+            RAISE;
+    END update_user;
+
+    -- Implementation of get_user_bookings
+    FUNCTION get_user_bookings(
+        p_user_id IN NUMBER
+    ) RETURN SYS_REFCURSOR IS
+        v_result_set SYS_REFCURSOR;
+    BEGIN
+        OPEN v_result_set FOR
+            SELECT b.booking_id,
+                   r.origin,
+                   r.destination,
