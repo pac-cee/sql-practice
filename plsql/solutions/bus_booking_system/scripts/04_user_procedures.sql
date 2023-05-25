@@ -74,3 +74,22 @@ CREATE OR REPLACE PACKAGE BODY user_mgmt AS
     EXCEPTION
         WHEN OTHERS THEN
             ROLLBACK;
+            RAISE;
+    END register_user;
+
+    -- Implementation of update_user
+    PROCEDURE update_user(
+        p_user_id IN NUMBER,
+        p_first_name IN VARCHAR2,
+        p_last_name IN VARCHAR2,
+        p_phone_number IN VARCHAR2
+    ) IS
+    BEGIN
+        UPDATE users
+        SET first_name = NVL(p_first_name, first_name),
+            last_name = NVL(p_last_name, last_name),
+            phone_number = NVL(p_phone_number, phone_number)
+        WHERE user_id = p_user_id;
+
+        IF SQL%ROWCOUNT = 0 THEN
+            RAISE_APPLICATION_ERROR(-20006, 'User not found');
