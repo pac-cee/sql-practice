@@ -150,3 +150,17 @@ CREATE OR REPLACE PACKAGE BODY user_mgmt AS
 
         -- Delete user
         DELETE FROM users
+        WHERE user_id = p_user_id;
+
+        IF SQL%ROWCOUNT = 0 THEN
+            RAISE_APPLICATION_ERROR(-20006, 'User not found');
+        END IF;
+
+        COMMIT;
+    EXCEPTION
+        WHEN OTHERS THEN
+            ROLLBACK;
+            RAISE;
+    END delete_user;
+END user_mgmt;
+/
