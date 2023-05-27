@@ -74,3 +74,22 @@ BEGIN
                 bus_id,
                 departure_time,
                 arrival_time,
+                frequency
+            ) VALUES (
+                schedule_seq.NEXTVAL,
+                route.route_id,
+                CASE 
+                    WHEN route.origin = 'Kigali' THEN 1
+                    WHEN route.origin = 'Huye' THEN 4
+                    WHEN route.origin = 'Musanze' THEN 2
+                    ELSE 3
+                END,
+                TIMESTAMP '2025-04-14 14:00:00' + i,
+                TIMESTAMP '2025-04-14 17:00:00' + i,
+                'DAILY'
+            );
+        END LOOP;
+    END LOOP;
+END;
+/
+
