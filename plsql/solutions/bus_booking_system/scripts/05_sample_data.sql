@@ -17,3 +17,22 @@ INSERT INTO buses (bus_id, terminal_id, seating_capacity, service_route, bus_typ
 INSERT INTO buses (bus_id, terminal_id, seating_capacity, service_route, bus_type) VALUES
 (bus_seq.NEXTVAL, 1, 50, 'Kigali-Musanze', 'STANDARD');
 INSERT INTO buses (bus_id, terminal_id, seating_capacity, service_route, bus_type) VALUES
+(bus_seq.NEXTVAL, 1, 45, 'Kigali-Rubavu', 'LUXURY');
+INSERT INTO buses (bus_id, terminal_id, seating_capacity, service_route, bus_type) VALUES
+(bus_seq.NEXTVAL, 2, 50, 'Huye-Kigali', 'STANDARD');
+
+-- Insert Routes
+INSERT INTO routes (route_id, origin, destination, base_fare) VALUES
+(route_seq.NEXTVAL, 'Kigali', 'Huye', 5000);
+INSERT INTO routes (route_id, origin, destination, base_fare) VALUES
+(route_seq.NEXTVAL, 'Huye', 'Kigali', 5000);
+INSERT INTO routes (route_id, origin, destination, base_fare) VALUES
+(route_seq.NEXTVAL, 'Kigali', 'Musanze', 4000);
+INSERT INTO routes (route_id, origin, destination, base_fare) VALUES
+(route_seq.NEXTVAL, 'Musanze', 'Kigali', 4000);
+INSERT INTO routes (route_id, origin, destination, base_fare) VALUES
+(route_seq.NEXTVAL, 'Kigali', 'Rubavu', 6000);
+INSERT INTO routes (route_id, origin, destination, base_fare) VALUES
+(route_seq.NEXTVAL, 'Rubavu', 'Kigali', 6000);
+
+-- Insert Sample Schedules (for next 7 days)
