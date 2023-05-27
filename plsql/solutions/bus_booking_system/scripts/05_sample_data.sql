@@ -55,3 +55,22 @@ BEGIN
                 frequency
             ) VALUES (
                 schedule_seq.NEXTVAL,
+                route.route_id,
+                CASE 
+                    WHEN route.origin = 'Kigali' THEN 1
+                    WHEN route.origin = 'Huye' THEN 4
+                    WHEN route.origin = 'Musanze' THEN 2
+                    ELSE 3
+                END,
+                TIMESTAMP '2025-04-14 07:00:00' + i,
+                TIMESTAMP '2025-04-14 10:00:00' + i,
+                'DAILY'
+            );
+
+            -- Afternoon schedule
+            INSERT INTO schedules (
+                schedule_id,
+                route_id,
+                bus_id,
+                departure_time,
+                arrival_time,
