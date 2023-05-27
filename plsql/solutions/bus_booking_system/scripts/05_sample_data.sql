@@ -36,3 +36,22 @@ INSERT INTO routes (route_id, origin, destination, base_fare) VALUES
 (route_seq.NEXTVAL, 'Rubavu', 'Kigali', 6000);
 
 -- Insert Sample Schedules (for next 7 days)
+DECLARE
+    v_current_date DATE := TRUNC(SYSDATE);
+    v_route_id NUMBER;
+    v_bus_id NUMBER;
+BEGIN
+    -- For each route
+    FOR route IN (SELECT route_id, origin FROM routes) LOOP
+        -- For next 7 days
+        FOR i IN 0..6 LOOP
+            -- Morning schedule
+            INSERT INTO schedules (
+                schedule_id,
+                route_id,
+                bus_id,
+                departure_time,
+                arrival_time,
+                frequency
+            ) VALUES (
+                schedule_seq.NEXTVAL,
