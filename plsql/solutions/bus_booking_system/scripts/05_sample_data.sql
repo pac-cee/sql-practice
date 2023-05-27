@@ -93,3 +93,22 @@ BEGIN
 END;
 /
 
+-- Insert Sample Users
+INSERT INTO users (user_id, first_name, last_name, email, phone_number, created_date) VALUES
+(user_seq.NEXTVAL, 'John', 'Doe', 'john.doe@email.com', '+250781234567', SYSDATE);
+INSERT INTO users (user_id, first_name, last_name, email, phone_number, created_date) VALUES
+(user_seq.NEXTVAL, 'Jane', 'Smith', 'jane.smith@email.com', '+250782345678', SYSDATE);
+INSERT INTO users (user_id, first_name, last_name, email, phone_number, created_date) VALUES
+(user_seq.NEXTVAL, 'Robert', 'Johnson', 'robert.j@email.com', '+250783456789', SYSDATE);
+
+-- Insert Sample Bookings
+DECLARE
+    v_schedule_id NUMBER;
+    v_user_id NUMBER;
+BEGIN
+    -- Get first schedule ID
+    SELECT MIN(schedule_id) INTO v_schedule_id FROM schedules;
+    
+    -- Get first user ID
+    SELECT MIN(user_id) INTO v_user_id FROM users;
+    
