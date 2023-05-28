@@ -112,3 +112,22 @@ BEGIN
     -- Get first user ID
     SELECT MIN(user_id) INTO v_user_id FROM users;
     
+    -- Create some sample bookings
+    INSERT INTO bookings (
+        booking_id,
+        user_id,
+        schedule_id,
+        seat_number,
+        booking_date,
+        payment_status
+    ) VALUES (
+        booking_seq.NEXTVAL,
+        v_user_id,
+        v_schedule_id,
+        1,
+        SYSTIMESTAMP,
+        'PAID'
+    );
+    
+    INSERT INTO bookings (
+        booking_id,
