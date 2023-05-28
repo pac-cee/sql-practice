@@ -36,3 +36,22 @@ CREATE OR REPLACE PACKAGE BODY booking_utils AS
     ) RETURN SYS_REFCURSOR IS
         v_result_set SYS_REFCURSOR;
     BEGIN
+        OPEN v_result_set FOR
+            SELECT 
+                r.origin,
+                r.destination,
+                COUNT(b.booking_id) as total_bookings,
+                SUM(CASE WHEN b.payment_status = 'PAID' THEN r.base_fare ELSE 0 END) as total_revenue
+            FROM routes r
+            LEFT JOIN schedules s ON r.route_id = s.route_id
+            LEFT JOIN bookings b ON s.schedule_id = b.schedule_id
+            WHERE TRUNC(s.departure_time) BETWEEN p_start_date AND p_end_date
+            GROUP BY r.origin, r.destination
+            ORDER BY total_revenue DESC;
+
+        RETURN v_result_set;
+    END get_route_revenue;
+
+    -- Implementation of get_bus_utilization
+    FUNCTION get_bus_utilization(
+        p_start_date IN DATE,
