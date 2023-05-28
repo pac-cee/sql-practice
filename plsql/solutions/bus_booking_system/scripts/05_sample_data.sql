@@ -131,3 +131,20 @@ BEGIN
     
     INSERT INTO bookings (
         booking_id,
+        user_id,
+        schedule_id,
+        seat_number,
+        booking_date,
+        payment_status
+    ) VALUES (
+        booking_seq.NEXTVAL,
+        v_user_id + 1,
+        v_schedule_id,
+        2,
+        SYSTIMESTAMP,
+        'PENDING'
+    );
+END;
+/
+
+COMMIT;
