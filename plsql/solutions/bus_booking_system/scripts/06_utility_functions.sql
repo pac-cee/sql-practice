@@ -55,3 +55,22 @@ CREATE OR REPLACE PACKAGE BODY booking_utils AS
     -- Implementation of get_bus_utilization
     FUNCTION get_bus_utilization(
         p_start_date IN DATE,
+        p_end_date IN DATE
+    ) RETURN SYS_REFCURSOR IS
+        v_result_set SYS_REFCURSOR;
+    BEGIN
+        OPEN v_result_set FOR
+            SELECT 
+                b.bus_id,
+                b.bus_type,
+                b.seating_capacity,
+                COUNT(DISTINCT s.schedule_id) as total_trips,
+                COUNT(bk.booking_id) as total_bookings,
+                ROUND(COUNT(bk.booking_id) / (COUNT(DISTINCT s.schedule_id) * b.seating_capacity) * 100, 2) as utilization_percentage
+            FROM buses b
+            LEFT JOIN schedules s ON b.bus_id = s.bus_id
+            LEFT JOIN bookings bk ON s.schedule_id = bk.schedule_id
+            WHERE TRUNC(s.departure_time) BETWEEN p_start_date AND p_end_date
+            GROUP BY b.bus_id, b.bus_type, b.seating_capacity
+            ORDER BY utilization_percentage DESC;
+
