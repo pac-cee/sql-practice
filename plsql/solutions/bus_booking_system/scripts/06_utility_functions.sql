@@ -74,3 +74,22 @@ CREATE OR REPLACE PACKAGE BODY booking_utils AS
             GROUP BY b.bus_id, b.bus_type, b.seating_capacity
             ORDER BY utilization_percentage DESC;
 
+        RETURN v_result_set;
+    END get_bus_utilization;
+
+    -- Implementation of get_popular_routes
+    FUNCTION get_popular_routes(
+        p_start_date IN DATE,
+        p_end_date IN DATE
+    ) RETURN SYS_REFCURSOR IS
+        v_result_set SYS_REFCURSOR;
+    BEGIN
+        OPEN v_result_set FOR
+            SELECT 
+                r.origin,
+                r.destination,
+                COUNT(b.booking_id) as total_bookings,
+                COUNT(DISTINCT s.schedule_id) as total_schedules,
+                ROUND(COUNT(b.booking_id) / COUNT(DISTINCT s.schedule_id), 2) as avg_bookings_per_schedule
+            FROM routes r
+            LEFT JOIN schedules s ON r.route_id = s.route_id
