@@ -112,3 +112,22 @@ CREATE OR REPLACE PACKAGE BODY booking_utils AS
         INTO v_schedule_count
         FROM schedules
         WHERE bus_id = p_bus_id
+        AND TRUNC(departure_time) = TRUNC(p_date);
+
+        RETURN v_schedule_count = 0;
+    END is_bus_available;
+END booking_utils;
+/
+
+-- Create some helper views for reporting
+CREATE OR REPLACE VIEW daily_booking_summary AS
+SELECT 
+    TRUNC(s.departure_time) as travel_date,
+    r.origin,
+    r.destination,
+    COUNT(b.booking_id) as total_bookings,
+    SUM(CASE WHEN b.payment_status = 'PAID' THEN 1 ELSE 0 END) as paid_bookings,
+    SUM(CASE WHEN b.payment_status = 'PENDING' THEN 1 ELSE 0 END) as pending_bookings,
+    SUM(CASE WHEN b.payment_status = 'CANCELLED' THEN 1 ELSE 0 END) as cancelled_bookings
+FROM schedules s
+JOIN routes r ON s.route_id = r.route_id
