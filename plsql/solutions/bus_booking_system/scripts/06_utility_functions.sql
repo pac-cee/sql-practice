@@ -93,3 +93,22 @@ CREATE OR REPLACE PACKAGE BODY booking_utils AS
                 ROUND(COUNT(b.booking_id) / COUNT(DISTINCT s.schedule_id), 2) as avg_bookings_per_schedule
             FROM routes r
             LEFT JOIN schedules s ON r.route_id = s.route_id
+            LEFT JOIN bookings b ON s.schedule_id = b.schedule_id
+            WHERE TRUNC(s.departure_time) BETWEEN p_start_date AND p_end_date
+            GROUP BY r.origin, r.destination
+            ORDER BY total_bookings DESC;
+
+        RETURN v_result_set;
+    END get_popular_routes;
+
+    -- Implementation of is_bus_available
+    FUNCTION is_bus_available(
+        p_bus_id IN NUMBER,
+        p_date IN DATE
+    ) RETURN BOOLEAN IS
+        v_schedule_count NUMBER;
+    BEGIN
+        SELECT COUNT(*)
+        INTO v_schedule_count
+        FROM schedules
+        WHERE bus_id = p_bus_id
