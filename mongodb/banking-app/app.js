@@ -131,3 +131,22 @@ async function withdraw(db) {
   });
 }
 
+// Transfer money between accounts using a transaction
+async function transfer(db, client) {
+  return new Promise((resolve) => {
+    rl.question('Enter sender name: ', (sender) => {
+      rl.question('Enter receiver name: ', (receiver) => {
+        rl.question('Enter amount to transfer: ', async (amount) => {
+          amount = parseFloat(amount);
+          if (isNaN(amount) || amount <= 0) {
+            console.log('Invalid amount.');
+            return resolve();
+          }
+          const session = client.startSession();
+          let success = false;
+          try {
+            await session.withTransaction(async () => {
+              const senderAcc = await db.collection('accounts').findOne({ name: sender }, { session });
+              const receiverAcc = await db.collection('accounts').findOne({ name: receiver }, { session });
+              if (!senderAcc || !receiverAcc) {
+                throw new Error('Sender or receiver account not found.');
