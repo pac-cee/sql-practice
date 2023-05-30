@@ -93,3 +93,22 @@ async function deposit(db) {
         if (result.matchedCount === 0) {
           console.log('Account not found.');
         } else {
+          console.log('Deposit successful!');
+        }
+        resolve();
+      });
+    });
+  });
+}
+
+// Withdraw money
+async function withdraw(db) {
+  return new Promise((resolve) => {
+    rl.question('Enter account holder name: ', async (name) => {
+      rl.question('Enter amount to withdraw: ', async (amount) => {
+        amount = parseFloat(amount);
+        if (isNaN(amount) || amount <= 0) {
+          console.log('Invalid amount.');
+          return resolve();
+        }
+        const account = await db.collection('accounts').findOne({ name });
