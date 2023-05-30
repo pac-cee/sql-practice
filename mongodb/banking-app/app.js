@@ -74,3 +74,22 @@ async function createAccount(db) {
       resolve();
     });
   });
+}
+
+// Deposit money
+async function deposit(db) {
+  return new Promise((resolve) => {
+    rl.question('Enter account holder name: ', async (name) => {
+      rl.question('Enter amount to deposit: ', async (amount) => {
+        amount = parseFloat(amount);
+        if (isNaN(amount) || amount <= 0) {
+          console.log('Invalid amount.');
+          return resolve();
+        }
+        const result = await db.collection('accounts').updateOne(
+          { name },
+          { $inc: { balance: amount } }
+        );
+        if (result.matchedCount === 0) {
+          console.log('Account not found.');
+        } else {
