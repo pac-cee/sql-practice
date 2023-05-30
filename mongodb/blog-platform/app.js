@@ -55,3 +55,22 @@ async function main() {
       }
       showMenu();
     }
+
+    showMenu();
+  } catch (err) {
+    console.error('Error:', err);
+    rl.close();
+    await client.close();
+  }
+}
+
+// Add an author
+async function addAuthor(db) {
+  return new Promise((resolve) => {
+    rl.question('Enter author name: ', async (name) => {
+      if (!name.trim()) {
+        console.log('Author name is required.');
+        return resolve();
+      }
+      await db.collection('authors').insertOne({ name });
+      console.log('Author added!');
