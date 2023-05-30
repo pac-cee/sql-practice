@@ -55,3 +55,22 @@ async function main() {
       }
       showMenu();
     }
+
+    showMenu();
+  } catch (err) {
+    console.error('Error:', err);
+    rl.close();
+    await client.close();
+  }
+}
+
+// Create a new account
+async function createAccount(db) {
+  return new Promise((resolve) => {
+    rl.question('Enter account holder name: ', async (name) => {
+      const account = { name, balance: 0 };
+      await db.collection('accounts').insertOne(account);
+      console.log('Account created!');
+      resolve();
+    });
+  });
