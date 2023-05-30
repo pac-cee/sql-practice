@@ -112,3 +112,22 @@ async function listPosts(db) {
     { $lookup: {
         from: 'authors',
         localField: 'authorId',
+        foreignField: '_id',
+        as: 'author'
+      }
+    }
+  ]).toArray();
+  if (posts.length === 0) {
+    console.log('No posts found.');
+  } else {
+    console.log('\nPosts:');
+    posts.forEach((p, i) => {
+      const authorName = p.author[0]?.name || 'Unknown';
+      console.log(`${i + 1}. Title: ${p.title}, Author: ${authorName}, Posted: ${p.createdAt.toLocaleString()}`);
+    });
+  }
+}
+
+// Add a comment to a post (embedded)
+async function addComment(db) {
+  return new Promise((resolve) => {
