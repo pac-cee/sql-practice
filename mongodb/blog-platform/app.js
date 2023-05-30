@@ -131,3 +131,22 @@ async function listPosts(db) {
 // Add a comment to a post (embedded)
 async function addComment(db) {
   return new Promise((resolve) => {
+    rl.question('Enter post title to comment on: ', async (title) => {
+      const post = await db.collection('posts').findOne({ title });
+      if (!post) {
+        console.log('Post not found.');
+        return resolve();
+      }
+      rl.question('Enter commenter name: ', (commenter) => {
+        rl.question('Enter comment: ', async (commentText) => {
+          const comment = {
+            commenter,
+            comment: commentText,
+            createdAt: new Date()
+          };
+          await db.collection('posts').updateOne(
+            { _id: post._id },
+            { $push: { comments: comment } }
+          );
+          console.log('Comment added!');
+          resolve();
