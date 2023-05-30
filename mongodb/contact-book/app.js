@@ -17,3 +17,22 @@ async function main() {
     const db = client.db(dbName);
 
     function showMenu() {
+      console.log('\n--- Contact Book ---');
+      console.log('1. Add Contact');
+      console.log('2. List Contacts');
+      console.log('3. Delete Contact');
+      console.log('4. Search Contact');
+      console.log('5. Update Contact');
+      console.log('6. Exit');
+      rl.question('Choose an option: ', handleMenu);
+    }
+
+    async function handleMenu(option) {
+      switch (option.trim()) {
+        case '1':
+          await addContact(db);
+          break;
+        case '2':
+          await listContacts(db);
+          break;
+        case '3':
