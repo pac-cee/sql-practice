@@ -169,3 +169,27 @@ async function transfer(db, client) {
             success = true;
           } catch (err) {
             console.log('Transfer failed:', err.message);
+          } finally {
+            await session.endSession();
+            resolve();
+          }
+        });
+      });
+    });
+  });
+}
+
+// Show all accounts
+async function showAccounts(db) {
+  const accounts = await db.collection('accounts').find().toArray();
+  if (accounts.length === 0) {
+    console.log('No accounts found.');
+  } else {
+    console.log('\nAccounts:');
+    accounts.forEach((a, i) => {
+      console.log(`${i + 1}. Name: ${a.name}, Balance: $${a.balance.toFixed(2)}`);
+    });
+  }
+}
+
+main();
