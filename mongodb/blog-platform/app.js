@@ -150,3 +150,22 @@ async function addComment(db) {
           );
           console.log('Comment added!');
           resolve();
+        });
+      });
+    });
+  });
+}
+
+// List comments for a post
+async function listComments(db) {
+  return new Promise((resolve) => {
+    rl.question('Enter post title to view comments: ', async (title) => {
+      const post = await db.collection('posts').findOne({ title });
+      if (!post) {
+        console.log('Post not found.');
+        return resolve();
+      }
+      if (!post.comments || post.comments.length === 0) {
+        console.log('No comments for this post.');
+      } else {
+        console.log(`\nComments for '${post.title}':`);
