@@ -74,3 +74,22 @@ async function addAuthor(db) {
       }
       await db.collection('authors').insertOne({ name });
       console.log('Author added!');
+      resolve();
+    });
+  });
+}
+
+// Add a blog post with reference to author
+async function addPost(db) {
+  return new Promise((resolve) => {
+    rl.question('Enter post title: ', (title) => {
+      rl.question('Enter post content: ', async (content) => {
+        rl.question('Enter author name: ', async (authorName) => {
+          const author = await db.collection('authors').findOne({ name: authorName });
+          if (!author) {
+            console.log('Author not found.');
+            return resolve();
+          }
+          const post = {
+            title,
+            content,
