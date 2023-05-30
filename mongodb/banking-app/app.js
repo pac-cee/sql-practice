@@ -112,3 +112,22 @@ async function withdraw(db) {
           return resolve();
         }
         const account = await db.collection('accounts').findOne({ name });
+        if (!account) {
+          console.log('Account not found.');
+          return resolve();
+        }
+        if (account.balance < amount) {
+          console.log('Insufficient funds.');
+          return resolve();
+        }
+        await db.collection('accounts').updateOne(
+          { name },
+          { $inc: { balance: -amount } }
+        );
+        console.log('Withdrawal successful!');
+        resolve();
+      });
+    });
+  });
+}
+
