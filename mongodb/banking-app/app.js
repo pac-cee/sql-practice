@@ -150,3 +150,22 @@ async function transfer(db, client) {
               const receiverAcc = await db.collection('accounts').findOne({ name: receiver }, { session });
               if (!senderAcc || !receiverAcc) {
                 throw new Error('Sender or receiver account not found.');
+              }
+              if (senderAcc.balance < amount) {
+                throw new Error('Insufficient funds.');
+              }
+              await db.collection('accounts').updateOne(
+                { name: sender },
+                { $inc: { balance: -amount } },
+                { session }
+              );
+              await db.collection('accounts').updateOne(
+                { name: receiver },
+                { $inc: { balance: amount } },
+                { session }
+              );
+            });
+            console.log('Transfer successful!');
+            success = true;
+          } catch (err) {
+            console.log('Transfer failed:', err.message);
