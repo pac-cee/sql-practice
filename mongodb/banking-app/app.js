@@ -36,3 +36,22 @@ async function main() {
         case '2':
           await deposit(db);
           break;
+        case '3':
+          await withdraw(db);
+          break;
+        case '4':
+          await transfer(db, client);
+          break;
+        case '5':
+          await showAccounts(db);
+          break;
+        case '6':
+          rl.close();
+          await client.close();
+          console.log('Goodbye!');
+          return;
+        default:
+          console.log('Invalid option.');
+      }
+      showMenu();
+    }
