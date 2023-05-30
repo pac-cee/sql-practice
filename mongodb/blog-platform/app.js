@@ -93,3 +93,22 @@ async function addPost(db) {
           const post = {
             title,
             content,
+            authorId: author._id,
+            createdAt: new Date(),
+            comments: [] // Embedded comments
+          };
+          await db.collection('posts').insertOne(post);
+          console.log('Post added!');
+          resolve();
+        });
+      });
+    });
+  });
+}
+
+// List all posts with author info
+async function listPosts(db) {
+  const posts = await db.collection('posts').aggregate([
+    { $lookup: {
+        from: 'authors',
+        localField: 'authorId',
