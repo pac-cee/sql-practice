@@ -169,3 +169,13 @@ async function listComments(db) {
         console.log('No comments for this post.');
       } else {
         console.log(`\nComments for '${post.title}':`);
+        post.comments.forEach((c, i) => {
+          console.log(`${i + 1}. By: ${c.commenter}, ${c.createdAt.toLocaleString()}\n   ${c.comment}`);
+        });
+      }
+      resolve();
+    });
+  });
+}
+
+main();
