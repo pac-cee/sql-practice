@@ -1,0 +1,19 @@
+const { MongoClient } = require('mongodb');
+const readline = require('readline');
+
+const uri = 'mongodb://localhost:27017';
+const dbName = 'contactBookDB';
+
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+async function main() {
+  const client = new MongoClient(uri);
+  try {
+    await client.connect();
+    console.log('Connected to MongoDB!');
+    const db = client.db(dbName);
+
+    function showMenu() {
