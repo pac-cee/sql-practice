@@ -93,3 +93,22 @@ async function searchContact(db) {
         console.log('No contacts found.');
       } else {
         console.log('\nFound contacts:');
+        contacts.forEach((c, i) => {
+          console.log(`${i + 1}. Name: ${c.name}, Phone: ${c.phone}, Email: ${c.email}`);
+        });
+      }
+      resolve();
+    });
+  });
+}
+
+async function updateContact(db) {
+  return new Promise((resolve) => {
+    rl.question('Enter name of contact to update: ', async (name) => {
+      const contact = await db.collection('contacts').findOne({ name });
+      if (!contact) {
+        console.log('Contact not found.');
+        return resolve();
+      }
+      rl.question(`Enter new phone [${contact.phone}]: `, (phone) => {
+        rl.question(`Enter new email [${contact.email}]: `, async (email) => {
