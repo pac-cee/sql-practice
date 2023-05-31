@@ -55,3 +55,22 @@ async function main() {
       showMenu();
     }
 
+    showMenu();
+  } catch (err) {
+    console.error('Error:', err);
+    rl.close();
+    await client.close();
+  }
+}
+
+async function addContact(db) {
+  return new Promise((resolve) => {
+    rl.question('Enter name: ', async (name) => {
+      // Prevent duplicate contacts by name
+      const existing = await db.collection('contacts').findOne({ name });
+      if (existing) {
+        console.log('Contact with this name already exists.');
+        return resolve();
+      }
+      rl.question('Enter phone: ', (phone) => {
+        rl.question('Enter email: ', async (email) => {
