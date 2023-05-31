@@ -36,3 +36,22 @@ async function main() {
           await listContacts(db);
           break;
         case '3':
+          await deleteContact(db);
+          break;
+        case '4':
+          await searchContact(db);
+          break;
+        case '5':
+          await updateContact(db);
+          break;
+        case '6':
+          rl.close();
+          await client.close();
+          console.log('Goodbye!');
+          return;
+        default:
+          console.log('Invalid option.');
+      }
+      showMenu();
+    }
+
