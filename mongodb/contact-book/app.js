@@ -131,3 +131,24 @@ async function listContacts(db) {
     console.log('No contacts found.');
   } else {
     console.log('\nContacts:');
+    contacts.forEach((c, i) => {
+      console.log(`${i + 1}. Name: ${c.name}, Phone: ${c.phone}, Email: ${c.email}`);
+    });
+  }
+}
+
+async function deleteContact(db) {
+  return new Promise((resolve) => {
+    rl.question('Enter name of contact to delete: ', async (name) => {
+      const result = await db.collection('contacts').deleteOne({ name });
+      if (result.deletedCount > 0) {
+        console.log('Contact deleted!');
+      } else {
+        console.log('Contact not found.');
+      }
+      resolve();
+    });
+  });
+}
+
+main();
