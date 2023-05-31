@@ -112,3 +112,22 @@ async function updateContact(db) {
       }
       rl.question(`Enter new phone [${contact.phone}]: `, (phone) => {
         rl.question(`Enter new email [${contact.email}]: `, async (email) => {
+          const updated = {
+            phone: phone.trim() !== '' ? phone : contact.phone,
+            email: email.trim() !== '' ? email : contact.email
+          };
+          await db.collection('contacts').updateOne({ name }, { $set: updated });
+          console.log('Contact updated!');
+          resolve();
+        });
+      });
+    });
+  });
+}
+
+async function listContacts(db) {
+  const contacts = await db.collection('contacts').find().toArray();
+  if (contacts.length === 0) {
+    console.log('No contacts found.');
+  } else {
+    console.log('\nContacts:');
