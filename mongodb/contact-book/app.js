@@ -74,3 +74,22 @@ async function addContact(db) {
       }
       rl.question('Enter phone: ', (phone) => {
         rl.question('Enter email: ', async (email) => {
+          const contact = { name, phone, email };
+          await db.collection('contacts').insertOne(contact);
+          console.log('Contact added!');
+          resolve();
+        });
+      });
+    });
+  });
+}
+
+async function searchContact(db) {
+  return new Promise((resolve) => {
+    rl.question('Enter name to search (partial match): ', async (name) => {
+      // Case-insensitive partial match
+      const contacts = await db.collection('contacts').find({ name: { $regex: name, $options: 'i' } }).toArray();
+      if (contacts.length === 0) {
+        console.log('No contacts found.');
+      } else {
+        console.log('\nFound contacts:');
