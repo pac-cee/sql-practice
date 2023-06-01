@@ -36,3 +36,22 @@ async function main() {
           await listOrders(db);
           break;
         case '3':
+          await salesByProduct(db);
+          break;
+        case '4':
+          await topCustomers(db);
+          break;
+        case '5':
+          rl.close();
+          await client.close();
+          console.log('Goodbye!');
+          return;
+        default:
+          console.log('Invalid option.');
+      }
+      showMenu();
+    }
+
+    showMenu();
+  } catch (err) {
+    console.error('Error:', err);
