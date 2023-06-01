@@ -55,3 +55,22 @@ async function main() {
     showMenu();
   } catch (err) {
     console.error('Error:', err);
+    rl.close();
+    await client.close();
+  }
+}
+
+// Add a new order
+async function addOrder(db) {
+  return new Promise((resolve) => {
+    rl.question('Enter customer name: ', (customer) => {
+      rl.question('Enter product name: ', (product) => {
+        rl.question('Enter quantity: ', async (quantity) => {
+          const order = {
+            customer,
+            product,
+            quantity: parseInt(quantity, 10),
+            date: new Date()
+          };
+          await db.collection('orders').insertOne(order);
+          console.log('Order added!');
