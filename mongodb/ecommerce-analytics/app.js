@@ -74,3 +74,22 @@ async function addOrder(db) {
           };
           await db.collection('orders').insertOne(order);
           console.log('Order added!');
+          resolve();
+        });
+      });
+    });
+  });
+}
+
+// List all orders
+async function listOrders(db) {
+  const orders = await db.collection('orders').find().toArray();
+  if (orders.length === 0) {
+    console.log('No orders found.');
+  } else {
+    console.log('\nOrders:');
+    orders.forEach((o, i) => {
+      console.log(`${i + 1}. Customer: ${o.customer}, Product: ${o.product}, Quantity: ${o.quantity}, Date: ${o.date.toLocaleString()}`);
+    });
+  }
+}
