@@ -112,3 +112,27 @@ async function salesByProduct(db) {
       console.log(`${i + 1}. Product: ${r._id}, Total Sold: ${r.totalSold}`);
     });
   }
+}
+
+// Aggregate top customers by total quantity ordered
+async function topCustomers(db) {
+  const results = await db.collection('orders').aggregate([
+    { $group: {
+        _id: '$customer',
+        totalOrdered: { $sum: '$quantity' }
+      }
+    },
+    { $sort: { totalOrdered: -1 } },
+    { $limit: 5 }
+  ]).toArray();
+  if (results.length === 0) {
+    console.log('No customer data.');
+  } else {
+    console.log('\nTop Customers:');
+    results.forEach((r, i) => {
+      console.log(`${i + 1}. Customer: ${r._id}, Total Ordered: ${r.totalOrdered}`);
+    });
+  }
+}
+
+main();
