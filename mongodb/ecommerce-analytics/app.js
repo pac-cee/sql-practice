@@ -93,3 +93,22 @@ async function listOrders(db) {
     });
   }
 }
+
+// Aggregate sales by product
+async function salesByProduct(db) {
+  const results = await db.collection('orders').aggregate([
+    { $group: {
+        _id: '$product',
+        totalSold: { $sum: '$quantity' }
+      }
+    },
+    { $sort: { totalSold: -1 } }
+  ]).toArray();
+  if (results.length === 0) {
+    console.log('No sales data.');
+  } else {
+    console.log('\nSales by Product:');
+    results.forEach((r, i) => {
+      console.log(`${i + 1}. Product: ${r._id}, Total Sold: ${r.totalSold}`);
+    });
+  }
