@@ -112,3 +112,24 @@ async function listProducts(db) {
   if (products.length === 0) {
     console.log('No products found.');
   } else {
+    console.log('\nProducts:');
+    products.forEach((p, i) => {
+      console.log(`${i + 1}. Name: ${p.name}, Stock: ${p.stock}`);
+    });
+  }
+}
+
+// Product report: show products with low stock
+async function productReport(db) {
+  const products = await db.collection('products').find({ stock: { $lt: 5 } }).toArray();
+  if (products.length === 0) {
+    console.log('No products with low stock.');
+  } else {
+    console.log('\nLow Stock Products:');
+    products.forEach((p, i) => {
+      console.log(`${i + 1}. Name: ${p.name}, Stock: ${p.stock}`);
+    });
+  }
+}
+
+main();
