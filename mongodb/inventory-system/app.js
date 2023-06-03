@@ -55,3 +55,22 @@ async function main() {
     showMenu();
   } catch (err) {
     console.error('Error:', err);
+    rl.close();
+    await client.close();
+  }
+}
+
+// Add a new product
+async function addProduct(db) {
+  return new Promise((resolve) => {
+    rl.question('Enter product name: ', (name) => {
+      rl.question('Enter initial stock: ', async (stock) => {
+        stock = parseInt(stock, 10);
+        if (isNaN(stock) || stock < 0) {
+          console.log('Invalid stock value.');
+          return resolve();
+        }
+        await db.collection('products').insertOne({ name, stock });
+        console.log('Product added!');
+        resolve();
+      });
