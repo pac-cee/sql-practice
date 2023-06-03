@@ -74,3 +74,22 @@ async function addProduct(db) {
         console.log('Product added!');
         resolve();
       });
+    });
+  });
+}
+
+// Update stock for a product
+async function updateStock(db) {
+  return new Promise((resolve) => {
+    rl.question('Enter product name: ', async (name) => {
+      const product = await db.collection('products').findOne({ name });
+      if (!product) {
+        console.log('Product not found.');
+        return resolve();
+      }
+      rl.question('Enter stock change (+/-): ', async (change) => {
+        change = parseInt(change, 10);
+        if (isNaN(change)) {
+          console.log('Invalid change value.');
+          return resolve();
+        }
