@@ -17,3 +17,22 @@ async function main() {
     console.log('Connected to MongoDB!');
     const db = client.db(dbName);
 
+    function showMenu() {
+      console.log('\n--- Inventory System ---');
+      console.log('1. Add Product');
+      console.log('2. Update Stock');
+      console.log('3. List Products');
+      console.log('4. Product Report');
+      console.log('5. Exit');
+      rl.question('Choose an option: ', handleMenu);
+    }
+
+    async function handleMenu(option) {
+      switch (option.trim()) {
+        case '1':
+          await addProduct(db);
+          break;
+        case '2':
+          await updateStock(db);
+          break;
+        case '3':
