@@ -36,3 +36,22 @@ async function main() {
           await updateStock(db);
           break;
         case '3':
+          await listProducts(db);
+          break;
+        case '4':
+          await productReport(db);
+          break;
+        case '5':
+          rl.close();
+          await client.close();
+          console.log('Goodbye!');
+          return;
+        default:
+          console.log('Invalid option.');
+      }
+      showMenu();
+    }
+
+    showMenu();
+  } catch (err) {
+    console.error('Error:', err);
