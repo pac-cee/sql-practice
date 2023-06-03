@@ -93,3 +93,22 @@ async function updateStock(db) {
           console.log('Invalid change value.');
           return resolve();
         }
+        const newStock = product.stock + change;
+        if (newStock < 0) {
+          console.log('Stock cannot be negative.');
+          return resolve();
+        }
+        await db.collection('products').updateOne({ _id: product._id }, { $set: { stock: newStock } });
+        console.log('Stock updated!');
+        resolve();
+      });
+    });
+  });
+}
+
+// List all products
+async function listProducts(db) {
+  const products = await db.collection('products').find().toArray();
+  if (products.length === 0) {
+    console.log('No products found.');
+  } else {
