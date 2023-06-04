@@ -17,3 +17,22 @@ async function main() {
     console.log('Connected to MongoDB!');
     const db = client.db(dbName);
 
+    function showMenu() {
+      console.log('\n--- Library Management ---');
+      console.log('1. Add Book');
+      console.log('2. Find Book by Title');
+      console.log('3. List All Books');
+      console.log('4. Borrow Book');
+      console.log('5. Return Book');
+      console.log('6. Exit');
+      rl.question('Choose an option: ', handleMenu);
+    }
+
+    async function handleMenu(option) {
+      switch (option.trim()) {
+        case '1':
+          await addBook(db);
+          break;
+        case '2':
+          await findBook(db);
+          break;
