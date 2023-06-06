@@ -55,3 +55,22 @@ async function main() {
       }
       showMenu();
     }
+
+    // Create an index for fast book title search
+    await db.collection('books').createIndex({ title: 1 });
+
+    showMenu();
+  } catch (err) {
+    console.error('Error:', err);
+    rl.close();
+    await client.close();
+  }
+}
+
+// Add a new book
+async function addBook(db) {
+  return new Promise((resolve) => {
+    rl.question('Enter book title: ', (title) => {
+      rl.question('Enter author: ', async (author) => {
+        const book = { title, author, borrowed: false };
+        await db.collection('books').insertOne(book);
