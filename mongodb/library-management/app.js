@@ -74,3 +74,22 @@ async function addBook(db) {
       rl.question('Enter author: ', async (author) => {
         const book = { title, author, borrowed: false };
         await db.collection('books').insertOne(book);
+        console.log('Book added!');
+        resolve();
+      });
+    });
+  });
+}
+
+// Find a book by title (uses index)
+async function findBook(db) {
+  return new Promise((resolve) => {
+    rl.question('Enter book title to search: ', async (title) => {
+      const book = await db.collection('books').findOne({ title });
+      if (!book) {
+        console.log('Book not found.');
+      } else {
+        console.log(`Found: ${book.title} by ${book.author} - ${book.borrowed ? 'Borrowed' : 'Available'}`);
+      }
+      resolve();
+    });
