@@ -93,3 +93,22 @@ async function findBook(db) {
       }
       resolve();
     });
+  });
+}
+
+// List all books
+async function listBooks(db) {
+  const books = await db.collection('books').find().toArray();
+  if (books.length === 0) {
+    console.log('No books found.');
+  } else {
+    console.log('\nBooks:');
+    books.forEach((b, i) => {
+      console.log(`${i + 1}. Title: ${b.title}, Author: ${b.author}, Status: ${b.borrowed ? 'Borrowed' : 'Available'}`);
+    });
+  }
+}
+
+// Borrow a book (set borrowed = true)
+async function borrowBook(db) {
+  return new Promise((resolve) => {
