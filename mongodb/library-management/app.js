@@ -131,3 +131,22 @@ async function borrowBook(db) {
 
 // Return a book (set borrowed = false)
 async function returnBook(db) {
+  return new Promise((resolve) => {
+    rl.question('Enter book title to return: ', async (title) => {
+      const book = await db.collection('books').findOne({ title });
+      if (!book) {
+        console.log('Book not found.');
+        return resolve();
+      }
+      if (!book.borrowed) {
+        console.log('Book is not borrowed.');
+        return resolve();
+      }
+      await db.collection('books').updateOne({ _id: book._id }, { $set: { borrowed: false } });
+      console.log('Book returned!');
+      resolve();
+    });
+  });
+}
+
+main();
