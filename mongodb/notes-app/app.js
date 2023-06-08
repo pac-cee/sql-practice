@@ -17,3 +17,22 @@ async function main() {
     console.log('Connected to MongoDB!');
     const db = client.db(dbName);
 
+    function showMenu() {
+      console.log('\n--- Notes App ---');
+      console.log('1. Register User');
+      console.log('2. Add Note');
+      console.log('3. List My Notes');
+      console.log('4. Share Note');
+      console.log('5. Search Notes');
+      console.log('6. Exit');
+      rl.question('Choose an option: ', handleMenu);
+    }
+
+    async function handleMenu(option) {
+      switch (option.trim()) {
+        case '1':
+          await registerUser(db);
+          break;
+        case '2':
+          await addNote(db);
+          break;
