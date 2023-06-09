@@ -36,3 +36,22 @@ async function main() {
         case '2':
           await addNote(db);
           break;
+        case '3':
+          await listMyNotes(db);
+          break;
+        case '4':
+          await shareNote(db);
+          break;
+        case '5':
+          await searchNotes(db);
+          break;
+        case '6':
+          rl.close();
+          await client.close();
+          console.log('Goodbye!');
+          return;
+        default:
+          console.log('Invalid option.');
+      }
+      showMenu();
+    }
