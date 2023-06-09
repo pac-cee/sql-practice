@@ -131,3 +131,22 @@ async function shareNote(db) {
             console.log('Note not found.');
             return resolve();
           }
+          const user = await db.collection('users').findOne({ username: shareWith });
+          if (!user) {
+            console.log('User to share with not found.');
+            return resolve();
+          }
+          if (note.sharedWith.includes(shareWith)) {
+            console.log('Already shared with this user.');
+            return resolve();
+          }
+          await db.collection('notes').updateOne({ _id: note._id }, { $push: { sharedWith: shareWith } });
+          console.log('Note shared!');
+          resolve();
+        });
+      });
+    });
+  });
+}
+
+// Search notes by keyword (owned or shared)
