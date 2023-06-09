@@ -74,3 +74,22 @@ async function registerUser(db) {
       }
       const exists = await db.collection('users').findOne({ username });
       if (exists) {
+        console.log('Username already taken.');
+        return resolve();
+      }
+      await db.collection('users').insertOne({ username });
+      console.log('User registered!');
+      resolve();
+    });
+  });
+}
+
+// Add a note
+async function addNote(db) {
+  return new Promise((resolve) => {
+    rl.question('Your username: ', async (username) => {
+      const user = await db.collection('users').findOne({ username });
+      if (!user) {
+        console.log('User not found.');
+        return resolve();
+      }
