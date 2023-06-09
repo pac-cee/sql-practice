@@ -112,3 +112,22 @@ async function listMyNotes(db) {
       } else {
         console.log('\nYour Notes:');
         notes.forEach((n, i) => {
+          console.log(`${i + 1}. ${n.note} ${n.owner !== username ? '(shared)' : ''}`);
+        });
+      }
+      resolve();
+    });
+  });
+}
+
+// Share a note with another user
+async function shareNote(db) {
+  return new Promise((resolve) => {
+    rl.question('Your username: ', async (username) => {
+      rl.question('Note text to share: ', async (noteText) => {
+        rl.question('Share with username: ', async (shareWith) => {
+          const note = await db.collection('notes').findOne({ owner: username, note: noteText });
+          if (!note) {
+            console.log('Note not found.');
+            return resolve();
+          }
