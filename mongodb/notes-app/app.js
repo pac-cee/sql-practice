@@ -93,3 +93,22 @@ async function addNote(db) {
         console.log('User not found.');
         return resolve();
       }
+      rl.question('Enter note: ', async (note) => {
+        await db.collection('notes').insertOne({ owner: username, note, sharedWith: [] });
+        console.log('Note added!');
+        resolve();
+      });
+    });
+  });
+}
+
+// List my notes (owned or shared)
+async function listMyNotes(db) {
+  return new Promise((resolve) => {
+    rl.question('Your username: ', async (username) => {
+      const notes = await db.collection('notes').find({ $or: [ { owner: username }, { sharedWith: username } ] }).toArray();
+      if (notes.length === 0) {
+        console.log('No notes found.');
+      } else {
+        console.log('\nYour Notes:');
+        notes.forEach((n, i) => {
