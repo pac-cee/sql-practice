@@ -55,3 +55,22 @@ async function main() {
       }
       showMenu();
     }
+
+    showMenu();
+  } catch (err) {
+    console.error('Error:', err);
+    rl.close();
+    await client.close();
+  }
+}
+
+// Register a new user
+async function registerUser(db) {
+  return new Promise((resolve) => {
+    rl.question('Enter username: ', async (username) => {
+      if (!username.trim()) {
+        console.log('Username required.');
+        return resolve();
+      }
+      const exists = await db.collection('users').findOne({ username });
+      if (exists) {
