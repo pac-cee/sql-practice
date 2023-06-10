@@ -169,3 +169,9 @@ async function searchNotes(db) {
           });
         }
         resolve();
+      });
+    });
+  });
+}
+
+main();
