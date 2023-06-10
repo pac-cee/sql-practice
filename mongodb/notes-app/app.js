@@ -150,3 +150,22 @@ async function shareNote(db) {
 }
 
 // Search notes by keyword (owned or shared)
+async function searchNotes(db) {
+  return new Promise((resolve) => {
+    rl.question('Your username: ', async (username) => {
+      rl.question('Enter search keyword: ', async (keyword) => {
+        const notes = await db.collection('notes').find({
+          $and: [
+            { $or: [ { owner: username }, { sharedWith: username } ] },
+            { note: { $regex: keyword, $options: 'i' } }
+          ]
+        }).toArray();
+        if (notes.length === 0) {
+          console.log('No notes found.');
+        } else {
+          console.log('\nSearch Results:');
+          notes.forEach((n, i) => {
+            console.log(`${i + 1}. ${n.note} ${n.owner !== username ? '(shared)' : ''}`);
+          });
+        }
+        resolve();
