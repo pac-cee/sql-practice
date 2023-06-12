@@ -36,3 +36,22 @@ async function main() {
           await makeReservation(db);
           break;
         case '3':
+          await listReservations(db);
+          break;
+        case '4':
+          await cancelReservation(db);
+          break;
+        case '5':
+          rl.close();
+          await client.close();
+          console.log('Goodbye!');
+          return;
+        default:
+          console.log('Invalid option.');
+      }
+      showMenu();
+    }
+
+    showMenu();
+  } catch (err) {
+    console.error('Error:', err);
