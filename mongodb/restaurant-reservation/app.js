@@ -17,3 +17,22 @@ async function main() {
     console.log('Connected to MongoDB!');
     const db = client.db(dbName);
 
+    function showMenu() {
+      console.log('\n--- Restaurant Reservation ---');
+      console.log('1. Add Table');
+      console.log('2. Make Reservation');
+      console.log('3. List Reservations');
+      console.log('4. Cancel Reservation');
+      console.log('5. Exit');
+      rl.question('Choose an option: ', handleMenu);
+    }
+
+    async function handleMenu(option) {
+      switch (option.trim()) {
+        case '1':
+          await addTable(db);
+          break;
+        case '2':
+          await makeReservation(db);
+          break;
+        case '3':
