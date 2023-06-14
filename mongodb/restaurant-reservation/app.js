@@ -74,3 +74,22 @@ async function addTable(db) {
       resolve();
     });
   });
+}
+
+// Make a reservation
+async function makeReservation(db) {
+  return new Promise((resolve) => {
+    rl.question('Enter customer name: ', (customer) => {
+      rl.question('Enter table number: ', (number) => {
+        rl.question('Enter date (YYYY-MM-DD): ', (date) => {
+          rl.question('Enter time (HH:MM): ', async (time) => {
+            number = parseInt(number, 10);
+            if (isNaN(number) || number <= 0) {
+              console.log('Invalid table number.');
+              return resolve();
+            }
+            const table = await db.collection('tables').findOne({ number });
+            if (!table) {
+              console.log('Table not found.');
+              return resolve();
+            }
