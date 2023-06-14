@@ -55,3 +55,22 @@ async function main() {
     showMenu();
   } catch (err) {
     console.error('Error:', err);
+    rl.close();
+    await client.close();
+  }
+}
+
+// Add a new table
+async function addTable(db) {
+  return new Promise((resolve) => {
+    rl.question('Enter table number: ', async (number) => {
+      number = parseInt(number, 10);
+      if (isNaN(number) || number <= 0) {
+        console.log('Invalid table number.');
+        return resolve();
+      }
+      await db.collection('tables').insertOne({ number });
+      console.log('Table added!');
+      resolve();
+    });
+  });
