@@ -93,3 +93,22 @@ async function makeReservation(db) {
               console.log('Table not found.');
               return resolve();
             }
+            // Check for conflicting reservation
+            const exists = await db.collection('reservations').findOne({ tableNumber: number, date, time });
+            if (exists) {
+              console.log('Table already reserved for this slot.');
+              return resolve();
+            }
+            await db.collection('reservations').insertOne({ customer, tableNumber: number, date, time });
+            console.log('Reservation made!');
+            resolve();
+          });
+        });
+      });
+    });
+  });
+}
+
+// List all reservations
+async function listReservations(db) {
+  const reservations = await db.collection('reservations').find().toArray();
