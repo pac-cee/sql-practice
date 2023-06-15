@@ -112,3 +112,22 @@ async function makeReservation(db) {
 // List all reservations
 async function listReservations(db) {
   const reservations = await db.collection('reservations').find().toArray();
+  if (reservations.length === 0) {
+    console.log('No reservations found.');
+  } else {
+    console.log('\nReservations:');
+    reservations.forEach((r, i) => {
+      console.log(`${i + 1}. Customer: ${r.customer}, Table: ${r.tableNumber}, Date: ${r.date}, Time: ${r.time}`);
+    });
+  }
+}
+
+// Cancel a reservation
+async function cancelReservation(db) {
+  return new Promise((resolve) => {
+    rl.question('Enter customer name: ', (customer) => {
+      rl.question('Enter table number: ', (number) => {
+        rl.question('Enter date (YYYY-MM-DD): ', (date) => {
+          rl.question('Enter time (HH:MM): ', async (time) => {
+            number = parseInt(number, 10);
+            if (isNaN(number) || number <= 0) {
