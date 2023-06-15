@@ -131,3 +131,21 @@ async function cancelReservation(db) {
           rl.question('Enter time (HH:MM): ', async (time) => {
             number = parseInt(number, 10);
             if (isNaN(number) || number <= 0) {
+              console.log('Invalid table number.');
+              return resolve();
+            }
+            const result = await db.collection('reservations').deleteOne({ customer, tableNumber: number, date, time });
+            if (result.deletedCount > 0) {
+              console.log('Reservation cancelled!');
+            } else {
+              console.log('Reservation not found.');
+            }
+            resolve();
+          });
+        });
+      });
+    });
+  });
+}
+
+main();
