@@ -169,3 +169,24 @@ async function viewFeed(db) {
       const user = await db.collection('users').findOne({ username });
       if (!user) {
         console.log('User not found.');
+        return resolve();
+      }
+      const feed = await db.collection('statuses')
+        .find({ username: { $in: [username, ...user.friends] } })
+        .sort({ date: -1 })
+        .limit(10)
+        .toArray();
+      if (feed.length === 0) {
+        console.log('No statuses in your feed.');
+      } else {
+        console.log('\n--- Your Feed ---');
+        feed.forEach((s, i) => {
+          console.log(`${i + 1}. [${s.date.toLocaleString()}] ${s.username}: ${s.status}`);
+        });
+      }
+      resolve();
+    });
+  });
+}
+
+main();
