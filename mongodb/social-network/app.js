@@ -150,3 +150,22 @@ async function postStatus(db) {
     rl.question('Your username: ', async (username) => {
       const user = await db.collection('users').findOne({ username });
       if (!user) {
+        console.log('User not found.');
+        return resolve();
+      }
+      rl.question('Enter status: ', async (status) => {
+        await db.collection('statuses').insertOne({ username, status, date: new Date() });
+        console.log('Status posted!');
+        resolve();
+      });
+    });
+  });
+}
+
+// View feed (statuses from friends)
+async function viewFeed(db) {
+  return new Promise((resolve) => {
+    rl.question('Your username: ', async (username) => {
+      const user = await db.collection('users').findOne({ username });
+      if (!user) {
+        console.log('User not found.');
