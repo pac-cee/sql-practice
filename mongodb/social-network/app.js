@@ -93,3 +93,22 @@ async function sendFriendRequest(db) {
           console.log('Cannot friend yourself.');
           return resolve();
         }
+        const user = await db.collection('users').findOne({ username: to });
+        if (!user) {
+          console.log('User not found.');
+          return resolve();
+        }
+        if (user.requests.includes(from) || user.friends.includes(from)) {
+          console.log('Request already sent or you are already friends.');
+          return resolve();
+        }
+        await db.collection('users').updateOne(
+          { username: to },
+          { $push: { requests: from } }
+        );
+        console.log('Friend request sent!');
+        resolve();
+      });
+    });
+  });
+}
