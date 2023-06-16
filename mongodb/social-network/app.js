@@ -17,3 +17,22 @@ async function main() {
     console.log('Connected to MongoDB!');
     const db = client.db(dbName);
 
+    function showMenu() {
+      console.log('\n--- Social Network ---');
+      console.log('1. Register User');
+      console.log('2. Send Friend Request');
+      console.log('3. Accept Friend Request');
+      console.log('4. Post Status');
+      console.log('5. View Feed');
+      console.log('6. Exit');
+      rl.question('Choose an option: ', handleMenu);
+    }
+
+    async function handleMenu(option) {
+      switch (option.trim()) {
+        case '1':
+          await registerUser(db);
+          break;
+        case '2':
+          await sendFriendRequest(db);
+          break;
