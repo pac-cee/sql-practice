@@ -74,3 +74,22 @@ async function registerUser(db) {
       }
       const exists = await db.collection('users').findOne({ username });
       if (exists) {
+        console.log('Username already taken.');
+        return resolve();
+      }
+      await db.collection('users').insertOne({ username, friends: [], requests: [] });
+      console.log('User registered!');
+      resolve();
+    });
+  });
+}
+
+// Send a friend request
+async function sendFriendRequest(db) {
+  return new Promise((resolve) => {
+    rl.question('Your username: ', async (from) => {
+      rl.question('Send request to username: ', async (to) => {
+        if (from === to) {
+          console.log('Cannot friend yourself.');
+          return resolve();
+        }
