@@ -112,3 +112,22 @@ async function sendFriendRequest(db) {
     });
   });
 }
+
+// Accept a friend request
+async function acceptFriendRequest(db) {
+  return new Promise((resolve) => {
+    rl.question('Your username: ', async (username) => {
+      const user = await db.collection('users').findOne({ username });
+      if (!user || user.requests.length === 0) {
+        console.log('No pending requests.');
+        return resolve();
+      }
+      console.log('Pending requests:', user.requests.join(', '));
+      rl.question('Accept request from: ', async (from) => {
+        if (!user.requests.includes(from)) {
+          console.log('No such request.');
+          return resolve();
+        }
+        // Add each other as friends
+        await db.collection('users').updateOne(
+          { username },
