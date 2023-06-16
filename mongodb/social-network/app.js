@@ -131,3 +131,22 @@ async function acceptFriendRequest(db) {
         // Add each other as friends
         await db.collection('users').updateOne(
           { username },
+          { $push: { friends: from }, $pull: { requests: from } }
+        );
+        await db.collection('users').updateOne(
+          { username: from },
+          { $push: { friends: username } }
+        );
+        console.log('Friend request accepted!');
+        resolve();
+      });
+    });
+  });
+}
+
+// Post a status update
+async function postStatus(db) {
+  return new Promise((resolve) => {
+    rl.question('Your username: ', async (username) => {
+      const user = await db.collection('users').findOne({ username });
+      if (!user) {
