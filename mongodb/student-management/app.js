@@ -17,3 +17,22 @@ async function main() {
     console.log('Connected to MongoDB!');
     const db = client.db(dbName);
 
+    function showMenu() {
+      console.log('\n--- Student Management ---');
+      console.log('1. Add Student');
+      console.log('2. Assign Grade');
+      console.log('3. List Students');
+      console.log('4. List Grades for Student');
+      console.log('5. Exit');
+      rl.question('Choose an option: ', handleMenu);
+    }
+
+    async function handleMenu(option) {
+      switch (option.trim()) {
+        case '1':
+          await addStudent(db);
+          break;
+        case '2':
+          await assignGrade(db);
+          break;
+        case '3':
