@@ -55,3 +55,22 @@ async function main() {
     showMenu();
   } catch (err) {
     console.error('Error:', err);
+    rl.close();
+    await client.close();
+  }
+}
+
+// Add a new student
+async function addStudent(db) {
+  return new Promise((resolve) => {
+    rl.question('Enter student name: ', async (name) => {
+      if (!name.trim()) {
+        console.log('Student name required.');
+        return resolve();
+      }
+      await db.collection('students').insertOne({ name });
+      console.log('Student added!');
+      resolve();
+    });
+  });
+}
