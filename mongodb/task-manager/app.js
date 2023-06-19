@@ -93,3 +93,22 @@ async function addTask(db) {
 async function listTasks(db) {
   const tasks = await db.collection('tasks').find().toArray();
   if (tasks.length === 0) {
+    console.log('No tasks found.');
+  } else {
+    console.log('\nTasks:');
+    tasks.forEach((t, i) => {
+      console.log(`${i + 1}. Title: ${t.title}, Status: ${t.status}`);
+    });
+  }
+}
+
+// Update the status of a task
+async function updateTaskStatus(db) {
+  return new Promise((resolve) => {
+    rl.question('Enter task title to update: ', async (title) => {
+      const task = await db.collection('tasks').findOne({ title });
+      if (!task) {
+        console.log('Task not found.');
+        return resolve();
+      }
+      rl.question('Enter new status (pending/done): ', async (status) => {
