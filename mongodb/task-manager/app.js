@@ -17,3 +17,22 @@ async function main() {
   try {
     await client.connect();
     console.log('Connected to MongoDB!');
+    const db = client.db(dbName);
+
+    function showMenu() {
+      console.log('\n--- Task Manager ---');
+      console.log('1. Add Task');
+      console.log('2. List All Tasks');
+      console.log('3. Update Task Status');
+      console.log('4. Delete Task');
+      console.log('5. List Tasks by Status');
+      console.log('6. Exit');
+      rl.question('Choose an option: ', handleMenu);
+    }
+
+    async function handleMenu(option) {
+      switch (option.trim()) {
+        case '1':
+          await addTask(db);
+          break;
+        case '2':
