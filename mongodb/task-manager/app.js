@@ -36,3 +36,22 @@ async function main() {
           await addTask(db);
           break;
         case '2':
+          await listTasks(db);
+          break;
+        case '3':
+          await updateTaskStatus(db);
+          break;
+        case '4':
+          await deleteTask(db);
+          break;
+        case '5':
+          await listTasksByStatus(db);
+          break;
+        case '6':
+          rl.close();
+          await client.close();
+          console.log('Goodbye!');
+          return;
+        default:
+          console.log('Invalid option.');
+      }
