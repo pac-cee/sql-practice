@@ -112,3 +112,23 @@ async function listStudents(db) {
 async function listGrades(db) {
   return new Promise((resolve) => {
     rl.question('Enter student name: ', async (name) => {
+      const student = await db.collection('students').findOne({ name });
+      if (!student) {
+        console.log('Student not found.');
+        return resolve();
+      }
+      const grades = await db.collection('grades').find({ studentId: student._id }).toArray();
+      if (grades.length === 0) {
+        console.log('No grades found for this student.');
+      } else {
+        console.log(`\nGrades for ${student.name}:`);
+        grades.forEach((g, i) => {
+          console.log(`${i + 1}. Subject: ${g.subject}, Grade: ${g.grade}`);
+        });
+      }
+      resolve();
+    });
+  });
+}
+
+main();
