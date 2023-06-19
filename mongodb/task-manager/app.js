@@ -55,3 +55,22 @@ async function main() {
         default:
           console.log('Invalid option.');
       }
+      showMenu();
+    }
+
+    showMenu();
+  } catch (err) {
+    console.error('Error:', err);
+    rl.close();
+    await client.close();
+  }
+}
+
+// Add a new task with validation
+async function addTask(db) {
+  return new Promise((resolve) => {
+    rl.question('Enter task title: ', (title) => {
+      rl.question('Enter status (pending/done) [pending]: ', async (status) => {
+        const task = { title, status: status.trim() || 'pending' };
+        const error = validateTask(task);
+        if (error) {
