@@ -74,3 +74,22 @@ async function addStudent(db) {
     });
   });
 }
+
+// Assign a grade to a student
+async function assignGrade(db) {
+  return new Promise((resolve) => {
+    rl.question('Enter student name: ', async (name) => {
+      const student = await db.collection('students').findOne({ name });
+      if (!student) {
+        console.log('Student not found.');
+        return resolve();
+      }
+      rl.question('Enter subject: ', (subject) => {
+        rl.question('Enter grade: ', async (grade) => {
+          await db.collection('grades').insertOne({ studentId: student._id, subject, grade });
+          console.log('Grade assigned!');
+          resolve();
+        });
+      });
+    });
+  });
