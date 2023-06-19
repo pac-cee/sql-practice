@@ -74,3 +74,22 @@ async function addTask(db) {
         const task = { title, status: status.trim() || 'pending' };
         const error = validateTask(task);
         if (error) {
+          console.log('Error:', error);
+        status = status.trim().toLowerCase() || 'pending';
+        if (!VALID_STATUS.includes(status)) {
+          console.log('Invalid status. Must be "pending" or "done".');
+          return resolve();
+        }
+        const task = { title, status };
+        await db.collection('tasks').insertOne(task);
+        console.log('Task added!');
+        resolve();
+      });
+    });
+  });
+}
+
+// List all tasks
+async function listTasks(db) {
+  const tasks = await db.collection('tasks').find().toArray();
+  if (tasks.length === 0) {
