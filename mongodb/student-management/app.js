@@ -93,3 +93,22 @@ async function assignGrade(db) {
       });
     });
   });
+}
+
+// List all students
+async function listStudents(db) {
+  const students = await db.collection('students').find().toArray();
+  if (students.length === 0) {
+    console.log('No students found.');
+  } else {
+    console.log('\nStudents:');
+    students.forEach((s, i) => {
+      console.log(`${i + 1}. Name: ${s.name}`);
+    });
+  }
+}
+
+// List grades for a student
+async function listGrades(db) {
+  return new Promise((resolve) => {
+    rl.question('Enter student name: ', async (name) => {
