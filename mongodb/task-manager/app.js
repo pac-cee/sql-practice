@@ -131,3 +131,22 @@ async function deleteTask(db) {
     rl.question('Enter task title to delete: ', async (title) => {
       const result = await db.collection('tasks').deleteOne({ title });
       if (result.deletedCount > 0) {
+        console.log('Task deleted!');
+      } else {
+        console.log('Task not found.');
+      }
+      resolve();
+    });
+  });
+}
+
+// List tasks by their status
+async function listTasksByStatus(db) {
+  return new Promise((resolve) => {
+    rl.question('Enter status to filter (pending/done): ', async (status) => {
+      status = status.trim().toLowerCase();
+      if (!VALID_STATUS.includes(status)) {
+        console.log('Invalid status.');
+        return resolve();
+      }
+      const tasks = await db.collection('tasks').find({ status }).toArray();
