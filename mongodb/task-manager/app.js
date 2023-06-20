@@ -150,3 +150,17 @@ async function listTasksByStatus(db) {
         return resolve();
       }
       const tasks = await db.collection('tasks').find({ status }).toArray();
+      if (tasks.length === 0) {
+        console.log('No tasks found with this status.');
+      } else {
+        console.log(`\nTasks with status '${status}':`);
+        tasks.forEach((t, i) => {
+          console.log(`${i + 1}. Title: ${t.title}`);
+        });
+      }
+      resolve();
+    });
+  });
+}
+
+main();
