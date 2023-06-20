@@ -112,3 +112,22 @@ async function updateTaskStatus(db) {
         return resolve();
       }
       rl.question('Enter new status (pending/done): ', async (status) => {
+        status = status.trim().toLowerCase();
+        if (!VALID_STATUS.includes(status)) {
+          console.log('Invalid status.');
+          return resolve();
+        }
+        await db.collection('tasks').updateOne({ title }, { $set: { status } });
+        console.log('Task status updated!');
+        resolve();
+      });
+    });
+  });
+}
+
+// Delete a task by title
+async function deleteTask(db) {
+  return new Promise((resolve) => {
+    rl.question('Enter task title to delete: ', async (title) => {
+      const result = await db.collection('tasks').deleteOne({ title });
+      if (result.deletedCount > 0) {
